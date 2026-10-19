@@ -187,6 +187,8 @@ export const CinematicHero: React.FC = () => {
                 <img
                   src="/media/yeshwanth_portfolio_cutout.png"
                   alt="Yeshwanth Akbar"
+                  width="460"
+                  height="540"
                   className="w-full h-auto max-h-[460px] sm:max-h-[500px] md:max-h-[540px] object-contain object-bottom drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)] transition-transform duration-500 group-hover:scale-[1.02]"
                 />
                 

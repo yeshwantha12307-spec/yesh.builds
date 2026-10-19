@@ -56,6 +56,7 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
   const navItems = [
     { id: 'hero', label: 'HOME', menuLabel: 'START GAME', isCheck: false },
     { id: 'profile', label: 'ABOUT', menuLabel: 'ABOUT ME', isCheck: true },
+    { id: 'academy', label: 'ACADEMY', menuLabel: 'ACADEMY // EDUCATION', isCheck: true },
     { id: 'skills', label: 'SKILLS', menuLabel: 'SKILLS', isCheck: true },
     { id: 'missions', label: 'PROJECTS', menuLabel: 'PROJECTS', isCheck: true },
     { id: 'journey', label: 'EXPERIENCE', menuLabel: 'EXPERIENCE', isCheck: true },
@@ -97,8 +98,8 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
             </button>
           </div>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden xl:flex items-center gap-1 bg-black/60 px-3 py-1 rounded-full border border-white/10 backdrop-blur-md">
+          {/* Desktop & Laptop Nav Links */}
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-black/60 px-2.5 py-1 rounded-full border border-white/10 backdrop-blur-md">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -106,7 +107,7 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
                   key={item.id}
                   onClick={() => scrollTo(item.id)}
                   onMouseEnter={() => soundManager.playHover()}
-                  className={`px-3 py-1 text-[11px] font-sans font-semibold tracking-wider rounded-full transition-all cursor-pointer ${
+                  className={`px-2 xl:px-3 py-1 text-[10px] xl:text-[11px] font-sans font-semibold tracking-wider rounded-full transition-all cursor-pointer ${
                     isActive
                       ? 'bg-amber-400/20 text-amber-300 border border-amber-400/40 shadow-[0_0_12px_rgba(212,175,55,0.3)]'
                       : 'text-slate-300 hover:text-white hover:bg-white/10'
@@ -121,7 +122,7 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => soundManager.playClick()}
-              className="ml-1 px-3 py-1 text-[11px] font-sans font-bold tracking-wider rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all"
+              className="ml-0.5 xl:ml-1 px-2.5 xl:px-3 py-1 text-[10px] xl:text-[11px] font-sans font-bold tracking-wider rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all"
             >
               Resume
             </a>
@@ -246,6 +247,9 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
                   <img
                     src="/media/yeshwanth_portfolio_cutout.png"
                     alt="Yeshwanth Akbar"
+                    loading="lazy"
+                    width="176"
+                    height="208"
                     className="w-full h-full object-contain object-bottom drop-shadow-[0_12px_24px_rgba(0,0,0,0.95)]"
                   />
                 </div>

@@ -5,6 +5,7 @@ import { CustomCursor } from './components/CustomCursor';
 import { HUDNavigation } from './components/HUDNavigation';
 import { CinematicHero } from './components/CinematicHero';
 import { CharacterProfile } from './components/CharacterProfile';
+import { AcademySection } from './components/AcademySection';
 import { SkillsInventory } from './components/SkillsInventory';
 import { MissionSystem } from './components/MissionSystem';
 import { CareerMap } from './components/CareerMap';
@@ -49,7 +50,7 @@ export function App() {
 
   // Intersection observer to track current visible section for HUD radar objective tracker
   useEffect(() => {
-    const sections = ['hero', 'profile', 'skills', 'missions', 'journey', 'achievements', 'contact'];
+    const sections = ['hero', 'profile', 'academy', 'skills', 'missions', 'journey', 'achievements', 'contact'];
     const handleScroll = () => {
       const scrollY = window.scrollY + 250;
       for (const sectionId of sections) {
@@ -99,6 +100,7 @@ export function App() {
       <main className="relative z-10">
         <CinematicHero />
         <CharacterProfile />
+        <AcademySection />
         <SkillsInventory />
         <MissionSystem />
         <CareerMap />

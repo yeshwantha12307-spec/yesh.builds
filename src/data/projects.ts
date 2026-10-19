@@ -54,5 +54,25 @@ export const FEATURED_PROJECTS: ProjectMission[] = [
     previewImage: "/media/backgrounds/projects_laptop.jpg",
     themeColor: "from-emerald-500/20 to-teal-600/10",
     accentColor: "#22c55e"
+  },
+  {
+    missionId: "yesh-builds",
+    missionNumber: "MISSION 03",
+    name: "YESH.BUILDS — Developer Portfolio",
+    type: "Cinematic Web Experience & Frontend Architecture",
+    tagline: "Cinematic storytelling, interactive motion, responsive layouts, and game-inspired UI.",
+    description: "A personal developer portfolio combining cinematic storytelling, interactive motion, responsive layouts, and a distinctive game-inspired visual experience. Engineered as a high-performance case study in modern React and creative frontend architecture.",
+    keyFeatures: [
+      "Cinematic opening sequence with multi-phase particle physics and audio synthesis",
+      "Interactive tactical HUD telemetry with real-time clock and audio state controls",
+      "Custom Web Audio API synthesizer generating real-time interactive retro sound effects",
+      "Fully responsive layout architecture optimized for desktop, tablet, and mobile devices"
+    ],
+    techStack: ["React 18", "TypeScript", "Tailwind CSS", "Framer Motion", "Web Audio API", "HTML5 Canvas"],
+    liveUrl: "https://yesh-builds.vercel.app/",
+    status: "ACTIVE MISSION",
+    previewImage: "/media/backgrounds/hero_skyline.jpg",
+    themeColor: "from-amber-500/20 to-orange-600/10",
+    accentColor: "#f59e0b"
   }
 ];

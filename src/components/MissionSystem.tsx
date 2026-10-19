@@ -40,12 +40,12 @@ export const MissionSystem: React.FC = () => {
           </div>
 
           <div className="px-4 py-2 rounded-full bg-black/80 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold">
-            2 PRIMARY DEPLOYMENTS
+            3 PRIMARY DEPLOYMENTS
           </div>
         </div>
 
-        {/* MISSION SELECTOR TABS (EXACTLY TWO FEATURED MISSIONS) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+        {/* MISSION SELECTOR TABS (THREE FEATURED MISSIONS) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           {FEATURED_PROJECTS.map((mission) => {
             const isSelected = selectedMission.missionId === mission.missionId;
             return (
@@ -146,20 +146,27 @@ export const MissionSystem: React.FC = () => {
               </div>
             </div>
 
-            {/* PRIMARY CTA: OPEN LIVE PROJECT */}
-            <div className="pt-4 flex items-center gap-4">
+            {/* PRIMARY CTA: VIEW PROJECT */}
+            <div className="pt-4 flex flex-wrap items-center gap-4">
               <a
                 href={selectedMission.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => soundManager.playClick()}
-                className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-gta text-2xl tracking-wider transition-all duration-200 shadow-[0_0_20px_rgba(34,197,94,0.6)] cursor-pointer hover:scale-105 active:scale-95"
+                onClick={() => {
+                  try {
+                    soundManager.playClick();
+                  } catch {
+                    // Safe fallback
+                  }
+                }}
+                className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-gta text-2xl tracking-wider transition-all duration-200 shadow-[0_0_20px_rgba(34,197,94,0.6)] cursor-pointer hover:scale-105 active:scale-95 touch-manipulation z-20 min-h-[48px]"
               >
-                <span>OPEN LIVE PROJECT</span>
-                <ExternalLink className="w-5 h-5 text-black" />
+                <span>VIEW PROJECT</span>
+                <ExternalLink className="w-5 h-5 text-black stroke-[2.5]" />
               </a>
 
-              <span className="text-xs font-mono text-slate-400">
+              <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 Verified Production Link
               </span>
             </div>
@@ -167,21 +174,38 @@ export const MissionSystem: React.FC = () => {
 
           {/* Right Preview Card */}
           <div className="lg:col-span-5 flex flex-col items-center">
-            <div className="relative w-full rounded-xl overflow-hidden border border-white/20 shadow-2xl group">
+            <a
+              href={selectedMission.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                try {
+                  soundManager.playClick();
+                } catch {
+                  // Safe fallback
+                }
+              }}
+              className="relative w-full rounded-xl overflow-hidden border border-white/20 shadow-2xl group block cursor-pointer"
+              title={`View Project: ${selectedMission.name} (${selectedMission.liveUrl})`}
+            >
               <img 
                 src={selectedMission.previewImage} 
                 alt={selectedMission.name}
+                loading="lazy"
+                width="640"
+                height="360"
                 className="w-full h-64 sm:h-72 object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/20 group-hover:bg-black/30 transition-colors" />
               
               <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center text-xs font-mono">
-                <span className="text-white font-bold">{selectedMission.name}</span>
-                <span className="text-emerald-400 bg-black/80 px-2 py-0.5 rounded border border-emerald-500/40">
-                  {selectedMission.status}
+                <span className="text-white font-bold tracking-wide">{selectedMission.name}</span>
+                <span className="text-emerald-400 bg-black/80 px-2.5 py-1 rounded border border-emerald-500/40 flex items-center gap-1.5 font-bold shadow-md">
+                  <span>VIEW LIVE</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
                 </span>
               </div>
-            </div>
+            </a>
           </div>
         </motion.div>
 

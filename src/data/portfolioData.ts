@@ -147,7 +147,7 @@ export const PROJECTS_DATA: Project[] = [
     ],
     techStack: ["React.js", "JavaScript", "Tailwind CSS", "Vite", "Modern Web APIs"],
     contribution: "Delivered the end-to-end customer-facing website architecture, frontend UI implementation, responsive layout optimization, and production deployment.",
-    demoUrl: "https://www.angadiflow.in",
+    demoUrl: "https://www.angadiflow.in/",
     isFeatured: true,
     status: "Deployed / Live"
   },

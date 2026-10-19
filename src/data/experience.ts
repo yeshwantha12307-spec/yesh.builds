@@ -51,7 +51,7 @@ export const MISSION_LEVELS: MissionLevel[] = [
       "Active participant in collegiate problem-solving initiatives and web development",
       "Core curriculum in data structures, algorithms, and software engineering"
     ],
-    associatedSectionId: "profile",
+    associatedSectionId: "academy",
     coords: { x: 18, y: 13 }
   },
   {

@@ -471,7 +471,7 @@ export const CareerMap: React.FC = () => {
                           : selectedLevel.levelNumber === "03"
                           ? "VIEW VERIFIED CERTIFICATES"
                           : selectedLevel.levelNumber === "01"
-                          ? "VIEW PLAYER PROFILE"
+                          ? "VIEW ACADEMIC RECORD"
                           : "GET IN TOUCH"}
                       </span>
                       <ArrowRight className="w-4 h-4 stroke-[2.5]" />

@@ -63,6 +63,9 @@ export const CharacterProfile: React.FC = () => {
                   <img
                     src="/media/yeshwanth_portfolio_cutout.png"
                     alt="Yeshwanth Akbar"
+                    loading="lazy"
+                    width="96"
+                    height="112"
                     className="w-full h-auto max-h-full object-contain object-bottom drop-shadow-[0_10px_20px_rgba(0,0,0,0.85)]"
                   />
                 </div>
