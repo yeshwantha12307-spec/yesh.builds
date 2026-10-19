@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   GraduationCap, 
@@ -21,11 +21,30 @@ import { soundManager } from '../utils/audio';
 export const CareerMap: React.FC = () => {
   // Default to Level 04 (BUILD MODE) as the currently active mission
   const [selectedLevelId, setSelectedLevelId] = useState<string>("04");
+  const hasEnteredRef = useRef<boolean>(false);
+
+  // Play gentle cinematic milestone cue when Career section enters viewport (once per session)
+  useEffect(() => {
+    const el = document.getElementById('journey');
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !hasEnteredRef.current) {
+          hasEnteredRef.current = true;
+          soundManager.playMilestoneEnter();
+        }
+      });
+    }, { threshold: 0.25 });
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const selectedLevel = MISSION_LEVELS.find(l => l.levelNumber === selectedLevelId) || MISSION_LEVELS[3];
 
   const handleSelectLevel = (levelNumber: string) => {
-    soundManager.playClick();
+    soundManager.playMilestoneSelect();
     setSelectedLevelId(levelNumber);
   };
 

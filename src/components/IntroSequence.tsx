@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FastForward, Sparkles, ArrowRight } from 'lucide-react';
+import { FastForward, Sparkles, ArrowRight, Volume2, VolumeX } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 
 interface IntroProps {
@@ -30,9 +30,43 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
   // Phase 3: Title morphs to YESH.BUILDS + FULL STACK DEVELOPER • AI (6.6s - 8.5s)
   const [phase, setPhase] = useState<number>(0);
   const [progress, setProgress] = useState<number>(0);
+  const [isMuted, setIsMuted] = useState<boolean>(soundManager.isMuted);
+
   const isFinishedRef = useRef<boolean>(false);
   const animFrameRef = useRef<number | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const elapsedRef = useRef<number>(0);
+
+  // Audio cue execution flags (play once per visual milestone)
+  const cueDroneRef = useRef<boolean>(false);
+  const cueCityRef = useRef<boolean>(false);
+  const cueIgnitionRef = useRef<boolean>(false);
+  const cueSmokeRef = useRef<boolean>(false);
+  const cueRiserRef = useRef<boolean>(false);
+  const cueImpactRef = useRef<boolean>(false);
+  const cueCompleteRef = useRef<boolean>(false);
+
+  // Sync with soundManager state updates
+  useEffect(() => {
+    const unsub = soundManager.subscribe(() => {
+      setIsMuted(soundManager.isMuted);
+    });
+    return unsub;
+  }, []);
+
+  const handleToggleSound = () => {
+    const newMuted = soundManager.toggleMute();
+    setIsMuted(newMuted);
+
+    if (!newMuted) {
+      // Catch up audio state to the current visual scene immediately
+      const cur = elapsedRef.current;
+      soundManager.startIntroDrone();
+      if (cur >= 1800 && cur < 6600) {
+        soundManager.playEngineIgnition();
+      }
+    }
+  };
 
   const handleFinish = useCallback(() => {
     if (isFinishedRef.current) return;
@@ -47,7 +81,9 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
     } catch {
       // Ignore storage errors safely
     }
-    soundManager.playMissionOpen();
+
+    // Smooth transition whoosh and crossfade into main portfolio ambience
+    soundManager.playPortfolioTransition();
     onComplete();
   }, [onComplete]);
 
@@ -96,15 +132,57 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
       if (isFinishedRef.current) return;
 
       const elapsed = currentTime - startTime;
+      elapsedRef.current = elapsed;
       const pct = Math.min(100, Math.round((elapsed / TOTAL_DURATION) * 100));
       setProgress(pct);
 
+      // Phase transitions
       if (elapsed >= 1800 && elapsed < 4200) {
         setPhase((prev) => (prev < 1 ? 1 : prev));
       } else if (elapsed >= 4200 && elapsed < 6600) {
         setPhase((prev) => (prev < 2 ? 2 : prev));
       } else if (elapsed >= 6600) {
         setPhase(3);
+      }
+
+      // Synchronized Cinematic Sound Cues (Follows real visual milestones)
+      if (!soundManager.isMuted) {
+        // Scene 1: Opening ambient sub swell
+        if (elapsed >= 50 && !cueDroneRef.current) {
+          cueDroneRef.current = true;
+          soundManager.startIntroDrone();
+        }
+        // Scene 2: Distant city atmosphere
+        if (elapsed >= 800 && !cueCityRef.current) {
+          cueCityRef.current = true;
+          soundManager.playCityAtmosphere();
+        }
+        // Scene 3: Headlight relay click and engine starter + ignition roar
+        if (elapsed >= 1800 && !cueIgnitionRef.current) {
+          cueIgnitionRef.current = true;
+          soundManager.playHeadlightClick();
+          soundManager.playEngineIgnition();
+        }
+        // Scene 4: Billowing smoke exhaust whoosh
+        if (elapsed >= 3200 && !cueSmokeRef.current) {
+          cueSmokeRef.current = true;
+          soundManager.playSmokeWhoosh();
+        }
+        // Scene 5a: Tension riser building into title reveal
+        if (elapsed >= 4800 && !cueRiserRef.current) {
+          cueRiserRef.current = true;
+          soundManager.playCinematicRiser(1.8);
+        }
+        // Scene 5b: Metallic title reveal impact & sub boom with shimmer
+        if (elapsed >= 6600 && !cueImpactRef.current) {
+          cueImpactRef.current = true;
+          soundManager.playTitleImpact();
+        }
+        // Scene 6: Loading bar 100% completion chord
+        if (pct >= 100 && !cueCompleteRef.current) {
+          cueCompleteRef.current = true;
+          soundManager.playLoadingComplete();
+        }
       }
 
       if (elapsed < TOTAL_DURATION) {
@@ -126,6 +204,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
         cancelAnimationFrame(animFrameRef.current);
       }
       clearTimeout(fallbackTimer);
+      soundManager.stopIntroAudio();
     };
   }, [handleFinish, onComplete]);
 
@@ -358,9 +437,25 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
         </div>
 
         {/* =========================================================================
-            4. MINIMAL TOP BAR: ONLY SKIP INTRO [ESC]
+            4. MINIMAL TOP BAR: SOUND CONTROLS & SKIP INTRO [ESC]
            ========================================================================= */}
-        <header className="relative z-30 flex items-center justify-end p-4 sm:p-6 w-full text-xs font-mono">
+        <header className="relative z-30 flex items-center justify-between p-4 sm:p-6 w-full text-xs font-mono">
+          {/* Sound Toggle Button (Mobile & Desktop friendly) */}
+          <button
+            onClick={handleToggleSound}
+            aria-label={isMuted ? "Enable cinematic sound" : "Sound active (click to mute)"}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-[11px] font-mono tracking-wider backdrop-blur-md transition-all cursor-pointer ${
+              isMuted
+                ? 'bg-black/60 hover:bg-black/85 border-amber-400/40 text-amber-300 shadow-[0_0_15px_rgba(212,175,55,0.25)] hover:border-amber-400'
+                : 'bg-emerald-950/80 border-emerald-500/50 text-emerald-300 shadow-[0_0_15px_rgba(34,197,94,0.3)]'
+            }`}
+            title={isMuted ? "Click to enable cinematic sound" : "Sound active"}
+          >
+            {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+            <span className="font-semibold">{isMuted ? 'ENABLE SOUND' : 'SOUND ON'}</span>
+          </button>
+
+          {/* Skip Intro Button */}
           <button
             onClick={handleFinish}
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 backdrop-blur-md hover:bg-black/80 border border-white/20 text-white font-mono text-[11px] tracking-wider transition-all duration-200 cursor-pointer shadow-lg hover:scale-105 active:scale-95"
@@ -395,6 +490,20 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
                 ❤️‍🔥
               </span>
             </div>
+
+            {/* Seamless One-Tap Cinematic Audio Activation */}
+            {isMuted && phase === 0 && (
+              <motion.button
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                onClick={handleToggleSound}
+                className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/75 hover:bg-black/95 border border-amber-400/50 hover:border-amber-400 text-amber-300 text-xs font-mono tracking-wider backdrop-blur-md shadow-[0_0_15px_rgba(212,175,55,0.25)] transition-all cursor-pointer hover:scale-105 active:scale-95"
+              >
+                <Volume2 className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+                <span>EXPERIENCE WITH SOUND [CLICK TO ENABLE]</span>
+              </motion.button>
+            )}
           </motion.div>
 
           {/* OVERSIZED METALLIC CHROME TYPOGRAPHY & OVERLAPPING PORTRAIT CONTAINER */}

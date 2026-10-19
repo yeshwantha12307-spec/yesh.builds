@@ -70,6 +70,21 @@ export function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Sync mute state across entire application
+  useEffect(() => {
+    const unsub = soundManager.subscribe(() => {
+      setIsMuted(soundManager.isMuted);
+    });
+    return unsub;
+  }, []);
+
+  // When intro finishes, start the subtle main portfolio background ambience if audio is active
+  useEffect(() => {
+    if (introCompleted && !soundManager.isMuted) {
+      soundManager.startMainAmbience();
+    }
+  }, [introCompleted]);
+
   const handleToggleSound = () => {
     const muted = soundManager.toggleMute();
     setIsMuted(muted);

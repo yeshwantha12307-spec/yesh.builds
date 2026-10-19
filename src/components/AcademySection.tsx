@@ -1,9 +1,29 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap, School, Award, CheckCircle2, MapPin, Calendar, BookOpen, Sparkles } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 
 export const AcademySection: React.FC = () => {
+  const hasEnteredRef = useRef<boolean>(false);
+
+  // Play gentle transition cue when Academy enters viewport (once per session)
+  useEffect(() => {
+    const el = document.getElementById('academy');
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !hasEnteredRef.current) {
+          hasEnteredRef.current = true;
+          soundManager.playMilestoneEnter();
+        }
+      });
+    }, { threshold: 0.25 });
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section 
       id="academy" 

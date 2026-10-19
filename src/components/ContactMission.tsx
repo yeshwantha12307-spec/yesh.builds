@@ -33,17 +33,20 @@ export const ContactMission: React.FC = () => {
 
   const handleSendEnquiry = (e: React.FormEvent) => {
     e.preventDefault();
-    soundManager.playClick();
 
     if (!validate()) {
+      soundManager.playFormError();
       return;
     }
 
     if (!sanitizedWhatsAppNumber) {
+      soundManager.playFormError();
       setStatus('error');
       setErrorMessage('WhatsApp destination number is not configured.');
       return;
     }
+
+    soundManager.playFormSuccess();
 
     // Build pre-filled message formatted as requested
     const formattedMessage = 

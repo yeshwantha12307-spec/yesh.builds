@@ -21,7 +21,7 @@ export const AchievementBoard: React.FC = () => {
     : ACHIEVEMENTS_DATA.filter(c => c.category === activeCategory);
 
   const openCertModal = (cert: CertificateAchievement) => {
-    soundManager.playUnlock();
+    soundManager.playModalOpen();
     setSelectedCert(cert);
   };
 

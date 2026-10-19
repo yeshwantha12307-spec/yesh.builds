@@ -52,7 +52,7 @@ export const MissionSystem: React.FC = () => {
               <button
                 key={mission.missionId}
                 onClick={() => {
-                  soundManager.playMissionOpen();
+                  soundManager.playProjectTab();
                   setSelectedMission(mission);
                 }}
                 onMouseEnter={() => soundManager.playHover()}
@@ -154,7 +154,7 @@ export const MissionSystem: React.FC = () => {
                 rel="noopener noreferrer"
                 onClick={() => {
                   try {
-                    soundManager.playClick();
+                    soundManager.playProjectLaunch();
                   } catch {
                     // Safe fallback
                   }
@@ -180,7 +180,7 @@ export const MissionSystem: React.FC = () => {
               rel="noopener noreferrer"
               onClick={() => {
                 try {
-                  soundManager.playClick();
+                  soundManager.playProjectLaunch();
                 } catch {
                   // Safe fallback
                 }
