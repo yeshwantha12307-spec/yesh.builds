@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #00f0ff;
+  --color-secondary: #ff5500;
+  --color-accent: #10b981;
+  --color-bg-dark: #030712;
+  --color-card: #0a0f1d;
+}
+
+/* Custom Tactical Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00f0ff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #030712;
+  color: #f8fafc;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Cyber & HUD Borders */
+.hud-corner-box {
+  position: relative;
+  background: rgba(10, 15, 29, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 240, 255, 0.18);
+}
+.hud-corner-box::before,
+.hud-corner-box::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+}
+.hud-corner-box::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid #00f0ff;
+  border-left: 2px solid #00f0ff;
+}
+.hud-corner-box::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid #ff5500;
+  border-right: 2px solid #ff5500;
+}
+
+/* Clip Path for Tactical Buttons */
+.clip-tactical {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+.clip-badge {
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
+
+/* Subtle CRT Scanline overlay */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Neon Glow utilities */
+.glow-cyan {
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+}
+.glow-orange {
+  text-shadow: 0 0 12px rgba(255, 85, 0, 0.6);
+}
+.box-glow-cyan {
+  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.25);
+}
+.box-glow-orange {
+  box-shadow: 0 0 25px -5px rgba(255, 85, 0, 0.25);
+}
+
+/* Grid Background */
+.bg-tactical-grid {
+  background-image: 
+    linear-gradient(to right, rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Open World Gaming Stylings */
+.text-shadow-gta {
+  text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.95), 0 0 25px rgba(0, 0, 0, 0.8);
+}
+
+.text-shadow-pink {
+  text-shadow: 0 0 10px rgba(255, 42, 133, 0.7), 0 0 20px rgba(255, 42, 133, 0.4);
+}
+
+.text-shadow-cyan {
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.4);
+}
+
+.text-shadow-lime {
+  text-shadow: 0 0 10px rgba(34, 197, 94, 0.7), 0 0 20px rgba(34, 197, 94, 0.4);
+}
+
+/* Radar Sweep Animation */
+@keyframes radar-sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-radar-sweep {
+  animation: radar-sweep 4s linear infinite;
+}
+
+/* Soft pulse glow */
+@keyframes neon-pulse {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+/* Metallic Chrome Typography & Light Sweep */
+.text-chrome {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #e2e8f0 25%,
+    #94a3b8 48%,
+    #334155 52%,
+    #cbd5e1 75%,
+    #ffffff 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.95));
+}
+
+@keyframes chrome-sweep {
+  0% { transform: translateX(-150%) skewX(-25deg); }
+  40%, 100% { transform: translateX(250%) skewX(-25deg); }
+}
+
+.animate-chrome-sweep {
+  animation: chrome-sweep 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
