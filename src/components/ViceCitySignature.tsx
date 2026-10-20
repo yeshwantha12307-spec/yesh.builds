@@ -1,11 +1,64 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  TOTAL_FRAMES, 
-  imageCache, 
-  loadFrameImage, 
-  getNearestAvailableImage 
-} from './PortraitTurntable';
+// -----------------------------------------------------------------------------
+// 63-FRAME MINI SIGNATURE 3D ANIMATION ASSETS
+// Dedicated, completely isolated from main hero animation
+// Source: /frames/frame_001.png -> /frames/frame_063.png
+// -----------------------------------------------------------------------------
+export const MINI_TOTAL_FRAMES = 63;
+export const MINI_FRAME_PATHS: string[] = Array.from({ length: MINI_TOTAL_FRAMES }, (_, i) => {
+  const pad = String(i + 1).padStart(3, '0');
+  return `/frames/frame_${pad}.png`;
+});
+
+// Dedicated in-memory cache for mini turntable frames
+const miniImageCache = new Map<number, HTMLImageElement>();
+const miniLoadingPromises = new Map<number, Promise<HTMLImageElement | null>>();
+
+export function loadMiniFrameImage(index: number): Promise<HTMLImageElement | null> {
+  if (miniImageCache.has(index)) {
+    return Promise.resolve(miniImageCache.get(index)!);
+  }
+  if (miniLoadingPromises.has(index)) {
+    return miniLoadingPromises.get(index)!;
+  }
+
+  const promise = new Promise<HTMLImageElement | null>((resolve) => {
+    const img = new Image();
+    img.src = MINI_FRAME_PATHS[index];
+    img.onload = () => {
+      miniImageCache.set(index, img);
+      miniLoadingPromises.delete(index);
+      resolve(img);
+    };
+    img.onerror = () => {
+      miniLoadingPromises.delete(index);
+      resolve(null);
+    };
+  });
+
+  miniLoadingPromises.set(index, promise);
+  return promise;
+}
+
+export function getNearestMiniImage(targetIndex: number): HTMLImageElement | null {
+  if (miniImageCache.has(targetIndex)) {
+    return miniImageCache.get(targetIndex)!;
+  }
+
+  for (let offset = 1; offset < MINI_TOTAL_FRAMES; offset++) {
+    const prev = targetIndex - offset;
+    if (prev >= 0 && miniImageCache.has(prev)) {
+      return miniImageCache.get(prev)!;
+    }
+    const next = targetIndex + offset;
+    if (next < MINI_TOTAL_FRAMES && miniImageCache.has(next)) {
+      return miniImageCache.get(next)!;
+    }
+  }
+
+  return miniImageCache.get(0) || null;
+}
 
 // -----------------------------------------------------------------------------
 // PRECISION 1980s MIAMI BRUSH SCRIPT VECTOR PATH FOR "YESH"
@@ -22,14 +75,17 @@ const miniCanvasCache = new Map<number, HTMLCanvasElement>();
 
 /**
  * Creates or retrieves a transparent cutout canvas for the mini turntable.
- * Removes the studio backdrop while preserving subject's natural edges, skin tones, white collar, and suit.
+ * Removes the off-white/grey studio backdrop while preserving the subject's
+ * original shape, skin tone, clothing, white collar, and suit.
+ * Applies a 2-pass Chamfer distance transform for consistent sub-pixel
+ * edge feathering and defringing to eliminate light halos against dark themes.
  */
 function getCutoutMiniCanvas(frameIdx: number): HTMLCanvasElement | null {
   if (miniCanvasCache.has(frameIdx)) {
     return miniCanvasCache.get(frameIdx)!;
   }
 
-  const img = imageCache.get(frameIdx) || getNearestAvailableImage(frameIdx);
+  const img = miniImageCache.get(frameIdx) || getNearestMiniImage(frameIdx);
   if (!img || !img.complete || img.naturalWidth === 0) return null;
 
   const width = 640;
@@ -44,66 +100,147 @@ function getCutoutMiniCanvas(frameIdx: number): HTMLCanvasElement | null {
   offCtx.drawImage(img, 0, 0, width, height);
   const imgData = offCtx.getImageData(0, 0, width, height);
   const data = imgData.data;
+  const totalPixels = width * height;
 
-  // Scanline silhouette cutout with edge feathering
+  // 1. Multi-directional outer scan to isolate background without encroaching on subject
+  const bgMask = new Uint8Array(totalPixels);
+  const dist = new Float32Array(totalPixels);
+  dist.fill(999.0);
+
+  // Horizontal scan from left and right for each row
   for (let y = 0; y < height; y++) {
-    const rowOffset = y * width * 4;
+    const rowOffset = y * width;
 
-    // Scan from left to find body edge
-    let leftX = 0;
-    while (leftX < width - 1) {
-      const idx = rowOffset + leftX * 4;
-      const r = data[idx];
-      const g = data[idx + 1];
-      const b = data[idx + 2];
-      const sat = Math.max(r, g, b) - Math.min(r, g, b);
+    // Scan inward from left
+    let lx = 0;
+    while (lx < width) {
+      const idx = rowOffset + lx;
+      const pIdx = idx * 4;
+      const r = data[pIdx];
+      const g = data[pIdx + 1];
+      const b = data[pIdx + 2];
       const val = (r + g + b) / 3;
-      const diff = Math.abs(r - data[idx + 4]) + Math.abs(g - data[idx + 5]) + Math.abs(b - data[idx + 6]);
-      if (sat > 10 || val < 210 || diff > 18) {
+      const maxC = Math.max(r, g, b);
+      const minC = Math.min(r, g, b);
+      const sat = maxC - minC;
+
+      if (val > 195 && sat < 18) {
+        bgMask[idx] = 1;
+        lx++;
+      } else {
         break;
       }
-      data[idx + 3] = 0;
-      leftX++;
     }
 
-    // Scan from right to find body edge
-    let rightX = width - 1;
-    while (rightX > leftX) {
-      const idx = rowOffset + rightX * 4;
-      const r = data[idx];
-      const g = data[idx + 1];
-      const b = data[idx + 2];
-      const sat = Math.max(r, g, b) - Math.min(r, g, b);
+    // Scan inward from right
+    let rx = width - 1;
+    while (rx > lx) {
+      const idx = rowOffset + rx;
+      const pIdx = idx * 4;
+      const r = data[pIdx];
+      const g = data[pIdx + 1];
+      const b = data[pIdx + 2];
       const val = (r + g + b) / 3;
-      const diff = Math.abs(r - data[idx - 4]) + Math.abs(g - data[idx - 3]) + Math.abs(b - data[idx - 2]);
-      if (sat > 10 || val < 210 || diff > 18) {
+      const maxC = Math.max(r, g, b);
+      const minC = Math.min(r, g, b);
+      const sat = maxC - minC;
+
+      if (val > 195 && sat < 18) {
+        bgMask[idx] = 1;
+        rx--;
+      } else {
         break;
       }
-      data[idx + 3] = 0;
-      rightX--;
     }
+  }
 
-    // If whole row is background
-    if (leftX >= rightX) {
-      for (let x = 0; x < width; x++) {
-        data[rowOffset + x * 4 + 3] = 0;
+  // Vertical scan downward from top for each column (clears background above hair)
+  for (let x = 0; x < width; x++) {
+    let ty = 0;
+    while (ty < height) {
+      const idx = ty * width + x;
+      const pIdx = idx * 4;
+      const r = data[pIdx];
+      const g = data[pIdx + 1];
+      const b = data[pIdx + 2];
+      const val = (r + g + b) / 3;
+      const maxC = Math.max(r, g, b);
+      const minC = Math.min(r, g, b);
+      const sat = maxC - minC;
+
+      if (val > 195 && sat < 18) {
+        bgMask[idx] = 1;
+        ty++;
+      } else {
+        break;
       }
-    } else {
-      // Soft 2-pixel anti-aliased edge feathering
-      for (let x = leftX; x <= rightX; x++) {
-        const distToEdge = Math.min(x - leftX, rightX - x);
-        if (distToEdge < 3) {
-          const idx = rowOffset + x * 4;
-          const r = data[idx];
-          const g = data[idx + 1];
-          const b = data[idx + 2];
-          const val = (r + g + b) / 3;
-          const sat = Math.max(r, g, b) - Math.min(r, g, b);
-          if (sat < 12 && val > 200) {
-            const alphaFactor = Math.max(0, Math.min(1, (245 - val) / 45));
-            data[idx + 3] = Math.round(alphaFactor * 255);
-          }
+    }
+  }
+
+  // 2. Fast 2-Pass Distance Transform (Chamfer 3-4 Metric for smooth 2D distance)
+  // Forward pass (top-left to bottom-right)
+  for (let y = 0; y < height; y++) {
+    const rowOffset = y * width;
+    for (let x = 0; x < width; x++) {
+      const idx = rowOffset + x;
+      if (bgMask[idx] === 1) {
+        dist[idx] = 0.0;
+      } else {
+        let d = dist[idx];
+        if (x > 0) d = Math.min(d, dist[idx - 1] + 1.0);
+        if (y > 0) {
+          d = Math.min(d, dist[idx - width] + 1.0);
+          if (x > 0) d = Math.min(d, dist[idx - width - 1] + 1.414);
+          if (x < width - 1) d = Math.min(d, dist[idx - width + 1] + 1.414);
         }
+        dist[idx] = d;
+      }
+    }
+  }
+
+  // Backward pass (bottom-right to top-left)
+  for (let y = height - 1; y >= 0; y--) {
+    const rowOffset = y * width;
+    for (let x = width - 1; x >= 0; x--) {
+      const idx = rowOffset + x;
+      let d = dist[idx];
+      if (x < width - 1) d = Math.min(d, dist[idx + 1] + 1.0);
+      if (y < height - 1) {
+        d = Math.min(d, dist[idx + width] + 1.0);
+        if (x > 0) d = Math.min(d, dist[idx + width - 1] + 1.414);
+        if (x < width - 1) d = Math.min(d, dist[idx + width + 1] + 1.414);
+      }
+      dist[idx] = d;
+    }
+  }
+
+  // 3. Alpha Feathering & Edge Defringing to eliminate bright halos against dark background
+  for (let i = 0; i < totalPixels; i++) {
+    const d = dist[i];
+    const pIdx = i * 4;
+
+    if (d === 0.0) {
+      data[pIdx + 3] = 0;
+    } else if (d < 2.5) {
+      // Soft sub-pixel edge feathering
+      const alphaFactor = Math.min(1.0, d / 2.0);
+      data[pIdx + 3] = Math.round(alphaFactor * 255);
+
+      // Defringe bright background bleed along outer perimeter
+      const r = data[pIdx];
+      const g = data[pIdx + 1];
+      const b = data[pIdx + 2];
+      const maxC = Math.max(r, g, b);
+      const minC = Math.min(r, g, b);
+      const sat = maxC - minC;
+      const val = (r + g + b) / 3;
+
+      if (sat < 16 && val > 170) {
+        const haloFactor = Math.min(1.0, (val - 170) / 70) * ((2.5 - d) / 2.5);
+        const darken = 1.0 - haloFactor * 0.75;
+        data[pIdx] = Math.round(r * darken);
+        data[pIdx + 1] = Math.round(g * darken);
+        data[pIdx + 2] = Math.round(b * darken);
       }
     }
   }
@@ -118,7 +255,6 @@ interface ViceCitySignatureProps {
 }
 
 export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className = '' }) => {
-  const [, setCurrentFrame] = useState<number>(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const currentFrameRef = useRef<number>(0);
 
@@ -139,7 +275,7 @@ export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className 
 
   // ---------------------------------------------------------------------------
   // Scroll-Driven Frame Scrubber: NEVER autoplays or loops independently.
-  // Directly tied to user's scroll progress through the hero section.
+  // Maps entire page scroll progress (from top of hero to bottom of page) to 63 frames.
   // Formula: frameIndex = Math.min(62, Math.floor(progress * 63))
   // ---------------------------------------------------------------------------
   useEffect(() => {
@@ -148,16 +284,13 @@ export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className 
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const heroEl = document.getElementById('hero');
-          const startY = heroEl ? heroEl.offsetTop : 0;
-          const heroHeight = heroEl ? heroEl.offsetHeight : window.innerHeight;
-          // Smooth scroll range across the hero section
-          const scrollDistance = Math.max(380, heroHeight - 120);
+          const scrollY = window.scrollY;
+          const docHeight = document.documentElement.scrollHeight;
+          const winHeight = window.innerHeight;
+          const maxScroll = Math.max(1, docHeight - winHeight);
 
-          const currentScroll = window.scrollY;
-          const rawProgress = (currentScroll - startY) / scrollDistance;
-          // Normalized progress clamped strictly between 0 and 1
-          const progress = Math.max(0, Math.min(1, rawProgress));
+          // Normalized progress across the website (0 to 1)
+          const progress = Math.max(0, Math.min(1, scrollY / maxScroll));
 
           // Exact mathematical mapping: frameIndex = Math.min(62, Math.floor(progress * 63))
           const targetIndex = Math.min(62, Math.floor(progress * 63));
@@ -165,7 +298,6 @@ export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className 
           if (targetIndex !== currentFrameRef.current) {
             currentFrameRef.current = targetIndex;
             drawMiniFrame(targetIndex);
-            setCurrentFrame(targetIndex);
           }
 
           ticking = false;
@@ -176,13 +308,38 @@ export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className 
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
+    let isCancelled = false;
+
     // Initial render of Frame 1 (index 0)
-    loadFrameImage(0).then(() => {
+    loadMiniFrameImage(0).then(() => {
+      if (isCancelled) return;
       drawMiniFrame(0);
       handleScroll();
+
+      // Progressive background preload for remaining 62 mini frames in small batches
+      const preloadMiniBatches = async () => {
+        const BATCH_SIZE = 4;
+        for (let i = 1; i < MINI_TOTAL_FRAMES; i += BATCH_SIZE) {
+          if (isCancelled) break;
+          const batchPromises: Promise<HTMLImageElement | null>[] = [];
+          for (let j = i; j < Math.min(i + BATCH_SIZE, MINI_TOTAL_FRAMES); j++) {
+            if (!miniImageCache.has(j)) {
+              batchPromises.push(loadMiniFrameImage(j));
+            }
+          }
+          if (batchPromises.length > 0) {
+            await Promise.all(batchPromises);
+            await new Promise((resolve) => setTimeout(resolve, 25));
+          }
+        }
+      };
+
+      // Slight delay so hero text and initial frame draw immediately
+      setTimeout(preloadMiniBatches, 200);
     });
 
     return () => {
+      isCancelled = true;
       window.removeEventListener('scroll', handleScroll);
     };
   }, [drawMiniFrame]);
@@ -191,21 +348,21 @@ export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className 
     <motion.div
       initial={{ opacity: 0, scale: 0.9, y: 15 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.7, delay: 0.5 }}
+      transition={{ duration: 0.7, delay: 0.3 }}
       role="region"
       aria-label="YESH creator signature with scroll-driven miniature 3D portrait"
-      className={`relative group flex flex-col items-center select-none ${className}`}
+      className={`fixed bottom-3 left-3 sm:bottom-4 sm:left-5 md:bottom-5 md:left-6 z-30 pointer-events-none select-none flex flex-col items-center group ${className}`}
     >
       {/* ATMOSPHERIC 1980s MIAMI VICE HOT-PINK & CYAN AMBIENT GLOW */}
       <div 
-        className="absolute -inset-4 bg-gradient-to-r from-pink-500/15 via-fuchsia-500/10 to-cyan-500/15 blur-2xl rounded-full pointer-events-none transform scale-90 group-hover:scale-105 transition-transform duration-700" 
+        className="absolute -inset-3 bg-gradient-to-r from-pink-500/15 via-fuchsia-500/10 to-cyan-500/15 blur-2xl rounded-full pointer-events-none transform scale-90 group-hover:scale-105 transition-transform duration-700" 
       />
 
       {/* =================================================================== */}
       {/* 1. CUSTOM 1980s MIAMI VICE "YESH" WORDMARK                          */}
-      {/* Positioned directly ABOVE the mini animation; ~12% size reduction   */}
+      {/* Positioned directly ABOVE the mini animation; refined compact scale */}
       {/* =================================================================== */}
-      <div className="relative w-[114px] sm:w-[126px] md:w-[138px] lg:w-[148px] aspect-[315/140] pointer-events-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
+      <div className="relative w-[86px] sm:w-[98px] md:w-[108px] lg:w-[118px] aspect-[315/140] pointer-events-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.95)]">
         <svg 
           viewBox="0 0 315 140" 
           width="100%" 
@@ -358,12 +515,12 @@ export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className 
       {/* Positioned directly underneath YESH; no background card, no frame   */}
       {/* Strictly scroll-driven: maps scroll progress to 63 frames           */}
       {/* =================================================================== */}
-      <div className="relative mt-1 flex flex-col items-center justify-center pointer-events-none">
+      <div className="relative -mt-0.5 flex flex-col items-center justify-center pointer-events-none">
         <canvas
           ref={canvasRef}
           width={640}
           height={360}
-          className="w-[105px] sm:w-[116px] md:w-[126px] lg:w-[134px] aspect-[16/9] object-contain pointer-events-none drop-shadow-[0_8px_16px_rgba(0,0,0,0.7)]"
+          className="w-[80px] sm:w-[92px] md:w-[102px] lg:w-[110px] aspect-[16/9] object-contain pointer-events-none drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)]"
         />
       </div>
     </motion.div>

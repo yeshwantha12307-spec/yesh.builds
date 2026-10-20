@@ -12,6 +12,7 @@ import { CareerMap } from './components/CareerMap';
 import { AchievementBoard } from './components/AchievementBoard';
 import { ContactMission } from './components/ContactMission';
 import { MissionCompleteFooter } from './components/MissionCompleteFooter';
+import { ViceCitySignature } from './components/ViceCitySignature';
 import { LiveCinematicEnvironment } from './components/LiveCinematicEnvironment';
 import { soundManager } from './utils/audio';
 
@@ -137,6 +138,9 @@ export function App() {
 
       {/* Cinematic Mission Complete Finale */}
       <MissionCompleteFooter />
+
+      {/* Persistent Bottom-Left Vice City YESH Signature & Scroll-Driven 63-Frame Turntable */}
+      {introCompleted && <ViceCitySignature />}
     </div>
   );
 }

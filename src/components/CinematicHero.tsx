@@ -4,7 +4,6 @@ import { Target, FileText, ChevronDown, MapPin, Sparkles } from 'lucide-react';
 import { PROFILE } from '../data/profile';
 import { soundManager } from '../utils/audio';
 import { PortraitTurntable } from './PortraitTurntable';
-import { ViceCitySignature } from './ViceCitySignature';
 
 export const CinematicHero: React.FC = () => {
   const [typewriterIndex, setTypewriterIndex] = useState(0);
@@ -170,12 +169,6 @@ export const CinematicHero: React.FC = () => {
           <div className="hidden sm:block w-36 lg:w-44 h-1 pointer-events-none" />
         </div>
 
-      </div>
-
-      {/* VICE CITY CREATOR SIGNATURE + MINI 63-FRAME TURNTABLE */}
-      {/* Positioned on the RIGHT side, in the bottom-right area on desktop, tablet, and mobile */}
-      <div className="flex justify-end pr-4 sm:pr-0 sm:absolute sm:bottom-4 sm:right-6 lg:bottom-6 lg:right-8 xl:right-10 z-20 mt-6 sm:mt-0 scale-90 sm:scale-95 lg:scale-100 origin-right sm:origin-bottom-right">
-        <ViceCitySignature />
       </div>
     </section>
   );
