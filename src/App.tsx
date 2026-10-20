@@ -102,8 +102,8 @@ export function App() {
 
   return (
     <div className="relative min-h-screen bg-[#030712] text-slate-100 selection:bg-pink-500 selection:text-white">
-      {/* Live Animated Cinematic Environment (Persistent across all sections) */}
-      <LiveCinematicEnvironment intensity={introCompleted ? 1.0 : 0.85} />
+      {/* Live Animated Cinematic Environment (Mounts after intro sequence concludes) */}
+      {introCompleted && <LiveCinematicEnvironment intensity={1.0} />}
 
       {/* Cinematic Startup Sequence */}
       {!introCompleted && (

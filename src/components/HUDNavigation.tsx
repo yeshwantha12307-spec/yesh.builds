@@ -244,9 +244,10 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
                   <picture>
                     <source type="image/webp" srcSet="/media/yeshwanth_portfolio_cutout.webp" />
                     <img
-                      src="/media/yeshwanth_portfolio_cutout.png"
+                      src="/media/yeshwanth_portfolio_cutout.webp"
                       alt="Yeshwanth Akbar"
                       loading="lazy"
+                      decoding="async"
                       width="176"
                       height="208"
                       className="w-full h-full object-contain object-bottom drop-shadow-[0_12px_24px_rgba(0,0,0,0.95)]"

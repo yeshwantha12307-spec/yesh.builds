@@ -30,7 +30,8 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
   // Phase 2: Title morphs to YESH.BUILDS + FULL STACK DEVELOPER • AI (4.5s - 6.0s)
   // Phase 3: ENTER OPEN WORLD call to action button reveals (6.0s - 8.2s)
   const [phase, setPhase] = useState<number>(0);
-  const [progress, setProgress] = useState<number>(0);
+  const progressBarRef = useRef<HTMLDivElement | null>(null);
+  const progressTextRef = useRef<HTMLSpanElement | null>(null);
 
   const isFinishedRef = useRef<boolean>(false);
   const animFrameRef = useRef<number | null>(null);
@@ -110,7 +111,12 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
       const elapsed = currentTime - startTime;
       elapsedRef.current = elapsed;
       const pct = Math.min(100, Math.round((elapsed / TOTAL_DURATION) * 100));
-      setProgress(pct);
+      if (progressBarRef.current) {
+        progressBarRef.current.style.width = `${pct}%`;
+      }
+      if (progressTextRef.current) {
+        progressTextRef.current.textContent = `${pct}%`;
+      }
 
       // Phase transitions
       if (elapsed >= 1600 && elapsed < 4500) {
@@ -355,7 +361,8 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
           initial={{ scale: 1.0, x: 0 }}
           animate={{ scale: 1.035, x: -6 }}
           transition={{ duration: 8.5, ease: 'easeOut' }}
-          className="absolute inset-0 pointer-events-none overflow-hidden"
+          style={{ willChange: 'transform' }}
+          className="absolute inset-0 pointer-events-none overflow-hidden transform-gpu"
         >
           {/* Base Toyota Supra Night Scene blended into live environment (LCP Element) */}
           <picture>
@@ -528,10 +535,11 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
               {/* YESH.BUILDS (Phase 2 & 3 Morph: 4.5s onwards) */}
               {phase >= 2 && (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.92, filter: 'blur(8px)' }}
-                  animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                  initial={{ opacity: 0, scale: 0.92 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative select-none text-center flex flex-col items-center"
+                  style={{ willChange: 'transform, opacity' }}
+                  className="relative select-none text-center flex flex-col items-center transform-gpu"
                 >
                   <h1 className="font-heading font-black text-6xl sm:text-8xl md:text-9xl lg:text-[135px] tracking-tight uppercase leading-none drop-shadow-[0_15px_45px_rgba(0,0,0,0.98)]">
                     <span className="text-chrome">YESH.</span>
@@ -601,14 +609,15 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
               />
               <span className="text-white font-bold tracking-wider">YESH.BUILDS</span>
             </div>
-            <span className="text-emerald-400 font-bold">{progress}%</span>
+            <span ref={progressTextRef} className="text-emerald-400 font-bold">0%</span>
           </div>
 
           {/* Continuous Loading Bar */}
           <div className="w-full h-1.5 rounded-full bg-black/60 backdrop-blur-md overflow-hidden border border-white/10">
             <div
+              ref={progressBarRef}
               className="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-300 shadow-[0_0_12px_#22c55e] transition-all duration-100 ease-out"
-              style={{ width: `${progress}%` }}
+              style={{ width: '0%' }}
             />
           </div>
         </footer>

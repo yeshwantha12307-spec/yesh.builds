@@ -165,7 +165,7 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
         drawFrameToCanvas(0);
       }
 
-      // Then progressively preload remaining frames in batches of 4
+      // Then progressively preload remaining frames in batches of 4 during browser idle time
       const preloadBatches = async () => {
         const BATCH_SIZE = 4;
         for (let i = 1; i < TOTAL_FRAMES; i += BATCH_SIZE) {
@@ -178,14 +178,25 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
           }
           if (batchPromises.length > 0) {
             await Promise.all(batchPromises);
-            // Brief yield to avoid blocking the main thread
-            await new Promise((resolve) => setTimeout(resolve, 20));
+            // Generous yield to avoid blocking main thread or causing Long Tasks
+            await new Promise((resolve) => setTimeout(resolve, 50));
           }
         }
       };
 
-      // Defer remaining preloading slightly so hero text & initial paint remain instant
-      setTimeout(preloadBatches, 100);
+      // Schedule preloading during browser idle time so initial paints and LCP finish unimpeded
+      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+        (window as Window & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(
+          () => {
+            if (!isCancelled) preloadBatches();
+          },
+          { timeout: 3000 }
+        );
+      } else {
+        setTimeout(() => {
+          if (!isCancelled) preloadBatches();
+        }, 1200);
+      }
     });
 
     return () => {

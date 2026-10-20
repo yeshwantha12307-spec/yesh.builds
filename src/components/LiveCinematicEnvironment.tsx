@@ -23,7 +23,7 @@ interface EnvironmentProps {
   accentReveal?: boolean; // Trigger cinematic light swell during key reveal milestones
 }
 
-export const LiveCinematicEnvironment: React.FC<EnvironmentProps> = ({
+const LiveCinematicEnvironmentComponent: React.FC<EnvironmentProps> = ({
   intensity = 1.0,
   accentReveal = false,
 }) => {
@@ -362,3 +362,4 @@ export const LiveCinematicEnvironment: React.FC<EnvironmentProps> = ({
     </div>
   );
 };
+export const LiveCinematicEnvironment = React.memo(LiveCinematicEnvironmentComponent);
