@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause } from 'lucide-react';
 import { 
   TOTAL_FRAMES, 
-  FRAME_PATHS, 
   imageCache, 
   loadFrameImage, 
   getNearestAvailableImage 
 } from './PortraitTurntable';
-import { soundManager } from '../utils/audio';
 
 // -----------------------------------------------------------------------------
 // PRECISION 1980s MIAMI BRUSH SCRIPT VECTOR PATH FOR "YESH"
@@ -20,117 +17,175 @@ const YESH_PATH_D = "M 124.1 20.7 Q 124.8 21.3 124.8 22.2 Q 124.8 23.1 124.2 23.
 const FLOURISH_PATH_D = "M 32,122 C 85,130 165,127 232,114 C 262,107 282,99 292,91 C 280,98 250,107 215,114 C 152,124 82,124 32,122 Z";
 const FLOURISH_HIGHLIGHT_D = "M 48,123 C 95,129 160,126 220,114 C 245,109 265,102 276,96 C 260,101 235,108 202,113 C 145,121 85,123 48,123 Z";
 
+// In-memory cache of transparent cutout frames for the mini animation
+const miniCanvasCache = new Map<number, HTMLCanvasElement>();
+
+/**
+ * Creates or retrieves a transparent cutout canvas for the mini turntable.
+ * Removes the studio backdrop while preserving subject's natural edges, skin tones, white collar, and suit.
+ */
+function getCutoutMiniCanvas(frameIdx: number): HTMLCanvasElement | null {
+  if (miniCanvasCache.has(frameIdx)) {
+    return miniCanvasCache.get(frameIdx)!;
+  }
+
+  const img = imageCache.get(frameIdx) || getNearestAvailableImage(frameIdx);
+  if (!img || !img.complete || img.naturalWidth === 0) return null;
+
+  const width = 640;
+  const height = 360;
+
+  const offscreen = document.createElement('canvas');
+  offscreen.width = width;
+  offscreen.height = height;
+  const offCtx = offscreen.getContext('2d', { willReadFrequently: true });
+  if (!offCtx) return null;
+
+  offCtx.drawImage(img, 0, 0, width, height);
+  const imgData = offCtx.getImageData(0, 0, width, height);
+  const data = imgData.data;
+
+  // Scanline silhouette cutout with edge feathering
+  for (let y = 0; y < height; y++) {
+    const rowOffset = y * width * 4;
+
+    // Scan from left to find body edge
+    let leftX = 0;
+    while (leftX < width - 1) {
+      const idx = rowOffset + leftX * 4;
+      const r = data[idx];
+      const g = data[idx + 1];
+      const b = data[idx + 2];
+      const sat = Math.max(r, g, b) - Math.min(r, g, b);
+      const val = (r + g + b) / 3;
+      const diff = Math.abs(r - data[idx + 4]) + Math.abs(g - data[idx + 5]) + Math.abs(b - data[idx + 6]);
+      if (sat > 10 || val < 210 || diff > 18) {
+        break;
+      }
+      data[idx + 3] = 0;
+      leftX++;
+    }
+
+    // Scan from right to find body edge
+    let rightX = width - 1;
+    while (rightX > leftX) {
+      const idx = rowOffset + rightX * 4;
+      const r = data[idx];
+      const g = data[idx + 1];
+      const b = data[idx + 2];
+      const sat = Math.max(r, g, b) - Math.min(r, g, b);
+      const val = (r + g + b) / 3;
+      const diff = Math.abs(r - data[idx - 4]) + Math.abs(g - data[idx - 3]) + Math.abs(b - data[idx - 2]);
+      if (sat > 10 || val < 210 || diff > 18) {
+        break;
+      }
+      data[idx + 3] = 0;
+      rightX--;
+    }
+
+    // If whole row is background
+    if (leftX >= rightX) {
+      for (let x = 0; x < width; x++) {
+        data[rowOffset + x * 4 + 3] = 0;
+      }
+    } else {
+      // Soft 2-pixel anti-aliased edge feathering
+      for (let x = leftX; x <= rightX; x++) {
+        const distToEdge = Math.min(x - leftX, rightX - x);
+        if (distToEdge < 3) {
+          const idx = rowOffset + x * 4;
+          const r = data[idx];
+          const g = data[idx + 1];
+          const b = data[idx + 2];
+          const val = (r + g + b) / 3;
+          const sat = Math.max(r, g, b) - Math.min(r, g, b);
+          if (sat < 12 && val > 200) {
+            const alphaFactor = Math.max(0, Math.min(1, (245 - val) / 45));
+            data[idx + 3] = Math.round(alphaFactor * 255);
+          }
+        }
+      }
+    }
+  }
+
+  offCtx.putImageData(imgData, 0, 0);
+  miniCanvasCache.set(frameIdx, offscreen);
+  return offscreen;
+}
+
 interface ViceCitySignatureProps {
   className?: string;
 }
 
 export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className = '' }) => {
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
-  const [currentFrame, setCurrentFrame] = useState<number>(0);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(false);
-
+  const [, setCurrentFrame] = useState<number>(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const rafIdRef = useRef<number | null>(null);
-  const lastTimeRef = useRef<number>(0);
   const currentFrameRef = useRef<number>(0);
 
-  // Target rotation speed: ~6.3 seconds per full 360° rotation (exactly 100ms per frame)
-  const ROTATION_DURATION_MS = 6300;
-  const FRAME_INTERVAL_MS = ROTATION_DURATION_MS / TOTAL_FRAMES; // 100ms
-
-  // Detect prefers-reduced-motion media query
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mq.matches);
-    if (mq.matches) {
-      setIsPlaying(false);
-    }
-
-    const handler = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches);
-      if (e.matches) {
-        setIsPlaying(false);
-      }
-    };
-
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
-
-  // Frame drawer for mini canvas
+  // Frame drawer for frameless floating mini canvas
   const drawMiniFrame = useCallback((frameIdx: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const img = imageCache.get(frameIdx) || getNearestAvailableImage(frameIdx);
-    if (!img || !img.complete || img.naturalWidth === 0) return;
-
+    const cutoutCanvas = getCutoutMiniCanvas(frameIdx);
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Direct hardware-accelerated draw
-    ctx.clearRect(0, 0, 1280, 720);
-    ctx.drawImage(img, 0, 0, 1280, 720);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (cutoutCanvas) {
+      ctx.drawImage(cutoutCanvas, 0, 0, canvas.width, canvas.height);
+    }
   }, []);
 
-  // Continuous animation loop using requestAnimationFrame (Isolated from main scroll animation)
+  // ---------------------------------------------------------------------------
+  // Scroll-Driven Frame Scrubber: NEVER autoplays or loops independently.
+  // Directly tied to user's scroll progress through the hero section.
+  // Formula: frameIndex = Math.min(62, Math.floor(progress * 63))
+  // ---------------------------------------------------------------------------
   useEffect(() => {
-    if (!isPlaying || prefersReducedMotion) {
-      // If paused or reduced motion, render frame 0 once
-      drawMiniFrame(0);
-      return;
-    }
+    let ticking = false;
 
-    let isCancelled = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const heroEl = document.getElementById('hero');
+          const startY = heroEl ? heroEl.offsetTop : 0;
+          const heroHeight = heroEl ? heroEl.offsetHeight : window.innerHeight;
+          // Smooth scroll range across the hero section
+          const scrollDistance = Math.max(380, heroHeight - 120);
 
-    // Initial frame draw
-    loadFrameImage(0).then(() => {
-      if (!isCancelled) {
-        drawMiniFrame(currentFrameRef.current);
+          const currentScroll = window.scrollY;
+          const rawProgress = (currentScroll - startY) / scrollDistance;
+          // Normalized progress clamped strictly between 0 and 1
+          const progress = Math.max(0, Math.min(1, rawProgress));
+
+          // Exact mathematical mapping: frameIndex = Math.min(62, Math.floor(progress * 63))
+          const targetIndex = Math.min(62, Math.floor(progress * 63));
+
+          if (targetIndex !== currentFrameRef.current) {
+            currentFrameRef.current = targetIndex;
+            drawMiniFrame(targetIndex);
+            setCurrentFrame(targetIndex);
+          }
+
+          ticking = false;
+        });
+        ticking = true;
       }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Initial render of Frame 1 (index 0)
+    loadFrameImage(0).then(() => {
+      drawMiniFrame(0);
+      handleScroll();
     });
 
-    const loop = (timestamp: number) => {
-      if (isCancelled) return;
-
-      if (!lastTimeRef.current) {
-        lastTimeRef.current = timestamp;
-      }
-
-      const elapsed = timestamp - lastTimeRef.current;
-
-      if (elapsed >= FRAME_INTERVAL_MS) {
-        // Compute discrete frame progression based on elapsed time
-        const framesToAdvance = Math.floor(elapsed / FRAME_INTERVAL_MS);
-        const nextIndex = (currentFrameRef.current + framesToAdvance) % TOTAL_FRAMES;
-        
-        currentFrameRef.current = nextIndex;
-        drawMiniFrame(nextIndex);
-        setCurrentFrame(nextIndex);
-        
-        // Preserve timestamp remainder to avoid timing drift
-        lastTimeRef.current = timestamp - (elapsed % FRAME_INTERVAL_MS);
-      }
-
-      rafIdRef.current = requestAnimationFrame(loop);
-    };
-
-    rafIdRef.current = requestAnimationFrame(loop);
-
     return () => {
-      isCancelled = true;
-      if (rafIdRef.current !== null) {
-        cancelAnimationFrame(rafIdRef.current);
-        rafIdRef.current = null;
-      }
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [isPlaying, prefersReducedMotion, drawMiniFrame, FRAME_INTERVAL_MS]);
-
-  const handleTogglePlay = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    soundManager.playClick();
-    setIsPlaying(prev => !prev);
-  };
+  }, [drawMiniFrame]);
 
   return (
     <motion.div
@@ -138,7 +193,7 @@ export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className 
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.5 }}
       role="region"
-      aria-label="YESH creator signature with miniature continuously rotating 3D portrait"
+      aria-label="YESH creator signature with scroll-driven miniature 3D portrait"
       className={`relative group flex flex-col items-center select-none ${className}`}
     >
       {/* ATMOSPHERIC 1980s MIAMI VICE HOT-PINK & CYAN AMBIENT GLOW */}
@@ -148,9 +203,9 @@ export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className 
 
       {/* =================================================================== */}
       {/* 1. CUSTOM 1980s MIAMI VICE "YESH" WORDMARK                          */}
-      {/* Handcrafted vector paths, multi-layered outlines, hot-pink accents  */}
+      {/* Positioned directly ABOVE the mini animation; ~12% size reduction   */}
       {/* =================================================================== */}
-      <div className="relative w-[130px] sm:w-[145px] md:w-[160px] lg:w-[170px] aspect-[315/140] pointer-events-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
+      <div className="relative w-[114px] sm:w-[126px] md:w-[138px] lg:w-[148px] aspect-[315/140] pointer-events-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
         <svg 
           viewBox="0 0 315 140" 
           width="100%" 
@@ -160,31 +215,31 @@ export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className 
           <defs>
             {/* Neon Hot-Pink Signature Gradient */}
             <linearGradient id="vicePinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#ff3b94" />
-              <stop offset="50%" stop-color="#ff007f" />
-              <stop offset="100%" stop-color="#e60067" />
+              <stop offset="0%" stopColor="#ff3b94" />
+              <stop offset="50%" stopColor="#ff007f" />
+              <stop offset="100%" stopColor="#e60067" />
             </linearGradient>
 
             {/* Miami Vice Underline Flourish Gradient (Pink to Cyan) */}
             <linearGradient id="flourishGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#ff007f" />
-              <stop offset="65%" stop-color="#ff2a85" />
-              <stop offset="100%" stop-color="#00f0ff" />
+              <stop offset="0%" stopColor="#ff007f" />
+              <stop offset="65%" stopColor="#ff2a85" />
+              <stop offset="100%" stopColor="#00f0ff" />
             </linearGradient>
 
             {/* Specular White Chrome Face Gradient */}
             <linearGradient id="whiteChrome" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#ffffff" />
-              <stop offset="65%" stop-color="#ffffff" />
-              <stop offset="85%" stop-color="#fdf2f8" />
-              <stop offset="100%" stop-color="#fce7f3" />
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="65%" stopColor="#ffffff" />
+              <stop offset="85%" stopColor="#fdf2f8" />
+              <stop offset="100%" stopColor="#fce7f3" />
             </linearGradient>
 
             {/* Sticker Shadow & Ambient Neon Glow Filter */}
             <filter id="viceStickerGlow" x="-20%" y="-20%" width="150%" height="150%">
-              <feDropShadow dx="3.5" dy="4.5" stdDeviation="0" flood-color="#000000" flood-opacity="0.95" />
-              <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#ff007f" flood-opacity="0.6" />
-              <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#ff007f" flood-opacity="0.25" />
+              <feDropShadow dx="3.5" dy="4.5" stdDeviation="0" floodColor="#000000" floodOpacity="0.95" />
+              <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#ff007f" floodOpacity="0.6" />
+              <feDropShadow dx="0" dy="0" stdDeviation="12" floodColor="#ff007f" floodOpacity="0.25" />
             </filter>
 
             {/* Lens Glint Filter */}
@@ -299,43 +354,17 @@ export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className 
       </div>
 
       {/* =================================================================== */}
-      {/* 2. MINI 63-FRAME 3D CONTINUOUSLY ROTATING ANIMATION                 */}
-      {/* Positioned directly underneath the YESH logo; 16:9 aspect ratio     */}
+      {/* 2. FRAMELESS, FLOATING MINI 63-FRAME SCROLL ANIMATION               */}
+      {/* Positioned directly underneath YESH; no background card, no frame   */}
+      {/* Strictly scroll-driven: maps scroll progress to 63 frames           */}
       {/* =================================================================== */}
-      <div className="relative mt-0.5 flex flex-col items-center">
-        {/* Compact Viewport Frame */}
-        <div 
-          onClick={handleTogglePlay}
-          title={isPlaying ? "Click to pause 3D turntable" : "Click to play 3D turntable"}
-          className="relative w-[112px] sm:w-[124px] md:w-[134px] lg:w-[140px] aspect-[16/9] rounded-xl overflow-hidden border border-pink-500/40 bg-black/85 backdrop-blur-md shadow-[0_0_18px_rgba(255,0,127,0.25)] flex items-center justify-center cursor-pointer group/mini transition-all duration-300 hover:border-pink-400 hover:shadow-[0_0_24px_rgba(255,0,127,0.45)] hover:scale-[1.02]"
-        >
-          {/* Canvas Renderer */}
-          <canvas
-            ref={canvasRef}
-            width={1280}
-            height={720}
-            className="w-full h-full object-contain pointer-events-none"
-          />
-
-          {/* Viewfinder Corner Overlays */}
-          <div className="absolute inset-0 pointer-events-none border border-white/10 rounded-xl" />
-
-          {/* Soft Ground Shadow Fade */}
-          <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
-
-
-
-          {/* Bottom Right Play/Pause Indicator (Shows on hover) */}
-          <div className="absolute bottom-1 right-1.5 p-0.5 rounded bg-black/70 text-slate-300 border border-white/10 opacity-70 group-hover/mini:opacity-100 transition-opacity">
-            {isPlaying ? (
-              <Pause className="w-2.5 h-2.5 text-pink-400" />
-            ) : (
-              <Play className="w-2.5 h-2.5 text-emerald-400" />
-            )}
-          </div>
-        </div>
-
-
+      <div className="relative mt-1 flex flex-col items-center justify-center pointer-events-none">
+        <canvas
+          ref={canvasRef}
+          width={640}
+          height={360}
+          className="w-[105px] sm:w-[116px] md:w-[126px] lg:w-[134px] aspect-[16/9] object-contain pointer-events-none drop-shadow-[0_8px_16px_rgba(0,0,0,0.7)]"
+        />
       </div>
     </motion.div>
   );

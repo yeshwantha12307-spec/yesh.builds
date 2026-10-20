@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FastForward, Sparkles, ArrowRight, Volume2, VolumeX } from 'lucide-react';
+import { FastForward, Sparkles, ArrowRight } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 import { LiveCinematicEnvironment } from './LiveCinematicEnvironment';
 
@@ -25,13 +25,12 @@ interface SmokeParticle {
 }
 
 export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
-  // Phase 0: Initial black screen with teaser & audio prompt (0 - 1.6s)
+  // Phase 0: Initial black screen with teaser (0 - 1.6s)
   // Phase 1: Massive metallic PORTFOLIO title reveals with light sweep (1.6s - 4.5s)
   // Phase 2: Title morphs to YESH.BUILDS + FULL STACK DEVELOPER • AI (4.5s - 6.0s)
   // Phase 3: ENTER OPEN WORLD call to action button reveals (6.0s - 8.2s)
   const [phase, setPhase] = useState<number>(0);
   const [progress, setProgress] = useState<number>(0);
-  const [isMuted, setIsMuted] = useState<boolean>(soundManager.isMuted);
 
   const isFinishedRef = useRef<boolean>(false);
   const animFrameRef = useRef<number | null>(null);
@@ -47,26 +46,10 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
   const cueImpactRef = useRef<boolean>(false);
   const cueCompleteRef = useRef<boolean>(false);
 
-  // Sync with soundManager state updates
+  // Attempt automatic audio initialization on mount where permitted
   useEffect(() => {
-    const unsub = soundManager.subscribe(() => {
-      setIsMuted(soundManager.isMuted);
-    });
-    return unsub;
+    soundManager.initContext();
   }, []);
-
-  const handleToggleSound = () => {
-    const newMuted = soundManager.toggleMute();
-    setIsMuted(newMuted);
-
-    if (!newMuted) {
-      const cur = elapsedRef.current;
-      soundManager.startIntroDrone();
-      if (cur >= 1600 && cur < 6000) {
-        soundManager.playEngineIgnition();
-      }
-    }
-  };
 
   const handleFinish = useCallback(() => {
     if (isFinishedRef.current) return;
@@ -440,24 +423,9 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
         </div>
 
         {/* =========================================================================
-            4. MINIMAL TOP BAR: SOUND CONTROLS & SKIP INTRO [ESC]
+            4. MINIMAL TOP BAR: SKIP INTRO [ESC]
            ========================================================================= */}
-        <header className="relative z-30 flex items-center justify-between p-4 sm:p-6 w-full text-xs font-mono">
-          {/* Sound Toggle Button (Mobile & Desktop friendly) */}
-          <button
-            onClick={handleToggleSound}
-            aria-label={isMuted ? "Enable cinematic sound" : "Sound active (click to mute)"}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-[11px] font-mono tracking-wider backdrop-blur-md transition-all cursor-pointer ${
-              isMuted
-                ? 'bg-black/60 hover:bg-black/85 border-amber-400/40 text-amber-300 shadow-[0_0_15px_rgba(212,175,55,0.25)] hover:border-amber-400'
-                : 'bg-emerald-950/80 border-emerald-500/50 text-emerald-300 shadow-[0_0_15px_rgba(34,197,94,0.3)]'
-            }`}
-            title={isMuted ? "Click to enable cinematic sound" : "Sound active"}
-          >
-            {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
-            <span className="font-semibold">{isMuted ? 'ENABLE SOUND' : 'SOUND ON'}</span>
-          </button>
-
+        <header className="relative z-30 flex items-center justify-end p-4 sm:p-6 w-full text-xs font-mono">
           {/* Skip Intro Button */}
           <button
             onClick={handleFinish}
@@ -494,21 +462,6 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
                 ❤️‍🔥
               </span>
             </div>
-
-            {/* Seamless One-Tap Cinematic Audio Activation */}
-            {isMuted && phase === 0 && (
-              <motion.button
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                onClick={handleToggleSound}
-                className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/80 hover:bg-black/95 border border-amber-400/60 hover:border-amber-400 text-amber-300 text-xs font-mono tracking-wider backdrop-blur-md shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all cursor-pointer hover:scale-105 active:scale-95"
-                aria-label="Experience with cinematic sound. Click to enable audio."
-              >
-                <Volume2 className="w-4 h-4 text-amber-400 animate-pulse" />
-                <span className="font-bold">EXPERIENCE WITH SOUND [CLICK TO ENABLE]</span>
-              </motion.button>
-            )}
           </motion.div>
 
           {/* MONUMENTAL METALLIC CHROME TITLE CARD CONTAINER */}

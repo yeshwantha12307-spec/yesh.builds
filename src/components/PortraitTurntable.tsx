@@ -270,7 +270,6 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
     if (targetIndex !== currentFrameRef.current) {
       scheduleFrameDraw(targetIndex);
       setDisplayedFrame(targetIndex);
-      soundManager.playHover();
     }
   };
 

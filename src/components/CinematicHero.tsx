@@ -173,8 +173,8 @@ export const CinematicHero: React.FC = () => {
       </div>
 
       {/* VICE CITY CREATOR SIGNATURE + MINI 63-FRAME TURNTABLE */}
-      {/* Positioned in the empty bottom-right corner on desktop/tablet, scaled gracefully on mobile */}
-      <div className="sm:absolute sm:bottom-4 sm:right-6 lg:bottom-6 lg:right-8 xl:right-10 z-20 flex justify-center sm:block mt-6 sm:mt-0 scale-90 sm:scale-95 lg:scale-100 origin-center sm:origin-bottom-right">
+      {/* Positioned on the RIGHT side, in the bottom-right area on desktop, tablet, and mobile */}
+      <div className="flex justify-end pr-4 sm:pr-0 sm:absolute sm:bottom-4 sm:right-6 lg:bottom-6 lg:right-8 xl:right-10 z-20 mt-6 sm:mt-0 scale-90 sm:scale-95 lg:scale-100 origin-right sm:origin-bottom-right">
         <ViceCitySignature />
       </div>
     </section>

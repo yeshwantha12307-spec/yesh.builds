@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Volume1, Volume2, VolumeX, Clock, ChevronRight
+  Clock, ChevronRight
 } from 'lucide-react';
 import { DEVELOPER_INFO } from '../data/portfolioData';
 import { soundManager } from '../utils/audio';
@@ -143,31 +143,6 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
               <span className="font-semibold tracking-wider text-white">{timeStr}</span>
             </div>
 
-            {/* Sound Toggle & Volume Cycle Button */}
-            <button
-              onClick={() => {
-                soundManager.cycleVolume();
-              }}
-              aria-label={`Audio controls: ${isMuted ? 'Muted' : `${Math.round(volume * 100)}% volume`}. Click to cycle volume`}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border transition-all cursor-pointer font-mono text-[10px] ${
-                isMuted
-                  ? 'border-white/20 text-slate-400 hover:text-white bg-black/60'
-                  : 'border-amber-400/60 text-amber-300 bg-amber-950/40 shadow-[0_0_10px_rgba(212,175,55,0.3)]'
-              }`}
-              title={`Audio: ${isMuted ? 'Muted' : `${Math.round(volume * 100)}%`} (Click to cycle)`}
-            >
-              {isMuted ? (
-                <VolumeX className="w-3.5 h-3.5" />
-              ) : volume <= 0.4 ? (
-                <Volume1 className="w-3.5 h-3.5" />
-              ) : (
-                <Volume2 className="w-3.5 h-3.5" />
-              )}
-              <span className="font-bold tracking-wider hidden sm:inline">
-                {isMuted ? 'MUTED' : `${Math.round(volume * 100)}%`}
-              </span>
-            </button>
-
             {/* ESC / MENU Button */}
             <button
               onClick={() => {
@@ -242,43 +217,6 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
                   </button>
                 );
               })}
-
-              {/* AUDIO CONTROLS ROW */}
-              <div className="pt-3 border-t border-white/10 mt-3 flex items-center justify-between text-xs font-mono">
-                <span className="text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                  {isMuted ? <VolumeX className="w-3.5 h-3.5 text-slate-500" /> : <Volume2 className="w-3.5 h-3.5 text-amber-400" />}
-                  AUDIO:
-                </span>
-                <div className="flex items-center gap-1">
-                  {[
-                    { label: 'MUTE', val: 0 },
-                    { label: '30%', val: 0.3 },
-                    { label: '70%', val: 0.7 },
-                    { label: 'MAX', val: 1.0 },
-                  ].map((opt) => {
-                    const isCurrent = opt.val === 0 ? isMuted : (!isMuted && Math.abs(volume - opt.val) < 0.15);
-                    return (
-                      <button
-                        key={opt.label}
-                        onClick={() => {
-                          if (opt.val === 0) {
-                            soundManager.setMuted(true);
-                          } else {
-                            soundManager.setVolume(opt.val);
-                          }
-                        }}
-                        className={`px-2 py-0.5 rounded text-[10px] font-display font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                          isCurrent
-                            ? 'bg-amber-400 text-black shadow-md'
-                            : 'bg-white/5 hover:bg-white/15 text-slate-300'
-                        }`}
-                      >
-                        {opt.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
 
               <button
                 onClick={() => {

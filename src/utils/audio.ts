@@ -15,9 +15,9 @@ class SoundSystem {
   private masterFilter: BiquadFilterNode | null = null;
   private compressor: DynamicsCompressorNode | null = null;
 
-  public isMuted: boolean = true;
+  public isMuted: boolean = false;
   public volume: number = 0.7; // Default 70% volume
-  private userWantsSound: boolean = false;
+  private userWantsSound: boolean = true;
   private gestureListenerAttached: boolean = false;
 
   // Active continuous / loop nodes
@@ -47,21 +47,19 @@ class SoundSystem {
 
     try {
       const saved = localStorage.getItem(PREF_KEY);
-      if (saved === 'enabled') {
-        this.userWantsSound = true;
-        this.isMuted = false;
-        // Listen for first user gesture to unlock AudioContext
-        this.attachFirstGestureUnlock();
-      } else if (saved === 'muted') {
+      if (saved === 'muted') {
         this.userWantsSound = false;
         this.isMuted = true;
       } else {
-        // First visit: muted by default per modern browser autoplay rules
-        this.userWantsSound = false;
-        this.isMuted = true;
+        // Intro sound is enabled by default per requirements
+        this.userWantsSound = true;
+        this.isMuted = false;
+        // Listen for first user gesture to unlock AudioContext if suspended by browser
+        this.attachFirstGestureUnlock();
       }
     } catch {
-      this.isMuted = true;
+      this.isMuted = false;
+      this.userWantsSound = true;
     }
   }
 
@@ -772,10 +770,11 @@ class SoundSystem {
       gain.connect(master);
       noise.start(now);
 
-      // Start main portfolio ambient sound bed smoothly
+      // Cleanly stop intro audio and ensure NO continuous background audio continues into portfolio
       setTimeout(() => {
-        this.startMainAmbience();
-      }, 650);
+        this.stopIntroAudio();
+        this.stopAllAmbience();
+      }, 700);
     } catch {}
   }
 
@@ -789,46 +788,11 @@ class SoundSystem {
   // =========================================================================
 
   /**
-   * Main Portfolio Subtle Ambient Sound Bed (-26dB, velvety dark tone)
+   * Main Portfolio Background Ambience (Disabled per user requirement: NO background music or continuous ambience)
    */
   public startMainAmbience() {
-    if (this.isMuted || this.mainAmbienceGain) return;
-    const ctx = this.initContext();
-    const master = this.getMaster();
-    if (!ctx || !master) return;
-
-    try {
-      const now = ctx.currentTime;
-      const ambGain = ctx.createGain();
-      ambGain.gain.setValueAtTime(0.0001, now);
-      ambGain.gain.linearRampToValueAtTime(0.035, now + 2.5);
-
-      // Warm analog chord tone (55Hz A1 root)
-      const osc1 = ctx.createOscillator();
-      osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(55, now);
-
-      // Harmonic pad (110Hz)
-      const osc2 = ctx.createOscillator();
-      osc2.type = 'triangle';
-      osc2.frequency.setValueAtTime(110, now);
-      osc2.detune.setValueAtTime(4, now);
-
-      const filter = ctx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(120, now);
-
-      osc1.connect(filter);
-      osc2.connect(filter);
-      filter.connect(ambGain);
-      ambGain.connect(master);
-
-      osc1.start(now);
-      osc2.start(now);
-
-      this.mainAmbienceGain = ambGain;
-      this.mainAmbienceOscs = [osc1, osc2];
-    } catch {}
+    // Intentionally disabled: portfolio must have NO background music or continuous ambient audio.
+    return;
   }
 
   public stopMainAmbience(fadeDuration: number = 0.8) {
@@ -998,7 +962,7 @@ class SoundSystem {
    */
   public playClick() {
     if (this.isMuted) return;
-    if (!this.checkDebounce('click', 50)) return;
+    if (!this.checkDebounce('click', 65)) return;
     const ctx = this.initContext();
     const master = this.getMaster();
     if (!ctx || !master) return;
@@ -1022,31 +986,11 @@ class SoundSystem {
   }
 
   /**
-   * Extremely Quiet Micro-Hover (Warm tactile tick, felt more than heard)
+   * Hover Sound (Disabled per user requirement: no sounds on hover, mouse movements, or frame scrubbing)
    */
   public playHover() {
-    if (this.isMuted) return;
-    if (!this.checkDebounce('hover', 40)) return;
-    const ctx = this.initContext();
-    const master = this.getMaster();
-    if (!ctx || !master) return;
-
-    try {
-      const now = ctx.currentTime;
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(780, now);
-      osc.frequency.linearRampToValueAtTime(880, now + 0.016);
-
-      gain.gain.setValueAtTime(0.012, now);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.016);
-
-      osc.connect(gain);
-      gain.connect(master);
-      osc.start(now);
-      osc.stop(now + 0.016);
-    } catch {}
+    // Intentionally disabled per requirement: intentional game-style click sounds only
+    return;
   }
 
   /**

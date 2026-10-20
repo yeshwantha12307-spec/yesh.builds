@@ -38,3 +38,5 @@ __pycache__/
 
 # Local scratch directory
 scratch/
+
+.vercel
