@@ -13,7 +13,7 @@ export const AcademySection: React.FC = () => {
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mix-blend-luminosity transition-all duration-700"
-          style={{ backgroundImage: `url('/media/backgrounds/academy_campus.jpg')` }}
+          style={{ backgroundImage: `url('/media/backgrounds/academy_campus.webp'), url('/media/backgrounds/academy_campus.jpg')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-[#030712]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/95 via-transparent to-[#030712]/95" />
@@ -28,22 +28,22 @@ export const AcademySection: React.FC = () => {
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
               // ACADEMIC RECORD
             </div>
-            <h2 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-tight">
-              Education &amp; Credentials
+            <h2 className="font-heading font-bold text-5xl sm:text-6xl md:text-7xl text-white tracking-wider uppercase leading-none">
+              EDUCATION &amp; CREDENTIALS
             </h2>
             <p className="font-sans text-sm sm:text-base text-slate-300 max-w-2xl mt-2 leading-relaxed">
               Formal education progression from secondary schooling in Attur to ongoing undergraduate engineering studies at Anna University.
             </p>
           </div>
 
-          <div className="px-3.5 py-1.5 rounded-lg bg-black/80 border border-amber-500/30 text-amber-300 font-mono text-xs font-semibold flex items-center gap-2">
+          <div className="px-3.5 py-1.5 rounded-lg bg-black/80 border border-amber-500/30 text-amber-300 font-display font-bold text-xs tracking-wider uppercase flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             2 VERIFIED STAGES
           </div>
         </div>
 
         {/* PROGRESSION TIMELINE INDICATOR BAR */}
-        <div className="hidden md:flex items-center justify-between mb-8 px-6 py-3 rounded-xl bg-black/60 border border-white/10 backdrop-blur-md font-mono text-xs text-slate-400">
+        <div className="hidden md:flex items-center justify-between mb-8 px-6 py-3 rounded-xl bg-black/60 border border-white/10 backdrop-blur-md font-display font-bold text-xs tracking-wider uppercase text-slate-400">
           <div className="flex items-center gap-3 text-amber-300 font-semibold">
             <span className="w-6 h-6 rounded-full bg-amber-400 text-black flex items-center justify-center font-bold text-[11px]">1</span>
             <span>STAGE 01: SECONDARY &amp; HIGHER SECONDARY</span>
@@ -76,14 +76,14 @@ export const AcademySection: React.FC = () => {
               {/* Card Meta Badges */}
               <div className="flex items-center justify-between pb-3 border-b border-white/10 text-xs font-mono">
                 <div className="flex items-center gap-2">
-                  <span className="px-2.5 py-1 rounded-md bg-amber-400/15 border border-amber-400/30 text-amber-300 font-bold text-[11px] tracking-wider">
+                  <span className="px-2.5 py-1 rounded-md bg-amber-400/15 border border-amber-400/30 text-amber-300 font-display font-bold text-xs tracking-wider uppercase">
                     STAGE 01
                   </span>
-                  <span className="text-slate-400 font-semibold uppercase">
+                  <span className="text-slate-400 font-display font-bold tracking-wider uppercase">
                     SECONDARY EDUCATION
                   </span>
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/15 text-slate-300 text-[10px] font-semibold">
+                <span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/15 text-slate-300 text-[10px] font-display font-bold uppercase tracking-wider">
                   COMPLETED
                 </span>
               </div>
@@ -94,7 +94,7 @@ export const AcademySection: React.FC = () => {
                   <School className="w-4 h-4 text-amber-400" />
                   <span>Matriculation &amp; Higher Secondary</span>
                 </div>
-                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight leading-tight">
+                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-wide uppercase leading-tight">
                   Vivekananda Matric Higher Secondary School
                 </h3>
                 <div className="flex items-center gap-1.5 text-xs font-mono text-slate-400 mt-2">
@@ -111,12 +111,12 @@ export const AcademySection: React.FC = () => {
                 <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   {/* SSLC Metric Card */}
                   <div className="p-4 rounded-xl bg-black/60 border border-amber-400/30 backdrop-blur-md flex flex-col justify-between">
-                    <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 uppercase">
                       <span>SSLC (CLASS X)</span>
                       <Award className="w-4 h-4 text-amber-400" />
                     </div>
                     <div className="mt-2 flex items-baseline gap-1">
-                      <span className="font-display text-3xl sm:text-4xl text-white font-bold tracking-tight">
+                      <span className="font-heading text-4xl sm:text-5xl text-white font-bold tracking-wider">
                         73%
                       </span>
                     </div>
@@ -127,12 +127,12 @@ export const AcademySection: React.FC = () => {
 
                   {/* HSC Metric Card */}
                   <div className="p-4 rounded-xl bg-black/60 border border-amber-400/30 backdrop-blur-md flex flex-col justify-between">
-                    <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 uppercase">
                       <span>HSC (CLASS XII)</span>
                       <Award className="w-4 h-4 text-amber-400" />
                     </div>
                     <div className="mt-2 flex items-baseline gap-1">
-                      <span className="font-display text-3xl sm:text-4xl text-amber-400 font-bold tracking-tight">
+                      <span className="font-heading text-4xl sm:text-5xl text-amber-400 font-bold tracking-wider">
                         71.5%
                       </span>
                     </div>
@@ -157,8 +157,8 @@ export const AcademySection: React.FC = () => {
             </div>
 
             <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
-              <span>Foundation Phase</span>
-              <span className="text-amber-300 font-bold">Completed</span>
+              <span className="font-display uppercase tracking-wider">Foundation Phase</span>
+              <span className="text-amber-300 font-display font-bold uppercase tracking-wider">Completed</span>
             </div>
           </motion.div>
 
@@ -181,14 +181,14 @@ export const AcademySection: React.FC = () => {
               {/* Card Meta Badges */}
               <div className="flex items-center justify-between pb-3 border-b border-white/10 text-xs font-mono">
                 <div className="flex items-center gap-2">
-                  <span className="px-2.5 py-1 rounded-md bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-bold text-[11px] tracking-wider">
+                  <span className="px-2.5 py-1 rounded-md bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-display font-bold text-xs tracking-wider uppercase">
                     STAGE 02
                   </span>
-                  <span className="text-slate-400 font-semibold uppercase">
+                  <span className="text-slate-400 font-display font-bold tracking-wider uppercase">
                     HIGHER EDUCATION
                   </span>
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-[10px] font-bold flex items-center gap-1.5">
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-[10px] font-display font-bold tracking-wider uppercase flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   ACTIVE DEGREE
                 </span>
@@ -200,7 +200,7 @@ export const AcademySection: React.FC = () => {
                   <GraduationCap className="w-4 h-4 text-emerald-400" />
                   <span>Bachelor of Technology</span>
                 </div>
-                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight leading-tight">
+                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-wide uppercase leading-tight">
                   B.Tech Information Technology
                 </h3>
                 <div className="text-sm font-sans font-medium text-slate-200 mt-1">
@@ -229,12 +229,12 @@ export const AcademySection: React.FC = () => {
                 <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   {/* Current CGPA Metric Card */}
                   <div className="p-4 rounded-xl bg-black/60 border border-emerald-400/30 backdrop-blur-md flex flex-col justify-between">
-                    <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 uppercase">
                       <span>CURRENT CGPA</span>
                       <Sparkles className="w-4 h-4 text-emerald-400" />
                     </div>
                     <div className="mt-2 flex items-baseline gap-1">
-                      <span className="font-display text-3xl sm:text-4xl text-emerald-400 font-bold tracking-tight">
+                      <span className="font-heading text-4xl sm:text-5xl text-emerald-400 font-bold tracking-wider">
                         7.33
                       </span>
                       <span className="text-xs font-mono text-slate-400 font-semibold">/ 10</span>
@@ -246,7 +246,7 @@ export const AcademySection: React.FC = () => {
 
                   {/* University Registration ID */}
                   <div className="p-4 rounded-xl bg-black/60 border border-white/15 backdrop-blur-md flex flex-col justify-between">
-                    <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 uppercase">
                       <span>REGISTER NO.</span>
                       <BookOpen className="w-4 h-4 text-cyan-400" />
                     </div>

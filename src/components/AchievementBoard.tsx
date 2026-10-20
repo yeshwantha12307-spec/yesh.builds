@@ -39,7 +39,7 @@ export const AchievementBoard: React.FC = () => {
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mix-blend-luminosity transition-all duration-700"
-          style={{ backgroundImage: `url('/media/backgrounds/achievements_vault.jpg')` }}
+          style={{ backgroundImage: `url('/media/backgrounds/achievements_vault.webp'), url('/media/backgrounds/achievements_vault.jpg')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-[#030712]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/95 via-transparent to-[#030712]/95" />
@@ -54,7 +54,7 @@ export const AchievementBoard: React.FC = () => {
               <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
               // VERIFIED CREDENTIALS
             </div>
-            <h2 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-tight">
+            <h2 className="font-heading font-bold text-5xl sm:text-6xl md:text-7xl text-white uppercase tracking-wider leading-none">
               Certificates &amp; Honors
             </h2>
             <p className="font-sans text-sm sm:text-base text-slate-300 max-w-2xl mt-2 leading-relaxed">
@@ -69,7 +69,7 @@ export const AchievementBoard: React.FC = () => {
               <div className="text-[9px] text-amber-400 uppercase font-bold tracking-wider">
                 CREDENTIAL ARCHIVE
               </div>
-              <div className="text-xs font-bold text-white tracking-wide">
+              <div className="text-xs font-display font-bold text-white tracking-wider uppercase">
                 12 VERIFIED DOCUMENTS
               </div>
             </div>
@@ -88,10 +88,10 @@ export const AchievementBoard: React.FC = () => {
                   setActiveCategory(cat);
                 }}
                 onMouseEnter={() => soundManager.playHover()}
-                className={`px-3.5 py-1.5 rounded-lg font-mono text-xs tracking-wider transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-lg font-display text-xs uppercase tracking-wider transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-pink-600 text-white shadow-[0_0_15px_rgba(255,42,133,0.35)] font-semibold border border-pink-400/40'
-                    : 'bg-black/70 text-slate-400 hover:text-white border border-white/10 hover:bg-black/90'
+                    ? 'bg-pink-600 text-white shadow-[0_0_15px_rgba(255,42,133,0.35)] font-bold border border-pink-400/40'
+                    : 'bg-black/70 text-slate-400 hover:text-white border border-white/10 hover:bg-black/90 font-semibold'
                 }`}
               >
                 {cat}
@@ -115,11 +115,13 @@ export const AchievementBoard: React.FC = () => {
                 <img 
                   src={cert.imagePreview} 
                   alt={cert.title}
+                  width="300"
+                  height="176"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-                <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 backdrop-blur-md border border-white/10 text-[9px] font-mono text-emerald-400 font-bold uppercase">
+                <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 backdrop-blur-md border border-white/10 text-[9px] font-display text-emerald-400 font-bold uppercase tracking-wider">
                   VERIFIED
                 </div>
               </div>
@@ -129,9 +131,9 @@ export const AchievementBoard: React.FC = () => {
                 <div className="text-[10px] font-mono text-amber-400 uppercase tracking-wider">
                   {cert.organization}
                 </div>
-                <h4 className="font-display font-bold text-base text-white tracking-tight line-clamp-2 leading-snug group-hover:text-pink-400 transition-colors">
+                <h3 className="font-display font-bold text-base text-white tracking-wide uppercase line-clamp-2 leading-snug group-hover:text-pink-400 transition-colors">
                   {cert.title}
-                </h4>
+                </h3>
                 <div className="text-[11px] font-mono text-slate-400">
                   {cert.date}
                 </div>
@@ -168,15 +170,15 @@ export const AchievementBoard: React.FC = () => {
 
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
                 <div>
-                  <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight">
+                  <h3 className="font-heading font-bold text-3xl sm:text-4xl text-white uppercase tracking-wider leading-tight">
                     {selectedCert.title}
                   </h3>
-                  <div className="text-sm font-sans font-medium text-emerald-400 mt-1">
+                  <div className="text-sm font-display font-semibold uppercase tracking-wider text-emerald-400 mt-1">
                     {selectedCert.organization} • {selectedCert.date}
                   </div>
                 </div>
 
-                <span className="px-3 py-1 rounded-full bg-pink-950/80 border border-pink-500/40 text-xs font-mono text-pink-300 font-bold self-start sm:self-auto">
+                <span className="px-3 py-1 rounded-full bg-pink-950/80 border border-pink-500/40 text-xs font-display text-pink-300 font-bold uppercase tracking-wider self-start sm:self-auto">
                   {selectedCert.achievementType}
                 </span>
               </div>
@@ -186,13 +188,15 @@ export const AchievementBoard: React.FC = () => {
                 <img 
                   src={selectedCert.imagePreview} 
                   alt={selectedCert.title}
+                  width="800"
+                  height="600"
                   className="max-h-[55vh] w-auto object-contain"
                 />
               </div>
 
               {/* Description & Verification */}
               <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 text-sm text-slate-200">
-                <p>{selectedCert.description}</p>
+                <p className="font-sans leading-relaxed">{selectedCert.description}</p>
                 <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 font-semibold pt-1">
                   <CheckCircle2 className="w-4 h-4" />
                   <span>{selectedCert.keyVerification}</span>
@@ -207,7 +211,7 @@ export const AchievementBoard: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => soundManager.playClick()}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-display font-bold text-sm tracking-wide transition-all cursor-pointer shadow-[0_0_15px_rgba(255,42,133,0.4)]"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-display font-bold text-sm uppercase tracking-wider transition-all cursor-pointer shadow-[0_0_15px_rgba(255,42,133,0.4)]"
                   >
                     <FileText className="w-4 h-4" />
                     <span>VIEW OFFICIAL PDF</span>
@@ -218,7 +222,7 @@ export const AchievementBoard: React.FC = () => {
 
                 <button
                   onClick={closeCertModal}
-                  className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-display font-bold text-sm tracking-wide cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-display font-bold text-sm uppercase tracking-wider cursor-pointer"
                 >
                   CLOSE INSPECTOR
                 </button>

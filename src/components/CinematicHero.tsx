@@ -34,7 +34,7 @@ export const CinematicHero: React.FC = () => {
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30 mix-blend-luminosity scale-105 transition-transform duration-1000"
-          style={{ backgroundImage: `url('/media/backgrounds/hero_skyline.jpg')` }}
+          style={{ backgroundImage: `url('/media/backgrounds/hero_skyline.webp'), url('/media/backgrounds/hero_skyline.jpg')` }}
         />
         {/* Soft Vignette & Atmospheric Gradients Revealing Live Environment */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-black/60" />
@@ -63,22 +63,22 @@ export const CinematicHero: React.FC = () => {
               </span>
             </div>
 
-            <ul className="space-y-2 text-xs font-mono">
+            <ul className="space-y-2 text-xs font-display">
               <li className="flex items-center gap-2 text-slate-200">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="tracking-wide">VERIFIED PROFILE LOADED</span>
+                <span className="tracking-wider uppercase font-semibold">VERIFIED PROFILE LOADED</span>
               </li>
               <li className="flex items-center gap-2 text-slate-200">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="tracking-wide">TECHNICAL ARSENAL READY</span>
+                <span className="tracking-wider uppercase font-semibold">TECHNICAL ARSENAL READY</span>
               </li>
               <li className="flex items-center gap-2 text-slate-200">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="tracking-wide">FEATURED PROJECTS ACTIVE</span>
+                <span className="tracking-wider uppercase font-semibold">FEATURED PROJECTS ACTIVE</span>
               </li>
               <li className="flex items-center gap-2 text-slate-200">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="tracking-wide">DIRECT CONTACT OPEN</span>
+                <span className="tracking-wider uppercase font-semibold">DIRECT CONTACT OPEN</span>
               </li>
             </ul>
           </motion.div>
@@ -91,8 +91,8 @@ export const CinematicHero: React.FC = () => {
             className="hidden sm:flex flex-col items-end text-right font-mono"
           >
             <div className="px-3.5 py-1.5 rounded-lg bg-black/70 border border-white/10 backdrop-blur-md">
-              <div className="text-[9px] text-slate-400 uppercase tracking-widest">DEV CYCLE</div>
-              <div className="font-display font-bold text-xl sm:text-2xl text-emerald-400 tracking-wider flex items-center gap-1">
+              <div className="text-[9px] text-slate-400 uppercase tracking-widest font-mono">DEV CYCLE</div>
+              <div className="font-heading font-bold text-2xl sm:text-3xl text-emerald-400 tracking-wider uppercase flex items-center gap-1 leading-none mt-0.5">
                 <span>{words[typewriterIndex]}</span>
                 <span className="w-1.5 h-4 bg-emerald-400 animate-pulse inline-block" />
               </div>
@@ -111,10 +111,10 @@ export const CinematicHero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/80 border border-emerald-500/40 text-emerald-300 font-mono text-xs tracking-widest mb-4 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.2)]"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/80 border border-emerald-500/40 text-emerald-300 font-display font-bold text-xs sm:text-sm tracking-wider uppercase mb-4 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.2)]"
             >
               <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="font-bold">{PROFILE.roleBadge}</span>
+              <span>{PROFILE.roleBadge}</span>
               <span className="text-slate-500">•</span>
               <span className="text-slate-300">{PROFILE.degree}</span>
             </motion.div>
@@ -124,7 +124,7 @@ export const CinematicHero: React.FC = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="font-gta font-extrabold text-6xl sm:text-8xl md:text-9xl tracking-tight text-white uppercase text-shadow-gta leading-none"
+              className="font-heading font-extrabold text-6xl sm:text-8xl md:text-9xl tracking-tight text-white uppercase text-shadow-gta leading-none"
             >
               <span>YESH </span>
               <span className="text-emerald-400 text-shadow-lime">BUILDS</span>
@@ -150,7 +150,7 @@ export const CinematicHero: React.FC = () => {
               <button
                 onClick={() => scrollTo('missions')}
                 onMouseEnter={() => soundManager.playHover()}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-display font-bold text-base sm:text-lg tracking-wide transition-all duration-200 shadow-[0_0_20px_rgba(34,197,94,0.5)] cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-display font-bold text-base sm:text-lg tracking-wider uppercase transition-all duration-200 shadow-[0_0_20px_rgba(34,197,94,0.5)] cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Target className="w-5 h-5 text-black" />
                 <span>EXPLORE PROJECTS</span>
@@ -162,7 +162,7 @@ export const CinematicHero: React.FC = () => {
                 rel="noopener noreferrer"
                 onClick={() => soundManager.playClick()}
                 onMouseEnter={() => soundManager.playHover()}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-black/75 hover:bg-white/10 border border-white/25 text-white font-display font-bold text-base sm:text-lg tracking-wide transition-all duration-200 backdrop-blur-md shadow-lg cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-black/75 hover:bg-white/10 border border-white/25 text-white font-display font-bold text-base sm:text-lg tracking-wider uppercase transition-all duration-200 backdrop-blur-md shadow-lg cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
               >
                 <FileText className="w-5 h-5 text-amber-400" />
                 <span>VIEW RESUME</span>
@@ -195,7 +195,7 @@ export const CinematicHero: React.FC = () => {
             onClick={() => scrollTo('profile')}
             className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors cursor-pointer group"
           >
-            <span className="text-[11px] tracking-widest uppercase font-mono">SCROLL TO INSPECT DOSSIER</span>
+            <span className="text-[11px] font-display font-bold tracking-widest uppercase text-slate-300 group-hover:text-white transition-colors">SCROLL TO INSPECT DOSSIER</span>
             <ChevronDown className="w-4 h-4 text-emerald-400 animate-bounce" />
           </button>
         </div>

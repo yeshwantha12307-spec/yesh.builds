@@ -22,7 +22,7 @@ export const CharacterProfile: React.FC = () => {
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mix-blend-luminosity transition-all duration-700"
-          style={{ backgroundImage: `url('/media/backgrounds/about_ocean.jpg')` }}
+          style={{ backgroundImage: `url('/media/backgrounds/about_ocean.webp'), url('/media/backgrounds/about_ocean.jpg')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-[#030712]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/95 via-transparent to-[#030712]/95" />
@@ -36,8 +36,8 @@ export const CharacterProfile: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
             // BACKGROUND &amp; IDENTITY
           </div>
-          <h2 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-tight">
-            About Me
+          <h2 className="font-heading font-bold text-5xl sm:text-6xl md:text-7xl text-white tracking-wider uppercase leading-none">
+            ABOUT ME
           </h2>
           <p className="font-sans text-sm sm:text-base text-slate-300 max-w-2xl mt-2 leading-relaxed">
             Software engineering student focused on practical full-stack web platforms, applied computer vision tools, and reliable user interfaces.
@@ -60,30 +60,33 @@ export const CharacterProfile: React.FC = () => {
               <div className="flex items-center gap-4 sm:gap-5">
                 {/* Frameless Operative Cutout */}
                 <div className="relative w-20 h-24 sm:w-24 sm:h-28 shrink-0 flex items-end justify-center select-none">
-                  <img
-                    src="/media/yeshwanth_portfolio_cutout.png"
-                    alt="Yeshwanth Akbar"
-                    loading="lazy"
-                    width="96"
-                    height="112"
-                    className="w-full h-auto max-h-full object-contain object-bottom drop-shadow-[0_10px_20px_rgba(0,0,0,0.85)]"
-                  />
+                  <picture>
+                    <source type="image/webp" srcSet="/media/yeshwanth_portfolio_cutout.webp" />
+                    <img
+                      src="/media/yeshwanth_portfolio_cutout.png"
+                      alt="Yeshwanth Akbar"
+                      loading="lazy"
+                      width="96"
+                      height="112"
+                      className="w-full h-auto max-h-full object-contain object-bottom drop-shadow-[0_10px_20px_rgba(0,0,0,0.85)]"
+                    />
+                  </picture>
                 </div>
 
                 <div>
                   <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">
                     DEVELOPER PROFILE
                   </span>
-                  <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight leading-none mt-1">
+                  <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-wide uppercase leading-none mt-1">
                     {PROFILE.name}
                   </h3>
-                  <div className="text-xs font-mono text-emerald-400 font-semibold mt-1.5">
+                  <div className="text-xs font-display font-bold text-emerald-400 tracking-wider uppercase mt-1.5">
                     {PROFILE.roleBadge} • {PROFILE.location}
                   </div>
                 </div>
               </div>
 
-              <div className="px-3.5 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 font-mono text-xs font-semibold text-center self-start sm:self-auto">
+              <div className="px-3.5 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 font-display font-bold text-xs tracking-wider uppercase text-center self-start sm:self-auto">
                 B.TECH IT • CLASS OF 2028
               </div>
             </div>
@@ -102,17 +105,17 @@ export const CharacterProfile: React.FC = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-4 border-t border-white/10">
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
                 <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">ACADEMIC CGPA</div>
-                <div className="font-display font-bold text-2xl text-emerald-400 tracking-tight mt-0.5">7.33 / 10.0</div>
+                <div className="font-heading font-bold text-3xl text-emerald-400 tracking-wider mt-0.5">7.33 / 10.0</div>
                 <div className="text-[11px] font-sans text-slate-400 truncate mt-0.5">Anna University</div>
               </div>
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
                 <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">PRIMARY BUILDS</div>
-                <div className="font-display font-bold text-2xl text-cyan-400 tracking-tight mt-0.5">2 FEATURED</div>
+                <div className="font-heading font-bold text-3xl text-cyan-400 tracking-wider mt-0.5">2 FEATURED</div>
                 <div className="text-[11px] font-sans text-slate-400 truncate mt-0.5">CampusFix &amp; AngadiFlow</div>
               </div>
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 col-span-2 sm:col-span-1">
                 <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">CREDENTIALS</div>
-                <div className="font-display font-bold text-2xl text-amber-400 tracking-tight mt-0.5">12 VERIFIED</div>
+                <div className="font-heading font-bold text-3xl text-amber-400 tracking-wider mt-0.5">12 VERIFIED</div>
                 <div className="text-[11px] font-sans text-slate-400 truncate mt-0.5">Workshops &amp; Internships</div>
               </div>
             </div>
@@ -121,7 +124,7 @@ export const CharacterProfile: React.FC = () => {
             <div className="pt-2">
               <button
                 onClick={() => scrollTo('journey')}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-display font-bold text-sm tracking-wide transition-all cursor-pointer shadow-[0_0_15px_rgba(245,158,11,0.4)]"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-display font-bold text-sm tracking-wider uppercase transition-all cursor-pointer shadow-[0_0_15px_rgba(245,158,11,0.4)]"
               >
                 <span>VIEW CAREER TIMELINE</span>
                 <Compass className="w-4 h-4 text-black" />
@@ -140,7 +143,7 @@ export const CharacterProfile: React.FC = () => {
             {/* Active Goals Panel */}
             <div className="bg-black/80 border border-white/15 rounded-2xl p-6 sm:p-7 backdrop-blur-md shadow-2xl">
               <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
-                <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs font-semibold tracking-widest uppercase">
+                <div className="flex items-center gap-2 text-emerald-400 font-display font-bold text-xs tracking-wider uppercase">
                   <Target className="w-4 h-4 text-emerald-400" />
                   CURRENT DEVELOPMENT PRIORITIES
                 </div>
@@ -173,7 +176,7 @@ export const CharacterProfile: React.FC = () => {
                 <div className="text-[10px] font-mono text-cyan-400 font-semibold uppercase tracking-wider">
                   COLLEGE AFFILIATION
                 </div>
-                <div className="text-sm font-bold text-white leading-snug">
+                <div className="text-sm font-display font-bold text-white uppercase tracking-wide leading-snug">
                   M.A.M. College of Engineering &amp; Technology
                 </div>
                 <div className="text-[11px] text-slate-300 font-mono mt-0.5">

@@ -119,7 +119,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
     }
 
     const bgImg = new Image();
-    bgImg.src = '/media/backgrounds/intro_supra_bg.jpg';
+    bgImg.src = '/media/backgrounds/intro_supra_bg.webp';
 
     const TOTAL_DURATION = 8200; // 8.2 seconds total cinematic sequence
     const startTime = performance.now();
@@ -378,11 +378,14 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
           className="absolute inset-0 pointer-events-none overflow-hidden"
         >
           {/* Base Toyota Supra Night Scene blended into live environment */}
-          <img
-            src="/media/backgrounds/intro_supra_bg.jpg"
-            alt="Toyota Supra Burnout Night Scene"
-            className="w-full h-full object-cover object-center filter brightness-[0.85] contrast-[1.1] opacity-70 mix-blend-screen"
-          />
+          <picture>
+            <source type="image/webp" srcSet="/media/backgrounds/intro_supra_bg.webp" />
+            <img
+              src="/media/backgrounds/intro_supra_bg.jpg"
+              alt="Toyota Supra Burnout Night Scene"
+              className="w-full h-full object-cover object-center filter brightness-[0.85] contrast-[1.1] opacity-70 mix-blend-screen"
+            />
+          </picture>
 
           {/* Deep Cinematic Vignette & Edge Focus */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(0,0,0,0.85)_100%)]" />
@@ -458,6 +461,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
           {/* Skip Intro Button */}
           <button
             onClick={handleFinish}
+            aria-label="Skip Intro sequence"
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 backdrop-blur-md hover:bg-black/80 border border-white/20 text-white font-mono text-[11px] tracking-wider transition-all duration-200 cursor-pointer shadow-lg hover:scale-105 active:scale-95"
             title="Skip Intro (Space / Esc)"
           >
@@ -510,7 +514,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
           {/* MONUMENTAL METALLIC CHROME TITLE CARD CONTAINER */}
           <div className="relative w-full max-w-5xl mx-auto flex flex-col items-center justify-center py-4 sm:py-8">
             
-            {/* Official 3D Y Brand Emblem Reveal */}
+            {/* Official 3D Y Brand Emblem Reveal (Refined Scale) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.85, y: -10 }}
               animate={{
@@ -521,7 +525,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="mb-4 sm:mb-6 relative flex items-center justify-center"
             >
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 select-none">
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 select-none">
                 {/* Dynamic Ambient Gold Rim Glow */}
                 <div
                   className={`absolute inset-0 rounded-full bg-gradient-to-tr from-amber-500/35 to-red-600/30 blur-xl pointer-events-none transform scale-125 transition-opacity duration-700 ${
@@ -529,13 +533,16 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
                   }`}
                   aria-hidden="true"
                 />
-                <img
-                  src="/brand/y_emblem.png"
-                  alt="Yeshwanth 3D Emblem"
-                  width={128}
-                  height={128}
-                  className="relative z-10 w-full h-full object-contain filter drop-shadow-[0_12px_28px_rgba(0,0,0,0.95)]"
-                />
+                <picture>
+                  <source type="image/webp" srcSet="/brand/y_emblem.webp" />
+                  <img
+                    src="/brand/y_emblem.png"
+                    alt="Yeshwanth 3D Emblem"
+                    width={112}
+                    height={112}
+                    className="relative z-10 w-full h-full object-contain filter drop-shadow-[0_12px_28px_rgba(0,0,0,0.95)]"
+                  />
+                </picture>
               </div>
             </motion.div>
 
@@ -552,7 +559,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                   className="relative select-none"
                 >
-                  <h1 className="font-gta font-extrabold text-6xl sm:text-8xl md:text-9xl lg:text-[140px] tracking-wider text-chrome uppercase leading-none drop-shadow-[0_12px_35px_rgba(0,0,0,0.98)]">
+                  <h1 className="font-heading font-extrabold text-6xl sm:text-8xl md:text-9xl lg:text-[135px] tracking-wider text-chrome uppercase leading-none drop-shadow-[0_12px_35px_rgba(0,0,0,0.98)]">
                     PORTFOLIO
                   </h1>
 
@@ -573,7 +580,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
                   transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                   className="relative select-none text-center flex flex-col items-center"
                 >
-                  <h1 className="font-gta font-black text-6xl sm:text-8xl md:text-9xl lg:text-[140px] tracking-tight uppercase leading-none drop-shadow-[0_15px_45px_rgba(0,0,0,0.98)]">
+                  <h1 className="font-heading font-black text-6xl sm:text-8xl md:text-9xl lg:text-[135px] tracking-tight uppercase leading-none drop-shadow-[0_15px_45px_rgba(0,0,0,0.98)]">
                     <span className="text-chrome">YESH.</span>
                     <span className="text-emerald-400 text-shadow-lime ml-2">BUILDS</span>
                   </h1>
@@ -583,10 +590,10 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.15 }}
-                    className="mt-4 sm:mt-5 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-black/75 backdrop-blur-md border border-emerald-500/40 text-emerald-300 font-mono text-xs sm:text-sm tracking-wider shadow-[0_0_20px_rgba(16,185,129,0.25)]"
+                    className="mt-4 sm:mt-5 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-black/75 backdrop-blur-md border border-emerald-500/40 text-emerald-300 font-display font-bold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_20px_rgba(16,185,129,0.25)]"
                   >
                     <Sparkles className="w-4 h-4 text-emerald-400" />
-                    <span className="font-bold">SOFTWARE DEVELOPER • WEB &amp; APPLIED AI</span>
+                    <span>SOFTWARE DEVELOPER • WEB &amp; APPLIED AI</span>
                   </motion.div>
 
                   {/* Educational & Geographic Telemetry */}
@@ -613,7 +620,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
               >
                 <button
                   onClick={handleFinish}
-                  className="flex items-center gap-3 px-8 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-display font-bold text-xl sm:text-2xl tracking-wide transition-all duration-200 cursor-pointer shadow-[0_0_30px_rgba(34,197,94,0.7)] hover:scale-105 active:scale-95"
+                  className="flex items-center gap-3 px-8 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-display font-bold text-xl sm:text-2xl tracking-wider uppercase transition-all duration-200 cursor-pointer shadow-[0_0_30px_rgba(34,197,94,0.7)] hover:scale-105 active:scale-95"
                   aria-label="Enter portfolio experience"
                 >
                   <span>ENTER PORTFOLIO</span>
@@ -633,8 +640,10 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
           <div className="flex items-center justify-between text-[11px] font-mono text-slate-300">
             <div className="flex items-center gap-2">
               <img
-                src="/brand/y_emblem.png"
+                src="/brand/y_emblem.webp"
                 alt="Y Emblem"
+                width={16}
+                height={16}
                 className="w-4 h-4 object-contain filter drop-shadow"
               />
               <span className="text-white font-bold tracking-wider">YESH.BUILDS</span>

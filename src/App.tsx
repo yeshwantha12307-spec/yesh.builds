@@ -55,21 +55,29 @@ export function App() {
     }
   }, []);
 
-  // Intersection observer to track current visible section for HUD radar objective tracker
+  // Optimized scroll tracker for HUD radar objective tracker using requestAnimationFrame
   useEffect(() => {
     const sections = ['hero', 'profile', 'academy', 'skills', 'missions', 'journey', 'achievements', 'contact'];
+    let ticking = false;
+
     const handleScroll = () => {
-      const scrollY = window.scrollY + 250;
-      for (const sectionId of sections) {
-        const el = document.getElementById(sectionId);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollY >= top && scrollY < top + height) {
-            setActiveSection(sectionId);
-            break;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY + 250;
+          for (const sectionId of sections) {
+            const el = document.getElementById(sectionId);
+            if (el) {
+              const top = el.offsetTop;
+              const height = el.offsetHeight;
+              if (scrollY >= top && scrollY < top + height) {
+                setActiveSection((prev) => (prev !== sectionId ? sectionId : prev));
+                break;
+              }
+            }
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 

@@ -51,14 +51,17 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       )}
 
       {/* Official 3D Metallic Red-and-Gold Y Emblem */}
-      <img
-        src="/brand/y_emblem.png"
-        alt="Yeshwanth Akbar Official 3D Y Logo"
-        width={dim}
-        height={dim}
-        className="relative z-10 w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
-        loading="eager"
-      />
+      <picture>
+        <source type="image/webp" srcSet="/brand/y_emblem.webp" />
+        <img
+          src="/brand/y_emblem.png"
+          alt="Yeshwanth Akbar Official 3D Y Logo"
+          width={dim}
+          height={dim}
+          className="relative z-10 w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+          loading="eager"
+        />
+      </picture>
     </div>
   );
 };

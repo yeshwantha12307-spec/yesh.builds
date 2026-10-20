@@ -90,7 +90,7 @@ export const ContactMission: React.FC = () => {
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mix-blend-luminosity transition-all duration-700"
-          style={{ backgroundImage: `url('/media/backgrounds/contact_night.jpg')` }}
+          style={{ backgroundImage: `url('/media/backgrounds/contact_night.webp'), url('/media/backgrounds/contact_night.jpg')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-[#030712]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/95 via-transparent to-[#030712]/95" />
@@ -104,7 +104,7 @@ export const ContactMission: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             // DIRECT COMMUNICATION
           </div>
-          <h2 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-tight">
+          <h2 className="font-heading font-bold text-5xl sm:text-6xl md:text-7xl text-white uppercase tracking-wider leading-none">
             Start a Conversation
           </h2>
           <p className="font-sans text-sm sm:text-base text-slate-300 max-w-2xl mt-2 leading-relaxed">
@@ -121,7 +121,7 @@ export const ContactMission: React.FC = () => {
               <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">
                 DIRECT CHANNELS
               </span>
-              <div className="font-display font-bold text-xl text-white tracking-tight mt-1">
+              <div className="font-heading font-bold text-2xl sm:text-3xl text-white uppercase tracking-wider mt-1">
                 Communication Directory
               </div>
             </div>
@@ -267,7 +267,7 @@ export const ContactMission: React.FC = () => {
               
               {/* Name Field */}
               <div>
-                <label htmlFor="contact-name" className="block text-xs font-mono text-slate-300 uppercase tracking-wider mb-1.5">
+                <label htmlFor="contact-name" className="block text-xs font-display font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                   Your Full Name *
                 </label>
                 <input 
@@ -292,7 +292,7 @@ export const ContactMission: React.FC = () => {
 
               {/* Email Field */}
               <div>
-                <label htmlFor="contact-email" className="block text-xs font-mono text-slate-300 uppercase tracking-wider mb-1.5">
+                <label htmlFor="contact-email" className="block text-xs font-display font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                   Your Email Address *
                 </label>
                 <input 
@@ -317,7 +317,7 @@ export const ContactMission: React.FC = () => {
 
               {/* Message Field */}
               <div>
-                <label htmlFor="contact-message" className="block text-xs font-mono text-slate-300 uppercase tracking-wider mb-1.5">
+                <label htmlFor="contact-message" className="block text-xs font-display font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                   Your Message / Inquiry *
                 </label>
                 <textarea 
@@ -344,7 +344,7 @@ export const ContactMission: React.FC = () => {
               <button
                 type="submit"
                 onMouseEnter={() => soundManager.playHover()}
-                className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-display font-bold text-base sm:text-lg tracking-wide transition-all duration-200 shadow-[0_0_20px_rgba(34,197,94,0.4)] cursor-pointer flex items-center justify-center gap-2 mt-2 hover:scale-[1.01] active:scale-[0.99]"
+                className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-display font-bold text-base sm:text-lg tracking-wider uppercase transition-all duration-200 shadow-[0_0_20px_rgba(34,197,94,0.4)] cursor-pointer flex items-center justify-center gap-2 mt-2 hover:scale-[1.01] active:scale-[0.99]"
               >
                 <span>SEND DIRECT MESSAGE</span>
                 <Send className="w-4 h-4 text-black" />

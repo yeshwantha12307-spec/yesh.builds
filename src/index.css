@@ -39,7 +39,7 @@ body {
   letter-spacing: -0.011em;
 }
 
-/* Editorial Typography System Tokens */
+/* Game-Inspired Editorial Typography System Tokens */
 .text-ivory {
   color: #f8fafc;
 }
@@ -49,19 +49,29 @@ body {
 }
 
 .heading-hero {
-  font-family: 'Bebas Neue', 'Space Grotesk', sans-serif;
-  letter-spacing: 0.02em;
+  font-family: 'Teko', 'Oswald', 'Bebas Neue', sans-serif;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .heading-section {
-  font-family: 'Space Grotesk', sans-serif;
-  letter-spacing: -0.03em;
+  font-family: 'Teko', 'Oswald', 'Bebas Neue', sans-serif;
+  letter-spacing: 0.04em;
   font-weight: 700;
+  text-transform: uppercase;
+}
+
+.label-game {
+  font-family: 'Rajdhani', 'Space Grotesk', sans-serif;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .label-technical {
   font-family: 'JetBrains Mono', monospace;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   font-size: 0.75rem;
 }
 

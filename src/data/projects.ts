@@ -31,7 +31,7 @@ export const FEATURED_PROJECTS: ProjectMission[] = [
     techStack: ["React", "TypeScript", "Tailwind CSS", "Supabase", "PostgreSQL"],
     liveUrl: "https://campus-fix-woad.vercel.app/",
     status: "ACTIVE MISSION",
-    previewImage: "/projects/mamcet-campus-entrance.png",
+    previewImage: "/projects/mamcet-campus-entrance.webp",
     themeColor: "from-cyan-500/20 to-blue-600/10",
     accentColor: "#00f0ff"
   },
@@ -51,7 +51,7 @@ export const FEATURED_PROJECTS: ProjectMission[] = [
     techStack: ["React", "JavaScript", "Tailwind CSS", "Vite"],
     liveUrl: "https://angadiflow.in/",
     status: "COMPLETED",
-    previewImage: "/media/backgrounds/projects_laptop.jpg",
+    previewImage: "/media/backgrounds/projects_laptop.webp",
     themeColor: "from-emerald-500/20 to-teal-600/10",
     accentColor: "#22c55e"
   },
@@ -71,7 +71,7 @@ export const FEATURED_PROJECTS: ProjectMission[] = [
     techStack: ["React 18", "TypeScript", "Tailwind CSS", "Web Audio API", "HTML5 Canvas"],
     liveUrl: "https://yesh-builds.vercel.app/",
     status: "ACTIVE MISSION",
-    previewImage: "/media/backgrounds/hero_skyline.jpg",
+    previewImage: "/media/backgrounds/hero_skyline.webp",
     themeColor: "from-amber-500/20 to-orange-600/10",
     accentColor: "#f59e0b"
   }

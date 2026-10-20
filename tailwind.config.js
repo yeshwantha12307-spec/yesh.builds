@@ -25,11 +25,13 @@ export default {
         }
       },
       fontFamily: {
-        display: ['"Space Grotesk"', '"Inter"', 'system-ui', 'sans-serif'],
+        heading: ['"Teko"', '"Oswald"', '"Bebas Neue"', 'sans-serif'],
+        display: ['"Rajdhani"', '"Space Grotesk"', 'sans-serif'],
+        game: ['"Rajdhani"', '"Space Grotesk"', 'sans-serif'],
         sans: ['"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'Menlo', 'Consolas', 'monospace'],
-        gta: ['"Bebas Neue"', '"Space Grotesk"', 'Impact', 'sans-serif'],
-        script: ['"Space Grotesk"', 'sans-serif']
+        gta: ['"Teko"', '"Oswald"', '"Bebas Neue"', 'Impact', 'sans-serif'],
+        script: ['"Rajdhani"', '"Space Grotesk"', 'sans-serif']
       },
       backgroundImage: {
         'hud-grid': 'radial-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 0)',

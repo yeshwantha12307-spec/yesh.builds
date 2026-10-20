@@ -65,7 +65,7 @@ const CityBuildings: React.FC<{ mouse: React.MutableRefObject<{ x: number; y: nu
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} scale={[0.83, 0.83, 0.83]}>
       {buildings.map((b, idx) => (
         <group key={idx} position={[b.x, b.h / 2 - 5, b.z]}>
           {/* Main Tower Box */}
@@ -223,7 +223,7 @@ export const CityScene3D: React.FC = () => {
   return (
     <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
       <Canvas
-        camera={{ position: [0, 5, 20], fov: 50, near: 0.1, far: 180 }}
+        camera={{ position: [0, 5.5, 24], fov: 50, near: 0.1, far: 180 }}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         onCreated={({ gl, scene }) => {
           gl.setClearColor(0x000000, 0);

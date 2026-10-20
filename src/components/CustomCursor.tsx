@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 export const CustomCursor: React.FC = () => {
-  const [pos, setPos] = useState({ x: -100, y: -100 });
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const isPointerRef = useRef(false);
+  const cursorTextRef = useRef('');
+
   const [isPointer, setIsPointer] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [cursorText, setCursorText] = useState('');
@@ -14,23 +17,31 @@ export const CustomCursor: React.FC = () => {
     setIsVisible(true);
 
     const onMouseMove = (e: MouseEvent) => {
-      setPos({ x: e.clientX, y: e.clientY });
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      }
 
       // Check if hovering over clickable or custom targeted element
       const target = e.target as HTMLElement | null;
       if (target) {
-        const interactive = target.closest('button, a, input, textarea, select, [role="button"], .interactive-target');
-        setIsPointer(!!interactive);
-        
-        const customAction = target.closest('[data-cursor-text]')?.getAttribute('data-cursor-text');
-        setCursorText(customAction || '');
+        const interactive = !!target.closest('button, a, input, textarea, select, [role="button"], .interactive-target');
+        if (interactive !== isPointerRef.current) {
+          isPointerRef.current = interactive;
+          setIsPointer(interactive);
+        }
+
+        const customAction = target.closest('[data-cursor-text]')?.getAttribute('data-cursor-text') || '';
+        if (customAction !== cursorTextRef.current) {
+          cursorTextRef.current = customAction;
+          setCursorText(customAction);
+        }
       }
     };
 
     const onMouseLeave = () => setIsVisible(false);
     const onMouseEnter = () => setIsVisible(true);
 
-    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
     document.addEventListener('mouseleave', onMouseLeave);
     document.addEventListener('mouseenter', onMouseEnter);
 
@@ -45,9 +56,10 @@ export const CustomCursor: React.FC = () => {
 
   return (
     <div
-      className="pointer-events-none fixed top-0 left-0 z-50 transition-opacity duration-300"
+      ref={cursorRef}
+      className="pointer-events-none fixed top-0 left-0 z-50 will-change-transform transition-opacity duration-300"
       style={{
-        transform: `translate3d(${pos.x}px, ${pos.y}px, 0)`,
+        transform: 'translate3d(-100px, -100px, 0)',
       }}
     >
       {/* Outer Tactical Crosshair / Ring */}

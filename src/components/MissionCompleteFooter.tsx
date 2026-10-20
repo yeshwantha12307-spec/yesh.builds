@@ -30,6 +30,7 @@ export const MissionCompleteFooter: React.FC = () => {
   const navLinks = [
     { label: 'HOME', href: '#hero' },
     { label: 'ABOUT', href: '#profile' },
+    { label: 'ACADEMY', href: '#academy' },
     { label: 'SKILLS', href: '#skills' },
     { label: 'PROJECTS', href: '#missions' },
     { label: 'JOURNEY', href: '#journey' },
@@ -53,7 +54,7 @@ export const MissionCompleteFooter: React.FC = () => {
       >
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25 mix-blend-luminosity"
-          style={{ backgroundImage: `url('/media/backgrounds/complete_sunrise.jpg')` }}
+          style={{ backgroundImage: `url('/media/backgrounds/complete_sunrise.webp'), url('/media/backgrounds/complete_sunrise.jpg')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/70 to-[#030712]/90" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/85 via-transparent to-[#030712]/85" />
@@ -64,7 +65,7 @@ export const MissionCompleteFooter: React.FC = () => {
             <span className="text-[10px] font-mono font-bold text-emerald-400 tracking-widest uppercase">
               STATUS // CAMPAIGN CONCLUDED
             </span>
-            <h3 className="font-gta text-6xl sm:text-8xl text-white tracking-wide text-shadow-gta leading-none mt-1">
+            <h3 className="font-heading font-extrabold text-6xl sm:text-8xl md:text-9xl text-white uppercase tracking-wider text-shadow-gta leading-none mt-1">
               MISSION <span className="text-emerald-400 text-shadow-lime">COMPLETE</span>
             </h3>
             <p className="font-sans text-sm sm:text-base text-slate-300 max-w-xl mt-2 leading-relaxed">
@@ -74,7 +75,7 @@ export const MissionCompleteFooter: React.FC = () => {
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-display font-bold text-base sm:text-lg tracking-wide transition-all duration-200 shadow-[0_0_20px_rgba(255,42,133,0.5)] cursor-pointer hover:scale-[1.02] active:scale-[0.98] shrink-0"
+            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-display font-bold text-base sm:text-lg uppercase tracking-wider transition-all duration-200 shadow-[0_0_20px_rgba(255,42,133,0.5)] cursor-pointer hover:scale-[1.02] active:scale-[0.98] shrink-0"
           >
             <span>BACK TO TOP</span>
             <ArrowUp className="w-5 h-5" />
@@ -88,17 +89,17 @@ export const MissionCompleteFooter: React.FC = () => {
           <div className="flex items-center gap-3">
             <BrandLogo size={36} withGlow={true} animated={true} />
             <div>
-              <div className="font-display font-bold text-base text-white tracking-wide">
+              <div className="font-heading font-bold text-lg text-white uppercase tracking-wider">
                 YESH.BUILDS
               </div>
-              <div className="text-[10px] text-slate-400">
+              <div className="text-[10px] text-slate-400 font-mono">
                 BUILT BY YESHWANTH AKBAR • B.TECH IT // ANNA UNIVERSITY
               </div>
             </div>
           </div>
 
           {/* Quick Nav links */}
-          <div className="flex flex-wrap justify-center gap-4 text-[11px] font-mono">
+          <div className="flex flex-wrap justify-center gap-4 text-xs font-display font-bold uppercase tracking-wider">
             {navLinks.map((link) => (
               <button
                 key={link.label}

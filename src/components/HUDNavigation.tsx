@@ -106,7 +106,7 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
           </div>
 
           {/* Desktop & Laptop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-black/60 px-2.5 py-1 rounded-full border border-white/10 backdrop-blur-md">
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1.5 bg-black/60 px-3 py-1.5 rounded-full border border-white/10 backdrop-blur-md">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -114,7 +114,7 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
                   key={item.id}
                   onClick={() => scrollTo(item.id)}
                   onMouseEnter={() => soundManager.playHover()}
-                  className={`px-2 xl:px-3 py-1 text-[10px] xl:text-[11px] font-sans font-semibold tracking-wider rounded-full transition-all cursor-pointer ${
+                  className={`px-2.5 xl:px-3 py-1 text-xs xl:text-sm font-display font-bold tracking-wider uppercase rounded-full transition-all cursor-pointer ${
                     isActive
                       ? 'bg-amber-400/20 text-amber-300 border border-amber-400/40 shadow-[0_0_12px_rgba(212,175,55,0.3)]'
                       : 'text-slate-300 hover:text-white hover:bg-white/10'
@@ -129,9 +129,9 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => soundManager.playClick()}
-              className="ml-0.5 xl:ml-1 px-2.5 xl:px-3 py-1 text-[10px] xl:text-[11px] font-sans font-bold tracking-wider rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all"
+              className="ml-0.5 xl:ml-1 px-3 py-1 text-xs xl:text-sm font-display font-bold tracking-wider uppercase rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all"
             >
-              Resume
+              RESUME
             </a>
           </nav>
 
@@ -174,7 +174,7 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
                 soundManager.playClick();
                 setIsMenuOpen(!isMenuOpen);
               }}
-              className="px-3 py-1 rounded-full bg-black/70 hover:bg-white/15 border border-white/20 hover:border-amber-400/50 text-[10px] font-mono font-bold text-white tracking-widest transition-all cursor-pointer shadow-[0_0_10px_rgba(0,0,0,0.5)]"
+              className="px-3.5 py-1.5 rounded-full bg-black/70 hover:bg-white/15 border border-white/20 hover:border-amber-400/50 text-[11px] font-display font-bold text-white tracking-widest uppercase transition-all cursor-pointer shadow-[0_0_10px_rgba(0,0,0,0.5)]"
             >
               {isMenuOpen ? 'CLOSE [ESC]' : 'MENU [ESC]'}
             </button>
@@ -190,7 +190,7 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
             <div className="flex items-center gap-4">
               <BrandLogo size={52} withGlow={true} />
               <div>
-                <h2 className="font-display font-bold text-3xl sm:text-5xl text-white tracking-tight leading-none">
+                <h2 className="font-heading font-bold text-4xl sm:text-6xl text-white tracking-wider uppercase leading-none">
                   YESHWANTH BUILDS
                 </h2>
                 <div className="font-mono text-xs font-semibold text-amber-400 tracking-widest uppercase mt-1">
@@ -204,7 +204,7 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
                 soundManager.playClick();
                 setIsMenuOpen(false);
               }}
-              className="px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-mono text-xs border border-white/20 tracking-wider cursor-pointer"
+              className="px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-display font-bold text-xs tracking-wider uppercase border border-white/20 cursor-pointer"
             >
               CLOSE [ESC]
             </button>
@@ -224,7 +224,7 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
                       soundManager.playHover();
                     }}
                     onClick={() => scrollTo(item.id)}
-                    className={`w-full text-left px-4 py-2.5 rounded-xl font-display font-bold text-xl sm:text-2xl tracking-wide transition-all flex items-center justify-between cursor-pointer ${
+                    className={`w-full text-left px-4 py-2.5 rounded-xl font-display font-bold text-xl sm:text-2xl tracking-wider uppercase transition-all flex items-center justify-between cursor-pointer ${
                       isSelected
                         ? 'bg-amber-400 text-black font-bold shadow-[0_0_20px_rgba(212,175,55,0.4)] translate-x-2'
                         : 'text-slate-300 hover:text-white hover:bg-white/5'
@@ -267,7 +267,7 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
                             soundManager.setVolume(opt.val);
                           }
                         }}
-                        className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold transition-all cursor-pointer ${
+                        className={`px-2 py-0.5 rounded text-[10px] font-display font-bold uppercase tracking-wider transition-all cursor-pointer ${
                           isCurrent
                             ? 'bg-amber-400 text-black shadow-md'
                             : 'bg-white/5 hover:bg-white/15 text-slate-300'
@@ -285,7 +285,7 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
                   soundManager.playClick();
                   setIsMenuOpen(false);
                 }}
-                className="w-full text-left px-4 py-2 text-slate-500 hover:text-slate-300 font-gta text-xl tracking-wider cursor-pointer mt-2"
+                className="w-full text-left px-4 py-2 text-slate-500 hover:text-slate-300 font-display font-bold text-lg tracking-wider uppercase cursor-pointer mt-2"
               >
                 EXIT MENU
               </button>
@@ -303,14 +303,17 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
                 </div>
 
                 <div className="relative w-44 h-52 flex items-end justify-center mb-3">
-                  <img
-                    src="/media/yeshwanth_portfolio_cutout.png"
-                    alt="Yeshwanth Akbar"
-                    loading="lazy"
-                    width="176"
-                    height="208"
-                    className="w-full h-full object-contain object-bottom drop-shadow-[0_12px_24px_rgba(0,0,0,0.95)]"
-                  />
+                  <picture>
+                    <source type="image/webp" srcSet="/media/yeshwanth_portfolio_cutout.webp" />
+                    <img
+                      src="/media/yeshwanth_portfolio_cutout.png"
+                      alt="Yeshwanth Akbar"
+                      loading="lazy"
+                      width="176"
+                      height="208"
+                      className="w-full h-full object-contain object-bottom drop-shadow-[0_12px_24px_rgba(0,0,0,0.95)]"
+                    />
+                  </picture>
                 </div>
 
                 <div className="text-center">

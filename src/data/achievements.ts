@@ -21,7 +21,7 @@ export const ACHIEVEMENTS_DATA: CertificateAchievement[] = [
     achievementType: "Completion",
     description: "Intensive hands-on workshop mastering generative AI workflows, ChatGPT productivity integrations, and AI agent automation.",
     keyVerification: "Credential ID: be10X Verified Workshop",
-    imagePreview: "/certificates/be10x Certificate 267_page_1.png",
+    imagePreview: "/certificates/be10x Certificate 267_page_1.webp",
     pdfDownload: "/certificates_pdf/be10x Certificate 267.pdf"
   },
   {
@@ -33,7 +33,7 @@ export const ACHIEVEMENTS_DATA: CertificateAchievement[] = [
     achievementType: "Completion",
     description: "Awarded for successful completion of DevOps engineering tasks including containerized web server architectures and Gradle automation.",
     keyVerification: "Issued by CodeAlpha Technical Leadership",
-    imagePreview: "/certificates/CodeAlpha certificate_page_1.png",
+    imagePreview: "/certificates/CodeAlpha certificate_page_1.webp",
     pdfDownload: "/certificates_pdf/CodeAlpha certificate.pdf"
   },
   {
@@ -45,7 +45,7 @@ export const ACHIEVEMENTS_DATA: CertificateAchievement[] = [
     achievementType: "Achievement",
     description: "Professional training in structured algorithm development, modular programming, unit testing, and numerical computation using MATLAB.",
     keyVerification: "MathWorks Certified Learner Badge",
-    imagePreview: "/certificates/MATLAB certificate_page_1.png",
+    imagePreview: "/certificates/MATLAB certificate_page_1.webp",
     pdfDownload: "/certificates_pdf/MATLAB certificate.pdf"
   },
   {
@@ -57,7 +57,7 @@ export const ACHIEVEMENTS_DATA: CertificateAchievement[] = [
     achievementType: "Completion",
     description: "State-sponsored workforce readiness program enhancing professional communication, team problem solving, and workplace ethics.",
     keyVerification: "Naan Mudhalvan Government of Tamil Nadu Initiative",
-    imagePreview: "/certificates/NM_Certificate yeshwanth_page_1.png",
+    imagePreview: "/certificates/NM_Certificate yeshwanth_page_1.webp",
     pdfDownload: "/certificates_pdf/NM_Certificate yeshwanth.pdf"
   },
   {
@@ -69,7 +69,7 @@ export const ACHIEVEMENTS_DATA: CertificateAchievement[] = [
     achievementType: "Completion",
     description: "Practical engineering in frontend design, REST API creation, database management, and end-to-end full stack deployment.",
     keyVerification: "Arttifai Tech Internship Completion Verification",
-    imagePreview: "/certificates/Yeshwanth.A_Full Stack Development_page_1.png",
+    imagePreview: "/certificates/Yeshwanth.A_Full Stack Development_page_1.webp",
     pdfDownload: "/certificates_pdf/Yeshwanth.A_Full Stack Development.pdf"
   },
   {
@@ -81,7 +81,7 @@ export const ACHIEVEMENTS_DATA: CertificateAchievement[] = [
     achievementType: "Merit",
     description: "Recognized for academic excellence and fast problem resolution during the annual institutional science and technical competition.",
     keyVerification: "M.A.M. College of Engineering & Technology",
-    imagePreview: "/certificates/MAMCET vibrance_page_1.png",
+    imagePreview: "/certificates/MAMCET vibrance_page_1.webp",
     pdfDownload: "/certificates_pdf/MAMCET vibrance.pdf"
   },
   {
@@ -93,7 +93,7 @@ export const ACHIEVEMENTS_DATA: CertificateAchievement[] = [
     achievementType: "Participation",
     description: "Delivered technical paper presentation showcasing scientific research and analytical problem framing.",
     keyVerification: "Faculty of Science & Humanities Verification",
-    imagePreview: "/certificates/MAMSE_symposium__1758950108463_page_1.png",
+    imagePreview: "/certificates/MAMSE_symposium__1758950108463_page_1.webp",
     pdfDownload: "/certificates_pdf/MAMSE_symposium__1758950108463.pdf"
   },
   {
@@ -105,7 +105,7 @@ export const ACHIEVEMENTS_DATA: CertificateAchievement[] = [
     achievementType: "Participation",
     description: "In-depth study of agile development methodologies, version branching strategies, and production defect triage.",
     keyVerification: "Errors2Experts Certification Board",
-    imagePreview: "/certificates/Errors2Experts_Workshop.jpg"
+    imagePreview: "/certificates/Errors2Experts_Workshop.webp"
   },
   {
     id: "mamcet-datascience",
@@ -116,7 +116,7 @@ export const ACHIEVEMENTS_DATA: CertificateAchievement[] = [
     achievementType: "Participation",
     description: "Specialized academic seminar exploring large data processing pipelines, neural network architectures, and analytical inference.",
     keyVerification: "Department of Information Technology, MAMCET",
-    imagePreview: "/certificates/YESHWANTH MAM PARTICIPATION_page_1.png",
+    imagePreview: "/certificates/YESHWANTH MAM PARTICIPATION_page_1.webp",
     pdfDownload: "/certificates_pdf/YESHWANTH MAM PARTICIPATION.pdf"
   },
   {
@@ -128,7 +128,7 @@ export const ACHIEVEMENTS_DATA: CertificateAchievement[] = [
     achievementType: "Participation",
     description: "Advanced technological lecture on large language models, transformer architectures, and real-time inference strategies.",
     keyVerification: "PALS Executive Committee Verification",
-    imagePreview: "/certificates/yeshwanth PALS_page_1.png",
+    imagePreview: "/certificates/yeshwanth PALS_page_1.webp",
     pdfDownload: "/certificates_pdf/yeshwanth PALS.pdf"
   },
   {
@@ -140,7 +140,7 @@ export const ACHIEVEMENTS_DATA: CertificateAchievement[] = [
     achievementType: "Participation",
     description: "Webinar on technology entrepreneurship, scalable digital product ideation, and industry career pathways.",
     keyVerification: "Skilldunia & E-Cell IIT Hyderabad Partner Verification",
-    imagePreview: "/certificates/yeshwanth skilldunia_page_1.png",
+    imagePreview: "/certificates/yeshwanth skilldunia_page_1.webp",
     pdfDownload: "/certificates_pdf/yeshwanth skilldunia.pdf"
   },
   {
@@ -152,7 +152,7 @@ export const ACHIEVEMENTS_DATA: CertificateAchievement[] = [
     achievementType: "Completion",
     description: "Comprehensive assessment of digital tool literacy, structured documentation, and cross-functional team workflows.",
     keyVerification: "SM Groups Certified Verification",
-    imagePreview: "/certificates/NM_Certificate SM groups_page_1.png",
+    imagePreview: "/certificates/NM_Certificate SM groups_page_1.webp",
     pdfDownload: "/certificates_pdf/NM_Certificate SM groups.pdf"
   }
 ];

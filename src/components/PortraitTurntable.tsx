@@ -225,20 +225,20 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
         className="absolute inset-0 bg-gradient-to-t from-emerald-950/25 via-slate-900/30 to-transparent blur-3xl rounded-full pointer-events-none transform -translate-y-6 transition-opacity duration-700" 
       />
 
-      {/* RESTRAINED CINEMATIC TURNTABLE PEDESTAL / BASE */}
-      <div className="absolute bottom-2 sm:bottom-4 w-64 sm:w-80 h-20 pointer-events-none flex items-center justify-center">
+      {/* RESTRAINED CINEMATIC TURNTABLE PEDESTAL / BASE (REFINED SCALE) */}
+      <div className="absolute bottom-2 sm:bottom-3 w-44 sm:w-52 h-14 sm:h-15 pointer-events-none flex items-center justify-center">
         {/* Outer radial glow */}
         <div className="absolute inset-0 bg-emerald-500/10 blur-xl rounded-full transform scale-y-50" />
         
         {/* Concentric turntable rings */}
         <div className="relative w-full h-full flex items-center justify-center">
-          <div className="w-56 sm:w-72 h-14 sm:h-16 rounded-full border border-emerald-500/30 bg-black/60 shadow-[0_0_20px_rgba(34,197,94,0.15)] transform scale-y-45 flex items-center justify-center">
-            <div className="w-44 sm:w-56 h-10 sm:h-12 rounded-full border border-white/15 bg-black/80" />
+          <div className="w-38 sm:w-46 h-9 sm:h-11 rounded-full border border-emerald-500/30 bg-black/60 shadow-[0_0_20px_rgba(34,197,94,0.15)] transform scale-y-45 flex items-center justify-center">
+            <div className="w-30 sm:w-36 h-6 sm:h-8 rounded-full border border-white/15 bg-black/80" />
           </div>
 
           {/* Dynamic Azimuth Needle / Indicator tick on turntable rim */}
           <div 
-            className="absolute w-56 sm:w-72 h-14 sm:h-16 rounded-full pointer-events-none transform scale-y-45 transition-transform duration-150 ease-out"
+            className="absolute w-38 sm:w-46 h-9 sm:h-11 rounded-full pointer-events-none transform scale-y-45 transition-transform duration-150 ease-out"
             style={{ transform: `scaleY(0.45) rotate(${currentFrame.angle}deg)` }}
           >
             <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#22c55e]" />
@@ -246,9 +246,9 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
         </div>
       </div>
 
-      {/* PORTRAIT DISPLAY STACK (FRAME-PRELOADED, ZERO LAYOUT SHIFT) */}
+      {/* PORTRAIT DISPLAY STACK (FRAME-PRELOADED, REFINED 17% SCALE, ZERO LAYOUT SHIFT) */}
       <div 
-        className={`relative w-72 sm:w-84 md:w-96 lg:w-[410px] xl:w-[440px] aspect-[220/360] flex items-end justify-center cursor-grab active:cursor-grabbing transition-transform duration-300 ${isDragging ? 'scale-[1.01]' : 'group-hover:scale-[1.015]'}`}
+        className={`relative w-[200px] sm:w-[240px] md:w-[268px] lg:w-[288px] xl:w-[306px] aspect-[220/360] flex items-end justify-center cursor-grab active:cursor-grabbing transition-transform duration-300 ${isDragging ? 'scale-[1.01]' : 'group-hover:scale-[1.015]'}`}
       >
         {ANGLES.map((frame, idx) => {
           const isActive = frameIndex === idx;
@@ -260,7 +260,8 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
                 alt={`Yeshwanth Akbar portrait view at ${frame.angle} degrees`}
                 draggable={false}
                 loading={idx === 0 ? 'eager' : 'lazy'}
-                decoding="async"
+                fetchPriority={idx === 0 ? 'high' : 'low'}
+                decoding={idx === 0 ? 'sync' : 'async'}
                 width={220}
                 height={360}
                 className={`absolute inset-0 w-full h-full object-contain object-bottom pointer-events-none drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)] transition-opacity duration-75 ${
@@ -285,26 +286,26 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
               className="absolute top-8 px-3.5 py-1.5 rounded-full bg-black/75 border border-emerald-500/40 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.3)] text-[10px] font-mono text-emerald-300 flex items-center gap-2 pointer-events-none z-30"
             >
               <RotateCw className="w-3.5 h-3.5 text-emerald-400 animate-spin" style={{ animationDuration: '6s' }} />
-              <span className="tracking-widest font-bold">◄ DRAG TO ROTATE 360° ►</span>
+              <span className="tracking-widest font-bold font-display uppercase">◄ DRAG TO ROTATE 360° ►</span>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
       {/* TACTICAL HUD TELEMETRY & CONTROLS STRIP */}
-      <div className="relative z-30 mt-2 w-full max-w-sm flex flex-col items-center gap-2 px-2">
+      <div className="relative z-30 mt-2 w-full max-w-[260px] sm:max-w-[285px] flex flex-col items-center gap-2 px-1">
         
         {/* Main Name & Protagonist Tag */}
-        <div className="flex items-center justify-between w-full px-4 py-1.5 rounded-full bg-black/70 border border-white/10 backdrop-blur-md shadow-lg text-[11px] font-mono">
+        <div className="flex items-center justify-between w-full px-3.5 py-1.5 rounded-full bg-black/75 border border-white/10 backdrop-blur-md shadow-lg text-[11px] font-mono">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-display font-bold text-base text-white tracking-wide leading-none">
+            <span className="font-display font-bold text-base sm:text-lg text-white tracking-wider leading-none uppercase">
               YESHWANTH AKBAR
             </span>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="text-[9px] text-emerald-400 font-bold bg-emerald-950/80 px-2.5 py-0.5 rounded-full border border-emerald-500/30 uppercase tracking-wider font-mono">
+            <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-500/30 uppercase tracking-widest font-display">
               DEVELOPER
             </span>
           </div>
@@ -313,10 +314,10 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
         {/* 360 Turntable Telemetry Controls Bar */}
         <div className="flex items-center justify-between w-full px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 backdrop-blur-md text-[10px] font-mono text-slate-300 shadow-md">
           {/* Active Angle Azimuth Gauge */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <Compass className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-            <span className="text-slate-400">AZIMUTH:</span>
-            <span className="font-bold text-emerald-300 tracking-wider">
+            <span className="text-slate-400 font-mono text-[9px] uppercase tracking-wider">AZIMUTH:</span>
+            <span className="font-display font-bold text-emerald-300 tracking-wider text-xs uppercase">
               {currentFrame.label} // {currentFrame.sublabel}
             </span>
           </div>
@@ -356,7 +357,7 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
               }}
               title="Reset to 0° Front View"
               aria-label="Reset to 0° Front View"
-              className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-white/15 text-[9px] text-slate-300 hover:text-white transition-colors border border-white/10 font-bold"
+              className="px-2 py-0.5 rounded-md bg-white/5 hover:bg-white/15 text-[9px] font-display text-slate-300 hover:text-white transition-colors border border-white/10 font-bold tracking-wider uppercase"
             >
               FRONT (0°)
             </button>

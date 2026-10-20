@@ -63,7 +63,7 @@ export const SkillsInventory: React.FC = () => {
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mix-blend-luminosity transition-all duration-700"
-          style={{ backgroundImage: `url('/media/backgrounds/skills_room.jpg')` }}
+          style={{ backgroundImage: `url('/media/backgrounds/skills_room.webp'), url('/media/backgrounds/skills_room.jpg')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-[#030712]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/95 via-transparent to-[#030712]/95" />
@@ -77,7 +77,7 @@ export const SkillsInventory: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             // TECHNICAL ARSENAL
           </div>
-          <h2 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-tight">
+          <h2 className="font-heading font-bold text-5xl sm:text-6xl md:text-7xl text-white uppercase tracking-wider leading-none">
             Skills &amp; Technologies
           </h2>
           <p className="font-sans text-sm sm:text-base text-slate-300 max-w-2xl mt-2 leading-relaxed">
@@ -97,10 +97,10 @@ export const SkillsInventory: React.FC = () => {
                   setActiveCategory(cat);
                 }}
                 onMouseEnter={() => soundManager.playHover()}
-                className={`px-3.5 py-1.5 rounded-lg font-mono text-xs tracking-wider transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-lg font-display text-xs uppercase tracking-wider transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-[0_0_15px_rgba(0,240,255,0.35)] font-semibold border border-cyan-400/50'
-                    : 'bg-black/60 text-slate-400 hover:text-white hover:bg-white/10 border border-white/10'
+                    ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-[0_0_15px_rgba(0,240,255,0.35)] font-bold border border-cyan-400/50'
+                    : 'bg-black/60 text-slate-400 hover:text-white hover:bg-white/10 border border-white/10 font-semibold'
                 }`}
               >
                 {cat}
@@ -143,7 +143,7 @@ export const SkillsInventory: React.FC = () => {
                   </div>
 
                   <div className="mt-2">
-                    <div className="font-display font-semibold text-sm sm:text-base text-white tracking-tight truncate">
+                    <div className="font-display font-bold text-sm sm:text-base text-white uppercase tracking-wider truncate">
                       {skill.name}
                     </div>
                     <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider truncate mt-0.5">
@@ -161,14 +161,14 @@ export const SkillsInventory: React.FC = () => {
               <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">
                 ITEM INSPECTION
               </span>
-              <span className={`px-2.5 py-0.5 rounded-full border text-[9px] font-mono font-bold flex items-center gap-1.5 ${getStatusBadge(selectedSkill.status).bg}`}>
+              <span className={`px-2.5 py-0.5 rounded-full border text-[9px] font-display font-bold uppercase tracking-wider flex items-center gap-1.5 ${getStatusBadge(selectedSkill.status).bg}`}>
                 <span className={`w-1.5 h-1.5 rounded-full ${getStatusBadge(selectedSkill.status).dot}`} />
                 {selectedSkill.status}
               </span>
             </div>
 
             <div className="space-y-1.5">
-              <h3 className="font-display font-bold text-2xl text-white tracking-tight">
+              <h3 className="font-heading font-bold text-3xl sm:text-4xl text-white uppercase tracking-wider leading-tight">
                 {selectedSkill.name}
               </h3>
               <div className="text-xs font-mono text-cyan-400 font-semibold uppercase tracking-wider">
