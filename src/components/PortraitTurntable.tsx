@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { RotateCw } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 
 // -----------------------------------------------------------------------------
-// 40-FRAME MAIN HERO 3D SCROLL ANIMATION ASSETS
-// Chronological sequence: /frames-main/ezgif-frame-001.png -> /frames-main/ezgif-frame-040.png
+// 30-FRAME MAIN HERO 3D SCROLL ANIMATION ASSETS
+// Chronological sequence: /frames-main/ezgif-frame-001.png -> /frames-main/ezgif-frame-030.png
 // Resolution: 854 x 480 (16:9 widescreen)
 // -----------------------------------------------------------------------------
-export const TOTAL_FRAMES = 40;
-export const MAIN_TOTAL_FRAMES = 40;
+export const TOTAL_FRAMES = 30;
+export const MAIN_TOTAL_FRAMES = 30;
 export const FRAME_PATHS: string[] = Array.from({ length: TOTAL_FRAMES }, (_, i) => {
   const pad = String(i + 1).padStart(3, '0');
   return `/frames-main/ezgif-frame-${pad}.png`;
@@ -83,10 +81,9 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
   enableScrollRotation = true,
   className = '',
 }) => {
-  // Currently rendered frame index (0..62)
+  // Currently rendered frame index (0..29)
   const [displayedFrame, setDisplayedFrame] = useState<number>(0);
   const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [hasInteracted, setHasInteracted] = useState<boolean>(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(false);
   const [initialFrameReady, setInitialFrameReady] = useState<boolean>(false);
 
@@ -147,7 +144,7 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
   // ---------------------------------------------------------------------------
   // Progressive Preloading Strategy
   // 1. Priority load Frame 0 (ezgif-frame-001.png) immediately.
-  // 2. Preload remaining 39 frames in small controlled batches of 4.
+  // 2. Preload remaining 29 frames in small controlled batches of 4.
   // ---------------------------------------------------------------------------
   useEffect(() => {
     let isCancelled = false;
@@ -193,8 +190,8 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
 
   // ---------------------------------------------------------------------------
   // Smooth Scroll-Driven Frame Playback
-  // Maps scroll progress through the hero section to all 40 frames:
-  // frameIndex = Math.min(39, Math.floor(progress * 40))
+  // Maps scroll progress through the hero section to all 30 frames:
+  // frameIndex = Math.min(TOTAL_FRAMES - 1, Math.floor(progress * TOTAL_FRAMES))
   // ---------------------------------------------------------------------------
   useEffect(() => {
     if (!enableScrollRotation || prefersReducedMotion) return;
@@ -212,16 +209,20 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
           const heroEl = document.getElementById('hero') || containerRef.current?.closest('section');
           const startY = heroEl ? heroEl.offsetTop : 0;
           const heroHeight = heroEl ? heroEl.offsetHeight : window.innerHeight;
-          // Smooth scroll range across the hero section
-          const scrollDistance = Math.max(380, heroHeight - 120);
+          // In a sticky scroll container, the pinned duration is heroHeight - window.innerHeight
+          const pinDistance = heroHeight > window.innerHeight ? (heroHeight - window.innerHeight) : heroHeight;
+          // Smooth scroll range across the hero section:
+          // Reach frame 30 at ~88% of the pinned track, allowing user to comfortably inspect the final frame
+          // before the section unpins into the next section.
+          const scrollDistance = heroHeight > window.innerHeight ? Math.max(300, pinDistance * 0.88) : Math.max(300, heroHeight - 120);
 
           const currentScroll = window.scrollY;
           const rawProgress = (currentScroll - startY) / scrollDistance;
           // Normalized progress clamped strictly between 0 and 1
           const progress = Math.max(0, Math.min(1, rawProgress));
 
-          // Exact mathematical mapping: frameIndex = Math.min(39, Math.floor(progress * 40))
-          const targetIndex = Math.min(39, Math.floor(progress * 40));
+          // Exact mathematical mapping: frameIndex = Math.min(TOTAL_FRAMES - 1, Math.floor(progress * TOTAL_FRAMES))
+          const targetIndex = Math.min(TOTAL_FRAMES - 1, Math.floor(progress * TOTAL_FRAMES));
 
           if (targetIndex !== currentFrameRef.current) {
             scheduleFrameDraw(targetIndex);
@@ -251,7 +252,6 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
 
     isDraggingRef.current = true;
     setIsDragging(true);
-    setHasInteracted(true);
     dragStartXRef.current = e.clientX;
     dragStartIndexRef.current = currentFrameRef.current;
 
@@ -264,9 +264,9 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
     if (!isDraggingRef.current) return;
 
     const deltaX = e.clientX - dragStartXRef.current;
-    // ~10px per frame provides responsive, fluid scrub across all 40 frames
-    const frameDelta = Math.round(deltaX / 10);
-    const targetIndex = Math.max(0, Math.min(39, dragStartIndexRef.current + frameDelta));
+    // ~12px per frame provides responsive, fluid scrub across all frames
+    const frameDelta = Math.round(deltaX / 12);
+    const targetIndex = Math.max(0, Math.min(TOTAL_FRAMES - 1, dragStartIndexRef.current + frameDelta));
 
     if (targetIndex !== currentFrameRef.current) {
       scheduleFrameDraw(targetIndex);
@@ -288,37 +288,33 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
       e.preventDefault();
-      const nextIdx = Math.min(39, currentFrameRef.current + 1);
+      const nextIdx = Math.min(TOTAL_FRAMES - 1, currentFrameRef.current + 1);
       scheduleFrameDraw(nextIdx);
       setDisplayedFrame(nextIdx);
-      setHasInteracted(true);
     } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
       e.preventDefault();
       const prevIdx = Math.max(0, currentFrameRef.current - 1);
       scheduleFrameDraw(prevIdx);
       setDisplayedFrame(prevIdx);
-      setHasInteracted(true);
     } else if (e.key === 'Home') {
       e.preventDefault();
       scheduleFrameDraw(0);
       setDisplayedFrame(0);
-      setHasInteracted(true);
     } else if (e.key === 'End') {
       e.preventDefault();
-      scheduleFrameDraw(39);
-      setDisplayedFrame(39);
-      setHasInteracted(true);
+      scheduleFrameDraw(TOTAL_FRAMES - 1);
+      setDisplayedFrame(TOTAL_FRAMES - 1);
     }
   };
 
-  // Pedestal azimuth rotation calculation across 40 frames (0° to 360°)
-  const currentDegrees = Math.round((displayedFrame / 39) * 360);
+  // Pedestal azimuth rotation calculation across all frames (0° to 360°)
+  const currentDegrees = Math.round((displayedFrame / (TOTAL_FRAMES - 1)) * 360);
 
   return (
     <div
       ref={containerRef}
       role="region"
-      aria-label="Interactive 40-frame 3D animation sequence. Scroll or drag horizontally to scrub frames."
+      aria-label="Interactive 30-frame 3D animation sequence. Scroll or drag horizontally to scrub frames."
       tabIndex={0}
       onKeyDown={handleKeyDown}
       onPointerDown={handlePointerDown}
@@ -373,22 +369,6 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
 
         {/* Soft bottom ground fade so figure seamlessly roots into dark baseline */}
         <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#05050f]/80 to-transparent pointer-events-none z-10" />
-
-        {/* INTERACTIVE DRAG HINT BADGE (Fades out once user interacts) */}
-        <AnimatePresence>
-          {!hasInteracted && !isDragging && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="absolute top-8 px-3 py-1 rounded-full bg-black/85 border border-emerald-500/40 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.3)] text-[10px] font-mono text-emerald-300 flex items-center gap-2 pointer-events-none z-20"
-            >
-              <RotateCw className="w-3.5 h-3.5 text-emerald-400 animate-spin" style={{ animationDuration: '6s' }} />
-              <span className="tracking-widest font-bold font-display uppercase">◄ SCROLL OR DRAG 40 FRAMES ►</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
 
       {/* TACTICAL HUD TELEMETRY & CONTROLS STRIP */}
@@ -410,8 +390,6 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
           </div>
         </div>
 
-
-
         {/* Tactile Progress Scrub Track */}
         <div 
           className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden relative cursor-pointer"
@@ -419,16 +397,15 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
             const rect = e.currentTarget.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const pct = Math.max(0, Math.min(1, clickX / rect.width));
-            const targetIdx = Math.min(39, Math.floor(pct * 40));
+            const targetIdx = Math.min(TOTAL_FRAMES - 1, Math.floor(pct * TOTAL_FRAMES));
             scheduleFrameDraw(targetIdx);
             setDisplayedFrame(targetIdx);
-            setHasInteracted(true);
           }}
           title="Click to scrub frame timeline"
         >
           <div 
             className="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 shadow-[0_0_8px_#22c55e] transition-all duration-75"
-            style={{ width: `${((displayedFrame + 1) / 40) * 100}%` }}
+            style={{ width: `${((displayedFrame + 1) / TOTAL_FRAMES) * 100}%` }}
           />
         </div>
 
