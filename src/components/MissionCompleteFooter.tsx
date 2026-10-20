@@ -54,7 +54,7 @@ export const MissionCompleteFooter: React.FC = () => {
       >
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25 mix-blend-luminosity"
-          style={{ backgroundImage: `url('/media/backgrounds/complete_sunrise.webp'), url('/media/backgrounds/complete_sunrise.jpg')` }}
+          style={{ backgroundImage: `url('/media/backgrounds/complete_sunrise.webp')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/70 to-[#030712]/90" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/85 via-transparent to-[#030712]/85" />

@@ -10,7 +10,7 @@ export const TOTAL_FRAMES = 30;
 export const MAIN_TOTAL_FRAMES = 30;
 export const FRAME_PATHS: string[] = Array.from({ length: TOTAL_FRAMES }, (_, i) => {
   const pad = String(i + 1).padStart(3, '0');
-  return `/frames-main/ezgif-frame-${pad}.png`;
+  return `/frames-main/ezgif-frame-${pad}.webp`;
 });
 
 // Module-level in-memory cache to preserve loaded frames across re-renders and share with mini turntable
@@ -30,6 +30,7 @@ export function loadFrameImage(index: number): Promise<HTMLImageElement | null> 
 
   const promise = new Promise<HTMLImageElement | null>((resolve) => {
     const img = new Image();
+    img.decoding = 'async';
     img.src = FRAME_PATHS[index];
     img.onload = () => {
       imageCache.set(index, img);
@@ -37,8 +38,15 @@ export function loadFrameImage(index: number): Promise<HTMLImageElement | null> 
       resolve(img);
     };
     img.onerror = () => {
-      loadingPromises.delete(index);
-      resolve(null);
+      // Fallback to png if webp fails for any reason
+      const pad = String(index + 1).padStart(3, '0');
+      const fallbackSrc = `/frames-main/ezgif-frame-${pad}.png`;
+      if (img.src.endsWith('.webp')) {
+        img.src = fallbackSrc;
+      } else {
+        loadingPromises.delete(index);
+        resolve(null);
+      }
     };
   });
 

@@ -360,12 +360,15 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
           transition={{ duration: 8.5, ease: 'easeOut' }}
           className="absolute inset-0 pointer-events-none overflow-hidden"
         >
-          {/* Base Toyota Supra Night Scene blended into live environment */}
+          {/* Base Toyota Supra Night Scene blended into live environment (LCP Element) */}
           <picture>
             <source type="image/webp" srcSet="/media/backgrounds/intro_supra_bg.webp" />
             <img
               src="/media/backgrounds/intro_supra_bg.jpg"
               alt="Toyota Supra Burnout Night Scene"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
               className="w-full h-full object-cover object-center filter brightness-[0.85] contrast-[1.1] opacity-70 mix-blend-screen"
             />
           </picture>

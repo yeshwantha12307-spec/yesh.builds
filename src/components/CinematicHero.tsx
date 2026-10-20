@@ -35,7 +35,7 @@ export const CinematicHero: React.FC = () => {
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30 mix-blend-luminosity scale-105 transition-transform duration-1000"
-            style={{ backgroundImage: `url('/media/backgrounds/hero_skyline.webp'), url('/media/backgrounds/hero_skyline.jpg')` }}
+            style={{ backgroundImage: `url('/media/backgrounds/hero_skyline.webp')` }}
           />
           {/* Soft Vignette & Atmospheric Gradients Revealing Live Environment */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-black/60" />

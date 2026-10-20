@@ -29,9 +29,10 @@
     <meta name="twitter:description" content="Cinematic Open-World Developer Portfolio featuring interactive 3D systems, full-stack architectures, and AI engineering projects." />
     <meta name="twitter:image" content="https://yesh-builds.vercel.app/brand/og-image.png" />
 
-    <!-- Preload Brand Emblem (Optimized WebP) & Animation Initial Frame -->
+    <!-- Critical Resource Preload: Actual LCP Candidate (Intro Backdrop) & Main Hero 3D Frame 1 -->
+    <link rel="preload" as="image" href="/media/backgrounds/intro_supra_bg.webp" type="image/webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/frames-main/ezgif-frame-001.webp" type="image/webp" />
     <link rel="preload" as="image" href="/brand/y_emblem.webp" type="image/webp" />
-    <link rel="preload" as="image" href="/frames/frame_001.png" type="image/png" fetchpriority="high" />
 
     <!-- Google Fonts: Teko (Game Headings), Oswald (High-Impact Display), Rajdhani (Game UI/Nav), Bebas Neue, Inter (Prose), JetBrains Mono (Telemetry), Space Grotesk - Asynchronous Non-Render-Blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

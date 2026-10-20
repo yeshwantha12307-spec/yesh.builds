@@ -25,6 +25,7 @@ export function loadMiniFrameImage(index: number): Promise<HTMLImageElement | nu
 
   const promise = new Promise<HTMLImageElement | null>((resolve) => {
     const img = new Image();
+    img.decoding = 'async';
     img.src = MINI_FRAME_PATHS[index];
     img.onload = () => {
       miniImageCache.set(index, img);
@@ -316,7 +317,7 @@ export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className 
       drawMiniFrame(0);
       handleScroll();
 
-      // Progressive background preload for remaining 62 mini frames in small batches
+      // Progressive background preload for remaining 62 mini frames in small batches during idle time
       const preloadMiniBatches = async () => {
         const BATCH_SIZE = 4;
         for (let i = 1; i < MINI_TOTAL_FRAMES; i += BATCH_SIZE) {
@@ -329,13 +330,21 @@ export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className 
           }
           if (batchPromises.length > 0) {
             await Promise.all(batchPromises);
-            await new Promise((resolve) => setTimeout(resolve, 25));
+            await new Promise((resolve) => setTimeout(resolve, 50));
           }
         }
       };
 
-      // Slight delay so hero text and initial frame draw immediately
-      setTimeout(preloadMiniBatches, 200);
+      // Idle scheduling so hero LCP, fonts, and critical initial render are completely prioritized
+      if ('requestIdleCallback' in window) {
+        (window as unknown as { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => void }).requestIdleCallback(() => {
+          if (!isCancelled) preloadMiniBatches();
+        }, { timeout: 2500 });
+      } else {
+        setTimeout(() => {
+          if (!isCancelled) preloadMiniBatches();
+        }, 800);
+      }
     });
 
     return () => {

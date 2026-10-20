@@ -16,7 +16,7 @@ export const MissionSystem: React.FC = () => {
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mix-blend-luminosity transition-all duration-700"
-          style={{ backgroundImage: `url('/media/backgrounds/projects_laptop.webp'), url('/media/backgrounds/projects_laptop.jpg')` }}
+          style={{ backgroundImage: `url('/media/backgrounds/projects_laptop.webp')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-[#030712]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/95 via-transparent to-[#030712]/95" />
@@ -196,6 +196,7 @@ export const MissionSystem: React.FC = () => {
                 src={selectedMission.previewImage} 
                 alt={selectedMission.name}
                 loading="lazy"
+                decoding="async"
                 width="640"
                 height="360"
                 className="w-full h-64 sm:h-72 object-cover transition-transform duration-500 group-hover:scale-105"
