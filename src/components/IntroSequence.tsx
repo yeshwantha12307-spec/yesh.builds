@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FastForward, Sparkles, ArrowRight, Volume2, VolumeX } from 'lucide-react';
 import { soundManager } from '../utils/audio';
+import { LiveCinematicEnvironment } from './LiveCinematicEnvironment';
 
 interface IntroProps {
   onComplete: () => void;
@@ -24,10 +25,10 @@ interface SmokeParticle {
 }
 
 export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
-  // Phase 0: Initial black screen with teaser text (0 - 1.8s)
-  // Phase 1: Massive metallic PORTFOLIO title reveals with light sweep (1.8s - 4.2s)
-  // Phase 2: Yeshwanth's portrait rises cleanly in the center (4.2s - 6.6s)
-  // Phase 3: Title morphs to YESH.BUILDS + FULL STACK DEVELOPER • AI (6.6s - 8.5s)
+  // Phase 0: Initial black screen with teaser & audio prompt (0 - 1.6s)
+  // Phase 1: Massive metallic PORTFOLIO title reveals with light sweep (1.6s - 4.5s)
+  // Phase 2: Title morphs to YESH.BUILDS + FULL STACK DEVELOPER • AI (4.5s - 6.0s)
+  // Phase 3: ENTER OPEN WORLD call to action button reveals (6.0s - 8.2s)
   const [phase, setPhase] = useState<number>(0);
   const [progress, setProgress] = useState<number>(0);
   const [isMuted, setIsMuted] = useState<boolean>(soundManager.isMuted);
@@ -59,10 +60,9 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
     setIsMuted(newMuted);
 
     if (!newMuted) {
-      // Catch up audio state to the current visual scene immediately
       const cur = elapsedRef.current;
       soundManager.startIntroDrone();
-      if (cur >= 1800 && cur < 6600) {
+      if (cur >= 1600 && cur < 6000) {
         soundManager.playEngineIgnition();
       }
     }
@@ -99,7 +99,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleFinish]);
 
-  // Preload portrait asset and run smooth continuous intro timeline
+  // Run smooth continuous intro timeline
   useEffect(() => {
     // Respect user's reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -118,14 +118,10 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
       // Ignore storage errors safely
     }
 
-    // Preload portrait image in the background
-    const portraitImg = new Image();
-    portraitImg.src = '/media/yeshwanth_suit_cutout.png';
-
     const bgImg = new Image();
     bgImg.src = '/media/backgrounds/intro_supra_bg.jpg';
 
-    const TOTAL_DURATION = 8500; // 8.5 seconds total cinematic sequence
+    const TOTAL_DURATION = 8200; // 8.2 seconds total cinematic sequence
     const startTime = performance.now();
 
     const tick = (currentTime: number) => {
@@ -137,11 +133,11 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
       setProgress(pct);
 
       // Phase transitions
-      if (elapsed >= 1800 && elapsed < 4200) {
+      if (elapsed >= 1600 && elapsed < 4500) {
         setPhase((prev) => (prev < 1 ? 1 : prev));
-      } else if (elapsed >= 4200 && elapsed < 6600) {
+      } else if (elapsed >= 4500 && elapsed < 6000) {
         setPhase((prev) => (prev < 2 ? 2 : prev));
-      } else if (elapsed >= 6600) {
+      } else if (elapsed >= 6000) {
         setPhase(3);
       }
 
@@ -153,28 +149,28 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
           soundManager.startIntroDrone();
         }
         // Scene 2: Distant city atmosphere
-        if (elapsed >= 800 && !cueCityRef.current) {
+        if (elapsed >= 600 && !cueCityRef.current) {
           cueCityRef.current = true;
           soundManager.playCityAtmosphere();
         }
         // Scene 3: Headlight relay click and engine starter + ignition roar
-        if (elapsed >= 1800 && !cueIgnitionRef.current) {
+        if (elapsed >= 1600 && !cueIgnitionRef.current) {
           cueIgnitionRef.current = true;
           soundManager.playHeadlightClick();
           soundManager.playEngineIgnition();
         }
         // Scene 4: Billowing smoke exhaust whoosh
-        if (elapsed >= 3200 && !cueSmokeRef.current) {
+        if (elapsed >= 3000 && !cueSmokeRef.current) {
           cueSmokeRef.current = true;
           soundManager.playSmokeWhoosh();
         }
         // Scene 5a: Tension riser building into title reveal
-        if (elapsed >= 4800 && !cueRiserRef.current) {
+        if (elapsed >= 4500 && !cueRiserRef.current) {
           cueRiserRef.current = true;
-          soundManager.playCinematicRiser(1.8);
+          soundManager.playCinematicRiser(1.5);
         }
         // Scene 5b: Metallic title reveal impact & sub boom with shimmer
-        if (elapsed >= 6600 && !cueImpactRef.current) {
+        if (elapsed >= 6000 && !cueImpactRef.current) {
           cueImpactRef.current = true;
           soundManager.playTitleImpact();
         }
@@ -197,7 +193,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
     // Hard fallback timeout to guarantee intro never remains on screen indefinitely
     const fallbackTimer = setTimeout(() => {
       handleFinish();
-    }, 9000);
+    }, 8800);
 
     return () => {
       if (animFrameRef.current) {
@@ -231,8 +227,6 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
     let simAnimId: number;
 
     const createParticle = (): SmokeParticle => {
-      // Emitters positioned around the Toyota Supra burnout rear tires & diffuser
-      // Coordinates mapped to the center-lower automotive scene
       const emitterChoice = Math.random();
       let emitX: number;
       let emitY: number;
@@ -253,7 +247,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
         emitY = height * 0.685 + (Math.random() - 0.5) * 25;
         vx = 0.6 + Math.random() * 1.8;
         vy = -(0.3 + Math.random() * 0.9);
-        isRedGlow = Math.random() < 0.55; // higher red reflection from right taillights
+        isRedGlow = Math.random() < 0.55;
       } else {
         // Center exhaust & underbody drift
         emitX = width * 0.51 + (Math.random() - 0.5) * 30;
@@ -303,15 +297,15 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
         // Update physics
         p.x += p.vx;
         p.y += p.vy;
-        p.vx *= 0.985; // Air drag
-        p.vy -= 0.006; // Buoyancy lift
+        p.vx *= 0.985;
+        p.vy -= 0.006;
         p.rotation += p.vRot;
 
         // Radius expansion
         const lifeRatio = p.life / p.maxLife;
         p.radius = p.radius + (p.maxRadius - p.radius) * 0.025;
 
-        // Opacity envelope (quick fade in, long dissipate)
+        // Opacity envelope
         if (lifeRatio < 0.2) {
           p.alpha = (lifeRatio / 0.2) * p.maxAlpha;
         } else {
@@ -330,13 +324,11 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
 
         const grad = ctx.createRadialGradient(0, 0, p.radius * 0.1, 0, 0, p.radius);
         if (p.isRedGlow) {
-          // Illuminated by crimson taillights & brake embers
           grad.addColorStop(0, `rgba(255, 65, 45, ${p.alpha * 0.75})`);
           grad.addColorStop(0.4, `rgba(220, 35, 35, ${p.alpha * 0.4})`);
           grad.addColorStop(0.8, `rgba(160, 25, 25, ${p.alpha * 0.15})`);
           grad.addColorStop(1, 'rgba(100, 15, 15, 0)');
         } else {
-          // Atmospheric cool white & misty city haze
           grad.addColorStop(0, `rgba(225, 235, 245, ${p.alpha * 0.7})`);
           grad.addColorStop(0.45, `rgba(170, 185, 205, ${p.alpha * 0.35})`);
           grad.addColorStop(0.85, `rgba(110, 125, 145, ${p.alpha * 0.12})`);
@@ -369,6 +361,14 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
         className="fixed inset-0 z-50 flex flex-col justify-between bg-black text-white select-none overflow-hidden font-sans"
       >
         {/* =========================================================================
+            0. REAL-TIME CONTINUOUS LIVE CINEMATIC ENVIRONMENT
+           ========================================================================= */}
+        <LiveCinematicEnvironment
+          intensity={phase >= 2 ? 1.0 : phase >= 1 ? 0.8 : 0.55}
+          accentReveal={phase >= 2}
+        />
+
+        {/* =========================================================================
             1. CINEMATIC AUTOMOTIVE BACKGROUND WITH SLOW CAMERA DRIFT
            ========================================================================= */}
         <motion.div
@@ -377,16 +377,16 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
           transition={{ duration: 8.5, ease: 'easeOut' }}
           className="absolute inset-0 pointer-events-none overflow-hidden"
         >
-          {/* Base Toyota Supra Night Scene (Cleaned, No Watermarks) */}
+          {/* Base Toyota Supra Night Scene blended into live environment */}
           <img
             src="/media/backgrounds/intro_supra_bg.jpg"
             alt="Toyota Supra Burnout Night Scene"
-            className="w-full h-full object-cover object-center filter brightness-[0.92] contrast-[1.05]"
+            className="w-full h-full object-cover object-center filter brightness-[0.85] contrast-[1.1] opacity-70 mix-blend-screen"
           />
 
           {/* Deep Cinematic Vignette & Edge Focus */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.85)_100%)]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(0,0,0,0.85)_100%)]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/60" />
 
           {/* Subtle Authentic CRT Scanline Filter */}
           <div className="absolute inset-0 scanlines opacity-20" />
@@ -470,11 +470,11 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
         </header>
 
         {/* =========================================================================
-            5. CENTER STAGE: METALLIC TYPOGRAPHY & YESHWANTH PORTRAIT
+            5. CENTER STAGE: METALLIC TYPOGRAPHY & CINEMATIC TITLE CARD
            ========================================================================= */}
-        <main className="relative z-20 flex flex-col items-center justify-center flex-1 w-full px-4 text-center">
+        <main className="relative z-20 flex flex-col items-center justify-center flex-1 w-full px-4 text-center my-auto">
           
-          {/* TEASER TEXT (0s - 1.8s) */}
+          {/* TEASER TEXT (Phase 0: 0s - 1.6s) */}
           <motion.div
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -496,24 +496,53 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
               <motion.button
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.2 }}
                 onClick={handleToggleSound}
-                className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/75 hover:bg-black/95 border border-amber-400/50 hover:border-amber-400 text-amber-300 text-xs font-mono tracking-wider backdrop-blur-md shadow-[0_0_15px_rgba(212,175,55,0.25)] transition-all cursor-pointer hover:scale-105 active:scale-95"
+                className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/80 hover:bg-black/95 border border-amber-400/60 hover:border-amber-400 text-amber-300 text-xs font-mono tracking-wider backdrop-blur-md shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all cursor-pointer hover:scale-105 active:scale-95"
+                aria-label="Experience with cinematic sound. Click to enable audio."
               >
-                <Volume2 className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-                <span>EXPERIENCE WITH SOUND [CLICK TO ENABLE]</span>
+                <Volume2 className="w-4 h-4 text-amber-400 animate-pulse" />
+                <span className="font-bold">EXPERIENCE WITH SOUND [CLICK TO ENABLE]</span>
               </motion.button>
             )}
           </motion.div>
 
-          {/* OVERSIZED METALLIC CHROME TYPOGRAPHY & OVERLAPPING PORTRAIT CONTAINER */}
-          <div className="relative w-full max-w-6xl mx-auto flex items-center justify-center py-2 min-h-[300px] sm:min-h-[380px]">
+          {/* MONUMENTAL METALLIC CHROME TITLE CARD CONTAINER */}
+          <div className="relative w-full max-w-5xl mx-auto flex flex-col items-center justify-center py-4 sm:py-8">
             
-            {/* The Big Word: PORTFOLIO or YESH.BUILDS */}
-            <div className="relative overflow-hidden w-full flex items-center justify-center">
+            {/* Official 3D Y Brand Emblem Reveal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85, y: -10 }}
+              animate={{
+                opacity: phase >= 1 ? 1 : 0,
+                scale: phase >= 2 ? 1 : phase >= 1 ? 0.95 : 0.85,
+                y: phase >= 1 ? 0 : -10,
+              }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-4 sm:mb-6 relative flex items-center justify-center"
+            >
+              <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 select-none">
+                {/* Dynamic Ambient Gold Rim Glow */}
+                <div
+                  className={`absolute inset-0 rounded-full bg-gradient-to-tr from-amber-500/35 to-red-600/30 blur-xl pointer-events-none transform scale-125 transition-opacity duration-700 ${
+                    phase >= 2 ? 'opacity-100' : 'opacity-60'
+                  }`}
+                  aria-hidden="true"
+                />
+                <img
+                  src="/brand/y_emblem.png"
+                  alt="Yeshwanth 3D Emblem"
+                  width={128}
+                  height={128}
+                  className="relative z-10 w-full h-full object-contain filter drop-shadow-[0_12px_28px_rgba(0,0,0,0.95)]"
+                />
+              </div>
+            </motion.div>
+
+            <div className="relative w-full flex flex-col items-center justify-center">
               
-              {/* PORTFOLIO (Phases 1 and 2) */}
-              {phase < 3 && (
+              {/* PORTFOLIO (Phase 1: 1.6s - 4.5s) */}
+              {phase < 2 && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.94 }}
                   animate={{ 
@@ -523,7 +552,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                   className="relative select-none"
                 >
-                  <h1 className="font-gta font-extrabold text-6xl sm:text-8xl md:text-9xl lg:text-[135px] tracking-wider text-chrome uppercase leading-none drop-shadow-[0_10px_30px_rgba(0,0,0,0.95)]">
+                  <h1 className="font-gta font-extrabold text-6xl sm:text-8xl md:text-9xl lg:text-[140px] tracking-wider text-chrome uppercase leading-none drop-shadow-[0_12px_35px_rgba(0,0,0,0.98)]">
                     PORTFOLIO
                   </h1>
 
@@ -536,81 +565,64 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
                 </motion.div>
               )}
 
-              {/* YESH.BUILDS (Phase 3 Morph) */}
-              {phase >= 3 && (
+              {/* YESH.BUILDS (Phase 2 & 3 Morph: 4.5s onwards) */}
+              {phase >= 2 && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.92, filter: 'blur(8px)' }}
                   animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                   transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative select-none text-center"
+                  className="relative select-none text-center flex flex-col items-center"
                 >
-                  <h1 className="font-gta font-black text-6xl sm:text-8xl md:text-9xl lg:text-[135px] tracking-tight uppercase leading-none drop-shadow-[0_12px_40px_rgba(0,0,0,0.98)]">
+                  <h1 className="font-gta font-black text-6xl sm:text-8xl md:text-9xl lg:text-[140px] tracking-tight uppercase leading-none drop-shadow-[0_15px_45px_rgba(0,0,0,0.98)]">
                     <span className="text-chrome">YESH.</span>
                     <span className="text-emerald-400 text-shadow-lime ml-2">BUILDS</span>
                   </h1>
 
-                  {/* Subtitle Badge: Strictly FULL STACK DEVELOPER • AI */}
+                  {/* Subtitle Badge: SOFTWARE DEVELOPER • WEB & APPLIED AI */}
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.15 }}
-                    className="mt-3 sm:mt-4 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-black/70 backdrop-blur-md border border-emerald-500/40 text-emerald-300 font-mono text-xs sm:text-sm tracking-wider shadow-[0_0_20px_rgba(16,185,129,0.2)]"
+                    className="mt-4 sm:mt-5 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-black/75 backdrop-blur-md border border-emerald-500/40 text-emerald-300 font-mono text-xs sm:text-sm tracking-wider shadow-[0_0_20px_rgba(16,185,129,0.25)]"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="font-bold">FULL STACK DEVELOPER • AI</span>
+                    <Sparkles className="w-4 h-4 text-emerald-400" />
+                    <span className="font-bold">SOFTWARE DEVELOPER • WEB &amp; APPLIED AI</span>
+                  </motion.div>
+
+                  {/* Educational & Geographic Telemetry */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.85 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="mt-2 text-[10px] sm:text-[11px] font-mono text-slate-400 tracking-widest uppercase"
+                  >
+                    Anna University • B.Tech IT // Class of 2028
                   </motion.div>
                 </motion.div>
               )}
 
             </div>
 
-            {/* YESHWANTH IN SUIT PORTRAIT CUTOUT (Clean, natural skin tone, no artificial filters) */}
-            <AnimatePresence>
-              {phase >= 2 && (
-                <motion.div
-                  initial={{ opacity: 0, y: 80, scale: 0.92 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 30, scale: 0.96 }}
-                  transition={{ 
-                    duration: 0.85, 
-                    ease: [0.16, 1, 0.3, 1] 
-                  }}
-                  className="absolute z-20 bottom-[-15px] pointer-events-none flex flex-col items-center"
+            {/* CALL TO ACTION BUTTON (Phase 3: 6.0s onwards) */}
+            {phase >= 3 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="mt-8 sm:mt-10 z-30"
+              >
+                <button
+                  onClick={handleFinish}
+                  className="flex items-center gap-3 px-8 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-display font-bold text-xl sm:text-2xl tracking-wide transition-all duration-200 cursor-pointer shadow-[0_0_30px_rgba(34,197,94,0.7)] hover:scale-105 active:scale-95"
+                  aria-label="Enter portfolio experience"
                 >
-                  {/* Subtle cool slate backlight halo to naturally separate portrait from sky */}
-                  <div className="absolute top-1/4 -inset-x-12 h-64 bg-slate-900/35 blur-3xl rounded-full pointer-events-none" />
-
-                  {/* Authentic Portrait with 100% natural colors - NO artificial CSS brightness/hue filters */}
-                  <div className="relative">
-                    <img
-                      src="/media/yeshwanth_suit_cutout.png"
-                      alt="Yeshwanth Akbar"
-                      className="w-48 sm:w-60 md:w-72 lg:w-84 h-auto max-h-[420px] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
-                    />
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  <span>ENTER PORTFOLIO</span>
+                  <ArrowRight className="w-5 h-5 text-black stroke-[3]" />
+                </button>
+              </motion.div>
+            )}
 
           </div>
-
-          {/* CALL TO ACTION BUTTON (Phase 3) */}
-          {phase >= 3 && (
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.25 }}
-              className="mt-4 sm:mt-6 z-30"
-            >
-              <button
-                onClick={handleFinish}
-                className="flex items-center gap-3 px-8 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-gta text-2xl tracking-wider transition-all duration-200 cursor-pointer shadow-[0_0_30px_rgba(34,197,94,0.7)] hover:scale-105 active:scale-95"
-              >
-                <span>ENTER OPEN WORLD</span>
-                <ArrowRight className="w-5 h-5 text-black stroke-[3]" />
-              </button>
-            </motion.div>
-          )}
 
         </main>
 
@@ -619,7 +631,14 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
            ========================================================================= */}
         <footer className="relative z-30 w-full p-4 sm:p-6 flex flex-col gap-2 max-w-4xl mx-auto">
           <div className="flex items-center justify-between text-[11px] font-mono text-slate-300">
-            <span className="text-white font-bold tracking-wider">YESH.BUILDS</span>
+            <div className="flex items-center gap-2">
+              <img
+                src="/brand/y_emblem.png"
+                alt="Y Emblem"
+                className="w-4 h-4 object-contain filter drop-shadow"
+              />
+              <span className="text-white font-bold tracking-wider">YESH.BUILDS</span>
+            </div>
             <span className="text-emerald-400 font-bold">{progress}%</span>
           </div>
 

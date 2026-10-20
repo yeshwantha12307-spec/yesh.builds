@@ -92,34 +92,32 @@ export const CareerMap: React.FC = () => {
       id="journey" 
       className="relative min-h-screen w-full flex items-center justify-center py-24 px-4 sm:px-6 select-none overflow-hidden"
     >
-      {/* =========================================================================
-          BACKGROUND: REFINED ATMOSPHERIC CHARCOAL GRADIENT WITH FAINT GRID
-         ========================================================================= */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700"
-        style={{ backgroundImage: `url('/media/backgrounds/experience_skyline.jpg')` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050508] via-black/85 to-[#050508]/95" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 to-black/95" />
-        <div className="absolute inset-0 bg-tactical-grid opacity-10 pointer-events-none" />
+      {/* CAREER TIMELINE THEMATIC BACKDROP */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mix-blend-luminosity transition-all duration-700"
+          style={{ backgroundImage: `url('/media/backgrounds/experience_skyline.jpg')` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-[#030712]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/95 via-transparent to-[#030712]/95" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         
         {/* =========================================================================
-            CLEAN CINEMATIC HEADER (No game clutter, no fake HUD labels)
+            CLEAN EDITORIAL HEADER
            ========================================================================= */}
         <div className="mb-8 text-left">
-          <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold tracking-widest uppercase mb-1.5">
+          <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-semibold tracking-widest uppercase mb-2">
             <span className="w-2 h-2 rounded-full bg-amber-400/80 animate-pulse" />
-            <span>// MILESTONE &amp; CAREER PROGRESSION</span>
+            <span>// CAREER &amp; MILESTONE PROGRESSION</span>
           </div>
-          <h2 className="font-gta text-5xl sm:text-7xl text-white tracking-wide text-shadow-gta leading-none">
-            DEVELOPER <span className="text-amber-400 font-normal">PROGRESSION PATH</span>
+          <h2 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-tight">
+            Developer Journey
           </h2>
-          <div className="font-script text-2xl sm:text-3xl text-slate-300 font-bold mt-1">
-            A milestone journey from Higher Education to production AI systems.
-          </div>
+          <p className="font-sans text-sm sm:text-base text-slate-300 max-w-2xl mt-2 leading-relaxed">
+            Key milestones spanning computer science foundations, virtual internship projects, and active software deployments.
+          </p>
         </div>
 
         {/* =========================================================================
@@ -376,7 +374,7 @@ export const CareerMap: React.FC = () => {
                       <span className="px-2.5 py-0.5 rounded-md bg-white/10 border border-white/15 font-mono text-xs font-bold text-white">
                         {selectedLevel.levelTag}
                       </span>
-                      <span className="font-gta text-base sm:text-lg tracking-wider text-amber-400">
+                      <span className="font-display font-bold text-base sm:text-lg tracking-wide text-amber-400 uppercase">
                         {selectedLevel.badge}
                       </span>
                     </div>
@@ -394,10 +392,10 @@ export const CareerMap: React.FC = () => {
 
                   {/* Title & Organization Header */}
                   <div className="mt-4">
-                    <h3 className="font-gta text-3xl sm:text-4xl text-white tracking-wide leading-tight">
+                    <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight leading-tight">
                       {selectedLevel.title}
                     </h3>
-                    <div className="text-xs sm:text-sm font-mono text-amber-400 font-medium mt-1">
+                    <div className="text-xs sm:text-sm font-mono text-amber-400 font-semibold mt-1">
                       {selectedLevel.subtitle}
                     </div>
                   </div>
@@ -480,7 +478,7 @@ export const CareerMap: React.FC = () => {
                   {selectedLevel.associatedSectionId && (
                     <button
                       onClick={() => scrollToSection(selectedLevel.associatedSectionId!)}
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-gta text-base tracking-wider transition-all duration-200 shadow-[0_0_15px_rgba(212,175,55,0.35)] cursor-pointer hover:scale-105 active:scale-95"
+                      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-display font-bold text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_0_15px_rgba(212,175,55,0.35)] cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
                     >
                       <span>
                         {selectedLevel.levelNumber === "04"

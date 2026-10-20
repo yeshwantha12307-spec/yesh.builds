@@ -1,181 +1,182 @@
-# YESH.BUILDS — Cinematic GTA-Inspired Gaming Developer Portfolio
+# YESH.BUILDS — Cinematic Creative Developer Portfolio
 
-A production-grade, immersive developer portfolio inspired by cinematic open-world game aesthetics (Grand Theft Auto VI / Vice City), cyberpunk telemetry HUDs, neon sunset horizons, and game-inspired storytelling.
+A production-grade, immersive creative developer portfolio combining cinematic open-world game aesthetics, high-performance web engineering, a 12-angle photorealistic portrait turntable, real-time procedural Web Audio synthesis, and live multi-depth Canvas environments.
 
-Built for **Yeshwanth Akbar**, B.Tech Information Technology student and developer at M.A.M. College of Engineering & Technology, Trichy (Anna University).
+Built for **Yeshwanth Akbar**, Information Technology undergraduate at **M.A.M. College of Engineering & Technology, Tiruchirappalli (Affiliated to Anna University)**.
 
 ---
 
-## 🌟 Key Features & Architecture
+## 🌐 Verified Live Deployments & Official Profiles
 
-- **Cinematic Open-World Environments**:
-  - **Hero Scene**: Panoramic sunset metropolitan skyline, black sports supercar with glowing LED taillights, developer character with rolled sleeves and wristwatch, palm trees with neon magenta uplighting, and helicopter silhouette.
-  - **Player Profile (About)**: Coastal promenade at golden hour overlooking the turquoise bay and Vice Beach skyline.
-  - **Skills Inventory (Loadout)**: High-tech developer workstation at night with dual curved monitors, glowing telemetry, and night cityscape outside.
-  - **Main Missions (Projects)**: Luxury marina bayfront terrace with high-tech metallic laptop, infinity pool, and pastel art deco skyline.
-  - **Career Map (Journey)**: Skyscraper rooftop observation deck at dusk with winding highway traffic light trails.
-  - **Certificate Vault (Achievements)**: Modern university technology research campus building.
-  - **Contact Mission**: Twilight street scene with parked sports supercar, palm trees, and illuminated smartphone relay.
-  - **Mission Complete Finale**: Dawn sunrise ocean boulevard with sports car taillights leading toward the rising sun.
+### Featured Live Projects
+| Project | Live URL | Focus Area |
+| :--- | :--- | :--- |
+| **AngadiFlow** | [https://angadiflow.in/](https://angadiflow.in/) | Commercial restaurant web storefront, digital menus & patron inquiry channel |
+| **CampusFix AI** | [https://campus-fix-woad.vercel.app/](https://campus-fix-woad.vercel.app/) | Automated campus defect reporting, AI category tagging & department routing pipeline |
 
-- **Persistent In-Game HUD & Radar Minimap**:
-  - Top GTA telemetry bar: `104.9 FM` radio indicator, `LEONIDA DROPS IN...` live countdown timer, live local clock, money HUD (`$1,625,000`), armor bar (`🛡️ 100`), wanted level (`★★★★★`), and mute/unmute audio control.
-  - Circular/square tactical radar minimap with dynamic sweep animation, route marker, player blip, and real-time `CURRENT OBJECTIVE` updates matching active scroll sections.
-  - Interactive full-screen GTA start menu overlay (press `[ESC]` or click menu button).
-  - Web Audio API synthesizer for tactile interface feedback.
-  - Tactical custom cursor with dynamic label tracking on mouse pointer devices.
-  - Lenis smooth scrolling with fallback and respect for `prefers-reduced-motion`.
+### Official Social & Direct Contact Channels
+| Platform | Handle / Destination | Direct URL |
+| :--- | :--- | :--- |
+| **GitHub** | `@yeshwantha12307-spec` | [https://github.com/yeshwantha12307-spec](https://github.com/yeshwantha12307-spec) |
+| **LinkedIn** | `in/yeshwanth-akbar-150717374` | [https://www.linkedin.com/in/yeshwanth-akbar-150717374](https://www.linkedin.com/in/yeshwanth-akbar-150717374) |
+| **Instagram** | `@this_is_yeshhhhhhh` | [https://www.instagram.com/this_is_yeshhhhhhh?igsi=MWo4ZTRrNW1kb3Vwcw==](https://www.instagram.com/this_is_yeshhhhhhh?igsi=MWo4ZTRrNW1kb3Vwcw==) |
+| **WhatsApp** | `+91 86674 68455` | [https://wa.me/918667468455](https://wa.me/918667468455) |
+| **Email** | `yeshwantha1237@gmail.com` | [mailto:yeshwantha1237@gmail.com](mailto:yeshwantha1237@gmail.com) |
 
-- **Strict Factual Accuracy**:
-  - Exactly **TWO** featured projects: **CampusFix AI** and **AngadiFlow**.
-  - Verified education: B.Tech Information Technology at M.A.M. College of Engineering & Technology (Anna University, 2024–2028, CGPA 7.33/10.0, Reg No: 812024205055).
-  - 12 authentic, verified certificates with full high-resolution previews, official credential IDs, and PDF downloads.
-  - Skills structured by status (`USED IN PROJECTS`, `CURRENTLY LEARNING`, `EXPLORING`) without fabricated proficiency percentages.
+---
+
+## 🌟 Core Architectural Features
+
+### 1. 12-Angle 360° Photorealistic Portrait Turntable
+- **High-Fidelity Subject Rotation**: Seamlessly switches through 12 cropped, high-resolution portrait frames at 30° increments (0° to 330°).
+- **Multi-Input Controls**: Full support for desktop mouse drag, mobile touch swipe, and clamped scroll-driven rotation.
+- **Zero Layout Shifts**: Preloaded frame cache ensures instant rendering with zero flicker, layout shifts, or jumpy frame transitions.
+- **Visual Presentation**: Frameless portrait display with centered alignment, soft ambient pedestal glow, and interactive rotation HUD indicator.
+
+### 2. Live Continuous Cinematic Environment
+- **Multi-Tier Particle Simulation**: Real-time HTML5 Canvas particle field spanning three distinct optical depth tiers:
+  - *Far tier*: Ambient starlight and slow-drifting microscopic motes.
+  - *Mid tier*: Organic floating light dust reacting to subtle mouse parallax.
+  - *Near tier*: Out-of-focus cinematic bokeh motes with radial gradients.
+- **Volumetric Lighting**: Layered GPU-accelerated CSS radial orbs producing a warm Vice City sunset horizon with diagonal sweeping beams.
+- **Performance Optimized**: Automatically throttles via the Page Visibility API when the browser tab is inactive, dropping GPU/CPU utilization to zero.
+
+### 3. Procedural Web Audio Sound Synthesizer
+- **Zero External Audio Assets**: All sound effects are generated mathematically in real-time via the browser's native Web Audio API (sine, square, triangle oscillators, biquad filters, and exponential gain ramps).
+- **Cohesive Audio Palette**: Includes cinematic opening swells, bass drop reveals, tactical menu blips, soft hover chirps, and project launch audio.
+- **User Control**: Persistent HUD volume control supporting instant muting and multi-level volume cycling (Mute / 30% / 70% / Max).
+
+### 4. Official 3D "Y" Brand Identity
+- **Custom Red & Gold Emblem**: The official 3D brand symbol is integrated across all touchpoints:
+  - Fixed HUD top navigation bar with subtle rotation glow.
+  - Cinematic terminal intro loading state.
+  - Browser tab favicon (`/favicon.ico`) and Apple touch icon (`/apple-touch-icon.png`).
+  - Open Graph social preview banner (`/og-image.png`).
+  - Web application manifest (`/site.webmanifest`).
+  - Finale footer brand signature.
+
+### 5. Premium Typography System & Authentic Copywriting
+- **Curated Google Fonts**:
+  - `Space Grotesk` (Headings, titles, callouts)
+  - `Inter` (Body prose, narrative bios, problem-solution descriptions)
+  - `JetBrains Mono` (Telemetry metadata, terminal logs, code badges)
+  - `Bebas Neue` (Display hero numbers, mission banners)
+- **Factual Skills Inventory**: Organized into verified disciplines (Frontend Development, Backend & Systems, AI & Applied Computer Vision, Core Computer Science, and Developer Workflow), completely removing unbacked entries.
+- **Verified Credentials**: 12 authentic certificates with high-resolution lightbox previews, official credential IDs, and direct PDF downloads.
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Framework**: React 18
-- **Build Tool**: Vite 5
-- **Language**: TypeScript 5
-- **Styling**: Tailwind CSS 3 (custom GTA Vice City design system)
-- **Typography**: Bebas Neue, Permanent Marker, Caveat, Orbitron, Rajdhani, JetBrains Mono, Inter
-- **Animation**: Framer Motion 11, GSAP 3, Canvas Confetti
-- **Smooth Scrolling**: Lenis
-- **Icons**: Lucide React
-- **Audio**: Web Audio API Procedural Synthesizer (Zero external audio file dependencies)
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend Framework** | React 18 (Hooks, Suspense, Concurrent Mode) |
+| **Language** | TypeScript 5 (Strict Mode, Type-Safe Data Schemas) |
+| **Build & Tooling** | Vite 5 (Rollup, Fast HMR, Minified Bundles) |
+| **Styling** | Tailwind CSS 3 (Custom Theme Tokens, Responsive Grid) |
+| **Motion & Animation** | Framer Motion 11, GSAP 3, Canvas Confetti |
+| **Audio Engine** | Native Web Audio API (Procedural Synthesis) |
+| **Canvas & Graphics** | HTML5 Canvas 2D Context (Particle Simulation) |
+| **Icons** | Lucide React |
 
 ---
 
-## 🚀 Installation & Local Development
+## 🚀 Getting Started Locally
 
 ### Prerequisites
 - Node.js (v18.0.0 or higher recommended)
 - npm (v9.0.0 or higher)
 
-### Setup Commands
+### Installation & Launch
 ```bash
-# Clone the repository
-git clone https://github.com/yeshwantha12307-spec/portfolio.git
-cd portfolio
+# Clone the official repository
+git clone https://github.com/yeshwantha12307-spec/yesh.builds.git
+cd yesh.builds
 
-# Install dependencies
+# Install project dependencies
 npm install
 
-# Start Vite development server
+# Start local development server (Vite)
 npm run dev
-
-# Open browser at http://localhost:5173
 ```
 
----
+Visit `http://localhost:3000/` or `http://localhost:5173/` in your browser.
 
-## 📦 Production Build & Testing
-
+### Production Build & Verification
 ```bash
-# Type check and generate production bundle
+# Run TypeScript compilation and generate optimized production bundle
 npm run build
 
 # Preview production build locally
-npm run preview -- --port 4173 --host
+npm run preview
 ```
 
 ---
 
-## 📁 Project Structure
+## 📁 Repository Structure
 
 ```
 ├── public/
-│   ├── certificates/            # High-res rendered images of original certificates
-│   ├── certificates_pdf/        # Downloadable original certificate PDFs
+│   ├── brand/                   # Official 3D Y emblem assets
+│   ├── certificates/            # High-resolution certificate preview images
+│   ├── certificates_pdf/        # Official verifiable certificate PDFs
 │   ├── media/
-│   │   └── backgrounds/         # High-resolution 16:9 cinematic game environments
-│   │       ├── hero_skyline.jpg
-│   │       ├── about_ocean.jpg
-│   │       ├── skills_room.jpg
-│   │       ├── projects_laptop.jpg
-│   │       ├── experience_skyline.jpg
-│   │       ├── achievements_campus.jpg
-│   │       ├── contact_night.jpg
-│   │       └── complete_sunrise.jpg
-│   └── resume.pdf               # Verified resume document
+│   │   ├── backgrounds/         # High-resolution cinematic environmental backdrops
+│   │   ├── turntable/           # 12-angle 360° portrait frame sequence (0° to 330°)
+│   │   └── yeshwanth_portfolio_cutout.png # Operative profile cutout
+│   ├── favicon.ico              # Branded site favicon
+│   ├── apple-touch-icon.png     # Mobile touch icon
+│   ├── og-image.png             # Social share preview image
+│   ├── site.webmanifest         # PWA metadata
+│   └── resume.pdf               # Verified developer resume
 ├── src/
 │   ├── components/
-│   │   ├── AchievementBoard.tsx # Certificate vault with high-res lightbox
-│   │   ├── CareerMap.tsx        # Winding illuminated route timeline
-│   │   ├── CharacterProfile.tsx # Player profile & academic dossier
-│   │   ├── CinematicHero.tsx    # Sunset skyline, sports car & Mission 01 HUD
-│   │   ├── ContactMission.tsx   # Final communication mission & contact terminal
-│   │   ├── CustomCursor.tsx     # Tactical crosshair & cursor label
-│   │   ├── HUDNavigation.tsx    # GTA VI telemetry header, radar & menu overlay
-│   │   ├── IntroSequence.tsx    # Terminal boot initialization sequence
-│   │   ├── MissionCompleteFooter.tsx # Finale screen with confetti
-│   │   └── SkillsInventory.tsx  # Game loadout equipment slots
+│   │   ├── AcademySection.tsx   # Anna University education dossier & coursework
+│   │   ├── AchievementBoard.tsx # 12 verified certificate vault & modal viewer
+│   │   ├── BrandLogo.tsx        # Reusable 3D Y emblem with glow & rotation
+│   │   ├── CareerMap.tsx        # Illuminated chronological career timeline
+│   │   ├── CharacterProfile.tsx # Player dossier, metrics & narrative bio
+│   │   ├── CinematicHero.tsx    # Hero section with headline & turntable integration
+│   │   ├── ContactMission.tsx   # Direct channel directory & WhatsApp enquiry form
+│   │   ├── CustomCursor.tsx     # Tactical crosshair & contextual cursor label
+│   │   ├── HUDNavigation.tsx    # GTA VI top telemetry HUD, audio slider & start menu
+│   │   ├── IntroSequence.tsx    # Cinematic initialization sequence
+│   │   ├── LiveCinematicEnvironment.tsx # Canvas particle simulation & volumetric orbs
+│   │   ├── MissionCompleteFooter.tsx # Finale screen, social matrix & back-to-top
+│   │   ├── MissionSystem.tsx    # AngadiFlow & CampusFix interactive project showcase
+│   │   ├── PortraitTurntable.tsx # 360° drag, touch & scroll portrait turntable
+│   │   └── SkillsInventory.tsx  # Categorized technology stack matrix
 │   ├── data/
 │   │   ├── achievements.ts      # 12 verified certificate records
-│   │   ├── experience.ts        # Education & internship checkpoints
-│   │   ├── profile.ts           # Centralized personal & academic details
-│   │   ├── projects.ts          # CampusFix AI & AngadiFlow project records
-│   │   ├── skills.ts            # Categorized technology inventory
-│   │   └── socialLinks.ts       # GitHub, LinkedIn, email & phone
+│   │   ├── experience.ts        # Academic & internship milestones
+│   │   ├── portfolioData.ts     # Central developer profile & project registry
+│   │   ├── profile.ts           # Bio, academic metrics & mission goals
+│   │   ├── projects.ts          # Featured projects (AngadiFlow, CampusFix AI)
+│   │   ├── skills.ts            # Verified technology loadout inventory
+│   │   └── socialLinks.ts       # GitHub, LinkedIn, Instagram, WhatsApp, Email
 │   ├── utils/
-│   │   └── audio.ts             # Web Audio procedural sound effects
-│   ├── App.tsx                  # Main application orchestrator & Lenis controller
-│   ├── index.css                # Custom scanlines, glow filters & GTA fonts
-│   └── main.tsx                 # Entrypoint
-├── index.html                   # Fonts & SEO meta tags
-├── tailwind.config.js           # GTA Vice City colors & fonts configuration
+│   │   └── audio.ts             # Web Audio procedural sound synthesizer
+│   ├── App.tsx                  # Master application orchestrator
+│   ├── index.css                # Global styles, scanlines & typography tokens
+│   └── main.tsx                 # React DOM entrypoint
+├── index.html                   # HTML head, Google Fonts & SEO meta tags
+├── tailwind.config.js           # Tailwind theme configuration
+├── tsconfig.json                # TypeScript project configuration
 └── vite.config.ts               # Vite bundler configuration
 ```
 
 ---
 
-## ✏️ Configuration & Maintenance Guide
+## 🔒 Security & Performance Best Practices
 
-### 1. How to Edit Profile Information
-Edit [`src/data/profile.ts`](file:///k:/Portfolio%20yesh/src/data/profile.ts):
-```typescript
-export const PROFILE: ProfileData = {
-  name: "Yeshwanth Akbar",
-  brandName: "YESH.BUILDS",
-  location: "Tamil Nadu, India",
-  college: "M.A.M. College of Engineering and Technology, Trichy",
-  degree: "B.Tech in Information Technology",
-  studyPeriod: "2024 – 2028",
-  cgpa: "7.33 / 10.0",
-  ...
-};
-```
-
-### 2. How to Edit the Two Featured Projects
-Edit [`src/data/projects.ts`](file:///k:/Portfolio%20yesh/src/data/projects.ts):
-- **CampusFix AI**: `https://campus-fix-woad.vercel.app/`
-- **AngadiFlow**: `https://www.angadiflow.in/`
-
-### 3. How to Update Skills
-Edit [`src/data/skills.ts`](file:///k:/Portfolio%20yesh/src/data/skills.ts). Each skill must be categorized as `USED IN PROJECTS`, `CURRENTLY LEARNING`, or `EXPLORING`.
-
-### 4. How to Update Certificates & Achievements
-Edit [`src/data/achievements.ts`](file:///k:/Portfolio%20yesh/src/data/achievements.ts) and place image previews in `public/certificates/` and PDFs in `public/certificates_pdf/`.
-
-### 5. How to Update the Resume File
-Replace [`public/resume.pdf`](file:///k:/Portfolio%20yesh/public/resume.pdf) with your updated PDF.
-
-### 6. How to Configure Contact Form Delivery
-In [`src/components/ContactMission.tsx`](file:///k:/Portfolio%20yesh/src/components/ContactMission.tsx), the contact form currently dispatches via a client-side mailto protocol. To integrate an automated email service, plug in a Formspree endpoint or EmailJS service ID without committing private keys.
-
----
-
-## 🔒 Security & Privacy
-
-- No API keys, credentials, or private secrets are stored in the client-side bundle.
-- Audio is muted by default to respect visitor preference and browser autoplay policies.
-- Prefers-reduced-motion is respected across all animation layers.
+1. **Native External Navigation**: All outbound project and social destinations use native `<a target="_blank" rel="noopener noreferrer">` tags to protect against tab-nabbing vulnerabilities and ensure single-click reliability.
+2. **Audio Autoplay Compliance**: The audio system is initialized only upon user interaction (intro button or volume toggle) to comply strictly with modern browser Web Audio policies.
+3. **Accessibility**: Includes keyboard navigation support (`[ESC]` menu toggle, tab indexing, ARIA labels on all icon buttons) and full compatibility with `prefers-reduced-motion`.
+4. **Zero Credentials in Bundle**: No private API keys or database connection strings are exposed in client-side code.
 
 ---
 
 ## 📄 License & Attribution
 
-Designed and developed by **Yeshwanth Akbar** (`YESH.BUILDS`).
-Inspired by open-world AAA video game interface design and modern web engineering.
+Designed and engineered by **Yeshwanth Akbar** ([@yeshwantha12307-spec](https://github.com/yeshwantha12307-spec)).
+All rights reserved © 2026 YESH.BUILDS.

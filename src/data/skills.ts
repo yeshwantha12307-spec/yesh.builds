@@ -1,34 +1,40 @@
 export interface InventorySkill {
   id: string;
   name: string;
-  category: 'Frontend' | 'Backend' | 'Database' | 'Tools & Workflow' | 'Cloud & AI';
+  category: 
+    | 'Frontend Development'
+    | 'Backend Development'
+    | 'Programming Languages'
+    | 'Databases'
+    | 'AI & Machine Learning'
+    | 'Developer Tools';
   status: 'USED IN PROJECTS' | 'CURRENTLY LEARNING' | 'EXPLORING';
   practicalUse: string;
   iconName: string;
 }
 
 export const SKILLS_DATA: InventorySkill[] = [
-  // Frontend
+  // Frontend Development
   {
     id: "html-css",
     name: "HTML5 & CSS3",
-    category: "Frontend",
+    category: "Frontend Development",
     status: "USED IN PROJECTS",
-    practicalUse: "Semantic structure, responsive layouts, flexbox, and modern CSS variables.",
+    practicalUse: "Semantic structure, responsive layouts, flexbox, CSS Grid, and custom design tokens.",
     iconName: "Globe"
   },
   {
-    id: "javascript",
+    id: "javascript-front",
     name: "JavaScript (ES6+)",
-    category: "Frontend",
+    category: "Frontend Development",
     status: "USED IN PROJECTS",
-    practicalUse: "Asynchronous workflows, DOM manipulation, client-side application logic.",
+    practicalUse: "Asynchronous workflows, DOM manipulation, and dynamic client-side application logic.",
     iconName: "FileCode"
   },
   {
     id: "react",
     name: "React.js",
-    category: "Frontend",
+    category: "Frontend Development",
     status: "USED IN PROJECTS",
     practicalUse: "Component-driven architecture, custom hooks, and state management in AngadiFlow & CampusFix.",
     iconName: "Layout"
@@ -36,130 +42,165 @@ export const SKILLS_DATA: InventorySkill[] = [
   {
     id: "tailwind",
     name: "Tailwind CSS",
-    category: "Frontend",
+    category: "Frontend Development",
     status: "USED IN PROJECTS",
-    practicalUse: "Rapid UI development, responsive breakpoints, design systems, and animations.",
+    practicalUse: "Utility-first design systems, responsive breakpoints, subtle micro-interactions, and themes.",
     iconName: "Palette"
   },
   {
-    id: "typescript",
+    id: "typescript-front",
     name: "TypeScript",
-    category: "Frontend",
-    status: "CURRENTLY LEARNING",
-    practicalUse: "Static typing, contract interfaces, and type safety for large frontend builds.",
+    category: "Frontend Development",
+    status: "USED IN PROJECTS",
+    practicalUse: "Type definitions, props interfaces, and compile-time contract validation for React builds.",
     iconName: "ShieldCheck"
   },
 
-  // Backend
+  // Backend Development
   {
     id: "nodejs",
     name: "Node.js",
-    category: "Backend",
+    category: "Backend Development",
     status: "USED IN PROJECTS",
-    practicalUse: "REST API services, event-driven backends, and server runtime.",
+    practicalUse: "Server-side JavaScript runtime, event-driven architecture, and REST API services.",
     iconName: "Server"
   },
   {
     id: "express",
     name: "Express.js",
-    category: "Backend",
+    category: "Backend Development",
     status: "USED IN PROJECTS",
-    practicalUse: "Routing middleware, API endpoint controllers, and request handling.",
+    practicalUse: "HTTP middleware pipelines, RESTful endpoint routing, and request validation controllers.",
     iconName: "Cpu"
   },
   {
-    id: "python",
-    name: "Python",
-    category: "Backend",
+    id: "rest-apis",
+    name: "REST API Architecture",
+    category: "Backend Development",
     status: "USED IN PROJECTS",
-    practicalUse: "Data structures, OpenCV computer vision scripts, automation, and AI APIs.",
-    iconName: "Code"
+    practicalUse: "Designing stateless endpoints, status code semantics, and structured JSON payloads.",
+    iconName: "Layers"
   },
 
-  // Database
+  // Programming Languages
+  {
+    id: "python",
+    name: "Python",
+    category: "Programming Languages",
+    status: "USED IN PROJECTS",
+    practicalUse: "Core data structures, computer vision pipelines with OpenCV, and automation scripts.",
+    iconName: "Code"
+  },
+  {
+    id: "typescript-lang",
+    name: "TypeScript",
+    category: "Programming Languages",
+    status: "USED IN PROJECTS",
+    practicalUse: "Strict typing, OOP and functional patterns, interfaces, and maintainable codebase structure.",
+    iconName: "ShieldCheck"
+  },
+  {
+    id: "javascript-lang",
+    name: "JavaScript",
+    category: "Programming Languages",
+    status: "USED IN PROJECTS",
+    practicalUse: "Modern ES2022+ features, asynchronous promises, closures, and modular application design.",
+    iconName: "FileCode"
+  },
+  {
+    id: "c-cpp",
+    name: "C / C++",
+    category: "Programming Languages",
+    status: "USED IN PROJECTS",
+    practicalUse: "Foundational data structures, algorithmic logic, pointers, and memory mechanics in academic coursework.",
+    iconName: "Terminal"
+  },
+
+  // Databases
   {
     id: "mongodb",
     name: "MongoDB",
-    category: "Database",
+    category: "Databases",
     status: "USED IN PROJECTS",
-    practicalUse: "Document-based NoSQL storage for flexible schemas and JSON payloads.",
+    practicalUse: "Document collections, flexible schema modeling, and aggregation queries for web services.",
     iconName: "Database"
   },
   {
     id: "mysql",
     name: "MySQL",
-    category: "Database",
+    category: "Databases",
     status: "USED IN PROJECTS",
-    practicalUse: "Relational database modeling, SQL queries, and transactional integrity.",
+    practicalUse: "Relational database schema normalization, table relationships, foreign keys, and SQL queries.",
     iconName: "Table"
   },
   {
     id: "supabase",
-    name: "Supabase",
-    category: "Database",
-    status: "EXPLORING",
-    practicalUse: "PostgreSQL backends with managed auth and real-time database listeners.",
+    name: "Supabase (PostgreSQL)",
+    category: "Databases",
+    status: "USED IN PROJECTS",
+    practicalUse: "PostgreSQL relational backend, Row-Level Security (RLS) policies, and real-time data sync in CampusFix AI.",
     iconName: "Layers"
   },
 
-  // Tools & Workflow
+  // AI & Machine Learning
+  {
+    id: "ai-vision",
+    name: "Computer Vision & OpenCV",
+    category: "AI & Machine Learning",
+    status: "USED IN PROJECTS",
+    practicalUse: "Real-time webcam video stream processing, contour detection, and hand gesture recognition.",
+    iconName: "Camera"
+  },
+  {
+    id: "gemini-llm",
+    name: "Gemini API & LLM Workflows",
+    category: "AI & Machine Learning",
+    status: "USED IN PROJECTS",
+    practicalUse: "Structured prompt workflows, automated grievance categorization, and intelligent ticket routing.",
+    iconName: "Sparkles"
+  },
+
+  // Developer Tools
   {
     id: "git",
     name: "Git & GitHub",
-    category: "Tools & Workflow",
+    category: "Developer Tools",
     status: "USED IN PROJECTS",
-    practicalUse: "Version control, branch management, pull requests, and collaborative code repos.",
+    practicalUse: "Distributed version control, branch workflows, merge reviews, and open repository management.",
     iconName: "GitBranch"
-  },
-  {
-    id: "docker",
-    name: "Docker",
-    category: "Tools & Workflow",
-    status: "USED IN PROJECTS",
-    practicalUse: "Containerizing web servers and isolating runtime dependencies.",
-    iconName: "Box"
   },
   {
     id: "vscode",
     name: "VS Code",
-    category: "Tools & Workflow",
+    category: "Developer Tools",
     status: "USED IN PROJECTS",
-    practicalUse: "Primary IDE environment with linting, debugging, and terminal workflows.",
+    practicalUse: "Primary editor setup with TypeScript LSP, linting, integrated debugging, and terminal workflows.",
     iconName: "Terminal"
   },
   {
-    id: "figma",
-    name: "Figma",
-    category: "Tools & Workflow",
-    status: "EXPLORING",
-    practicalUse: "Wireframing, UI prototyping, and component token design.",
-    iconName: "Eye"
-  },
-
-  // Cloud & AI
-  {
-    id: "cloud-devops",
-    name: "Cloud & CI/CD",
-    category: "Cloud & AI",
-    status: "CURRENTLY LEARNING",
-    practicalUse: "Continuous integration workflows, cloud storage (S3/Azure), and container hosting.",
-    iconName: "Cloud"
-  },
-  {
-    id: "ai-vision",
-    name: "Computer Vision & OpenCV",
-    category: "Cloud & AI",
+    id: "postman",
+    name: "Postman",
+    category: "Developer Tools",
     status: "USED IN PROJECTS",
-    practicalUse: "Real-time hand gesture tracking, image preprocessing, and media streams.",
-    iconName: "Camera"
+    practicalUse: "API endpoint testing, environment variable configuration, header inspection, and payload simulation.",
+    iconName: "Server"
+  },
+  {
+    id: "vite",
+    name: "Vite",
+    category: "Developer Tools",
+    status: "USED IN PROJECTS",
+    practicalUse: "Next-generation frontend tooling, lightning-fast HMR dev server, and optimized production bundling.",
+    iconName: "Cpu"
   }
 ];
 
 export const SKILL_CATEGORIES = [
   "ALL",
-  "Frontend",
-  "Backend",
-  "Database",
-  "Tools & Workflow",
-  "Cloud & AI"
+  "Frontend Development",
+  "Backend Development",
+  "Programming Languages",
+  "Databases",
+  "AI & Machine Learning",
+  "Developer Tools"
 ] as const;

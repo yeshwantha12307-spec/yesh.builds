@@ -56,16 +56,17 @@ export const DEVELOPER_INFO = {
   name: "YESHWANTH AKBAR",
   shortName: "Yeshwanth A",
   callsign: "SHADOW_ARCHITECT",
-  title: "Software Developer | Full Stack Web Developer | AI & DevOps Engineer",
-  level: "LVL. 21 [UNDERGRAD TECH COMBATANT]",
+  title: "Software Developer | Web & Applied AI Engineer",
+  level: "CLASS OF 2028 // ANNA UNIVERSITY",
   location: "Attur, Tamil Nadu, India",
   email: "yeshwantha1237@gmail.com",
   phone: "+91 8667468455",
   linkedin: "https://www.linkedin.com/in/yeshwanth-akbar-150717374",
   github: "https://github.com/yeshwantha12307-spec",
+  instagram: "https://www.instagram.com/this_is_yeshhhhhhh?igsi=MWo4ZTRrNW1kb3Vwcw==",
   resumePdf: "/resume.pdf",
-  bio: "Information Technology undergraduate at M.A.M. College of Engineering & Technology (Anna University) with active project experience in full-stack web applications, campus problem resolution systems, containerized DevOps pipelines, and computer vision AI. Battle-tested through hands-on virtual internships at CodeAlpha, Arttifai Tech, Alfrah Cognix, and SYNTECXHUB.",
-  currentFocus: "Engineering high-reliability cloud native architectures, intelligent issue routing systems, and real-time AI tools.",
+  bio: "Information Technology undergraduate at M.A.M. College of Engineering & Technology (Anna University, Class of 2028). Experienced in building responsive full-stack applications in React and TypeScript, structured issue management backends, and practical computer vision systems.",
+  currentFocus: "Engineering responsive web applications, intelligent routing systems, and practical computer vision tools.",
   education: {
     degree: "B.Tech in Information Technology",
     institution: "M.A.M. College of Engineering and Technology, Tiruchirappalli (Affiliated to Anna University)",
@@ -84,8 +85,7 @@ export const SKILL_INVENTORY: SkillCategory[] = [
       { name: "JavaScript (ES6+)", level: "Production", focus: "Async programming, DOM, Web APIs, Modern patterns", iconName: "FileCode" },
       { name: "TypeScript", level: "Active Focus", focus: "Type safety, Interface contracts, Scalable frontend code", iconName: "ShieldCheck" },
       { name: "SQL", level: "Production", focus: "Relational queries, Schema design, Supabase PostgreSQL", iconName: "Database" },
-      { name: "Java", level: "Practiced", focus: "OOP fundamentals, Gradle application development", iconName: "Coffee" },
-      { name: "MATLAB", level: "Certified", focus: "Unit testing, modular function design, scientific computing", iconName: "Binary" }
+      { name: "C / C++", level: "Academic", focus: "Algorithmic thinking, memory concepts, pointer mechanics", iconName: "Terminal" }
     ]
   },
   {
@@ -93,30 +93,29 @@ export const SKILL_INVENTORY: SkillCategory[] = [
     description: "Modern UI/UX libraries and frameworks for fast, accessible, high-fidelity web experiences.",
     skills: [
       { name: "React.js", level: "Core Specialist", focus: "Component architecture, Hooks, State management, SPA routing", iconName: "Layout" },
-      { name: "Next.js", level: "Practiced", focus: "App Router, Server components, Full-stack web applications", iconName: "Layers" },
       { name: "Tailwind CSS", level: "Production", focus: "Custom design systems, Responsive grids, Micro-animations", iconName: "Palette" },
-      { name: "HTML5 & CSS3", level: "Expert Baseline", focus: "Semantic markup, Flexbox, Grid, Canvas, WebGL context", iconName: "Globe" },
-      { name: "UI/UX Architecture", level: "Practiced", focus: "User-centric wireframing, Design tokens, Accessible contrast", iconName: "Eye" }
+      { name: "HTML5 & CSS3", level: "Expert Baseline", focus: "Semantic markup, Flexbox, Grid, Canvas context", iconName: "Globe" },
+      { name: "TypeScript", level: "Production", focus: "Type definitions, props contracts, compile-time safety", iconName: "ShieldCheck" }
     ]
   },
   {
-    category: "Backend & Cloud",
-    description: "Server runtime environments, serverless databases, cloud infrastructure, and APIs.",
+    category: "Backend Development",
+    description: "Server runtime environments, relational databases, and RESTful APIs.",
     skills: [
       { name: "Node.js & Express", level: "Production", focus: "RESTful API services, Middleware, Request routing", iconName: "Server" },
       { name: "Supabase", level: "Production", focus: "PostgreSQL, Row Level Security (RLS), Auth, Realtime DB", iconName: "Zap" },
-      { name: "AWS S3", level: "Practiced", focus: "Bucket policies, Pre-signed URLs, Cloud object storage", iconName: "Cloud" },
-      { name: "Vercel", level: "Production", focus: "Automated CD deployments, Edge routing, Serverless hosting", iconName: "Rocket" }
+      { name: "MongoDB", level: "Production", focus: "Document collections, flexible schema modeling, aggregation", iconName: "Database" },
+      { name: "REST Architecture", level: "Production", focus: "Stateless endpoint design, JSON serialization, HTTP status", iconName: "Layers" }
     ]
   },
   {
-    category: "DevOps & Tooling",
-    description: "Continuous integration, containerization, build tools, and modern VCS workflows.",
+    category: "Developer Tools",
+    description: "Modern version control, development environments, and build tooling.",
     skills: [
-      { name: "Docker", level: "Certified Intern", focus: "Dockerfile creation, Multi-stage builds, Container networking, Nginx hosting", iconName: "Box" },
       { name: "Git & GitHub", level: "Daily Workflow", focus: "Version control, PR workflows, Branching, Release tags", iconName: "GitBranch" },
-      { name: "Gradle", level: "Practiced", focus: "Java build automation, dependency resolution, CI testing", iconName: "Cpu" },
-      { name: "Azure CI/CD", level: "Practiced", focus: "Pipeline YAML, automated build stages, cloud delivery", iconName: "Workflow" }
+      { name: "VS Code", level: "Primary IDE", focus: "TypeScript LSP, Debugging configurations, Terminal workflows", iconName: "Terminal" },
+      { name: "Postman", level: "API Testing", focus: "Endpoint verification, Header inspection, Payload simulation", iconName: "Server" },
+      { name: "Vite", level: "Build Tooling", focus: "Fast HMR dev server, Optimized production asset bundling", iconName: "Cpu" }
     ]
   },
   {
@@ -125,8 +124,7 @@ export const SKILL_INVENTORY: SkillCategory[] = [
     skills: [
       { name: "OpenCV", level: "Practiced", focus: "Image processing, real-time video capture, contour analysis", iconName: "Camera" },
       { name: "MediaPipe", level: "Practiced", focus: "Hand landmark detection, 21-point tracking, gesture recognition", iconName: "Hand" },
-      { name: "Large Language Models", level: "Certified Merit", focus: "IBM Research lecture series, system architectures for LLMs", iconName: "Brain" },
-      { name: "Prompt Engineering", level: "Certified", focus: "be10X certified workflow, rapid development, structured AI output", iconName: "Sparkles" }
+      { name: "Gemini API & LLMs", level: "Applied AI", focus: "Structured prompting, automated grievance categorization", iconName: "Sparkles" }
     ]
   }
 ];
@@ -147,7 +145,7 @@ export const PROJECTS_DATA: Project[] = [
     ],
     techStack: ["React.js", "JavaScript", "Tailwind CSS", "Vite", "Modern Web APIs"],
     contribution: "Delivered the end-to-end customer-facing website architecture, frontend UI implementation, responsive layout optimization, and production deployment.",
-    demoUrl: "https://www.angadiflow.in/",
+    demoUrl: "https://angadiflow.in/",
     isFeatured: true,
     status: "Deployed / Live"
   },
@@ -166,6 +164,7 @@ export const PROJECTS_DATA: Project[] = [
     ],
     techStack: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS"],
     contribution: "Conceived problem workflow, designed data models, implemented department routing logic, ticket lifecycle tracking, and administrative dashboard views.",
+    demoUrl: "https://campus-fix-woad.vercel.app/",
     repoUrl: "https://github.com/kavisri005/CampusFix.git",
     previewImage: "/projects/mamcet-campus-entrance.png",
     isFeatured: true,

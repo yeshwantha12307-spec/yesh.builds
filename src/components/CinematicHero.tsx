@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Target, FileText, ChevronDown, CheckCircle2, Shield, MapPin, Sparkles } from 'lucide-react';
 import { PROFILE } from '../data/profile';
 import { soundManager } from '../utils/audio';
+import { PortraitTurntable } from './PortraitTurntable';
 
 export const CinematicHero: React.FC = () => {
   const [typewriterIndex, setTypewriterIndex] = useState(0);
@@ -29,15 +30,15 @@ export const CinematicHero: React.FC = () => {
       id="hero" 
       className="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-20 pb-16 select-none"
     >
-      {/* CINEMATIC SUNSET CITY & SPORTS CAR BACKGROUND */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-105"
-        style={{ backgroundImage: `url('/media/backgrounds/hero_skyline.jpg')` }}
-      >
-        {/* Cinematic Vignette & Atmospheric Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#05050f] via-black/40 to-black/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-black/80" />
-        <div className="absolute inset-0 bg-tactical-grid opacity-15 pointer-events-none" />
+      {/* CINEMATIC SUNSET CITY & SPORTS CAR THEMATIC BACKDROP */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30 mix-blend-luminosity scale-105 transition-transform duration-1000"
+          style={{ backgroundImage: `url('/media/backgrounds/hero_skyline.jpg')` }}
+        />
+        {/* Soft Vignette & Atmospheric Gradients Revealing Live Environment */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/90 via-transparent to-[#030712]/90" />
       </div>
 
       {/* HERO MAIN HUD CONTAINER */}
@@ -46,7 +47,7 @@ export const CinematicHero: React.FC = () => {
         {/* TOP STATUS ROW / MISSION HUD */}
         <div className="flex flex-col lg:flex-row items-start justify-between gap-6 pt-4">
           
-          {/* LEFT: MISSION 01 CHECKLIST PANEL */}
+          {/* LEFT: SYSTEM OVERVIEW CHECKLIST PANEL */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -54,30 +55,30 @@ export const CinematicHero: React.FC = () => {
             className="w-full max-w-xs p-4 rounded-xl bg-black/75 border border-white/15 backdrop-blur-md shadow-[0_0_25px_rgba(0,0,0,0.8)]"
           >
             <div className="flex items-center justify-between pb-2 mb-3 border-b border-white/10">
-              <span className="text-[10px] font-mono font-bold text-amber-400 tracking-widest">
-                MISSION 01 // PLAYER INTRO
+              <span className="text-[10px] font-mono font-bold text-amber-400 tracking-widest uppercase">
+                OVERVIEW // SYSTEM STATUS
               </span>
-              <span className="text-[9px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-500/30 font-bold">
-                READY
+              <span className="text-[9px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-500/30 font-bold uppercase">
+                ONLINE
               </span>
             </div>
 
             <ul className="space-y-2 text-xs font-mono">
               <li className="flex items-center gap-2 text-slate-200">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="tracking-wide">PLAYER PROFILE LOADED</span>
+                <span className="tracking-wide">VERIFIED PROFILE LOADED</span>
               </li>
               <li className="flex items-center gap-2 text-slate-200">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="tracking-wide">SKILL INVENTORY READY</span>
+                <span className="tracking-wide">TECHNICAL ARSENAL READY</span>
               </li>
               <li className="flex items-center gap-2 text-slate-200">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="tracking-wide">PROJECT MISSIONS ONLINE</span>
+                <span className="tracking-wide">FEATURED PROJECTS ACTIVE</span>
               </li>
               <li className="flex items-center gap-2 text-slate-200">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="tracking-wide">EXPLORE THE WORLD</span>
+                <span className="tracking-wide">DIRECT CONTACT OPEN</span>
               </li>
             </ul>
           </motion.div>
@@ -90,10 +91,10 @@ export const CinematicHero: React.FC = () => {
             className="hidden sm:flex flex-col items-end text-right font-mono"
           >
             <div className="px-3.5 py-1.5 rounded-lg bg-black/70 border border-white/10 backdrop-blur-md">
-              <div className="text-[9px] text-slate-400 uppercase tracking-widest">DEV CADENCE</div>
-              <div className="font-gta text-2xl text-emerald-400 tracking-wider flex items-center gap-1">
+              <div className="text-[9px] text-slate-400 uppercase tracking-widest">DEV CYCLE</div>
+              <div className="font-display font-bold text-xl sm:text-2xl text-emerald-400 tracking-wider flex items-center gap-1">
                 <span>{words[typewriterIndex]}</span>
-                <span className="w-2 h-5 bg-emerald-400 animate-pulse inline-block" />
+                <span className="w-1.5 h-4 bg-emerald-400 animate-pulse inline-block" />
               </div>
             </div>
           </motion.div>
@@ -110,7 +111,7 @@ export const CinematicHero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/80 border border-emerald-500/40 text-emerald-300 font-mono text-xs tracking-widest mb-4 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.25)]"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/80 border border-emerald-500/40 text-emerald-300 font-mono text-xs tracking-widest mb-4 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.2)]"
             >
               <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
               <span className="font-bold">{PROFILE.roleBadge}</span>
@@ -134,7 +135,7 @@ export const CinematicHero: React.FC = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-4 max-w-2xl text-slate-200 text-sm sm:text-base md:text-lg leading-relaxed font-sans font-normal backdrop-blur-md bg-black/60 p-4 rounded-xl border border-white/10 shadow-2xl"
+              className="mt-4 max-w-2xl text-slate-200 text-sm sm:text-base md:text-lg leading-relaxed font-sans font-normal backdrop-blur-md bg-black/60 p-4 sm:p-5 rounded-xl border border-white/10 shadow-2xl"
             >
               {PROFILE.bio}
             </motion.p>
@@ -144,15 +145,15 @@ export const CinematicHero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
-              className="mt-6 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
+              className="mt-6 flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto"
             >
               <button
                 onClick={() => scrollTo('missions')}
                 onMouseEnter={() => soundManager.playHover()}
-                className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-gta text-2xl tracking-wider transition-all duration-200 shadow-[0_0_25px_rgba(34,197,94,0.6)] cursor-pointer hover:scale-105 active:scale-95"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-display font-bold text-base sm:text-lg tracking-wide transition-all duration-200 shadow-[0_0_20px_rgba(34,197,94,0.5)] cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Target className="w-5 h-5 text-black" />
-                <span>EXPLORE MISSIONS</span>
+                <span>EXPLORE PROJECTS</span>
               </button>
 
               <a
@@ -161,60 +162,22 @@ export const CinematicHero: React.FC = () => {
                 rel="noopener noreferrer"
                 onClick={() => soundManager.playClick()}
                 onMouseEnter={() => soundManager.playHover()}
-                className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-black/75 hover:bg-white/10 border border-white/30 text-white font-gta text-2xl tracking-wider transition-all duration-200 backdrop-blur-md shadow-lg cursor-pointer hover:scale-105 active:scale-95"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-black/75 hover:bg-white/10 border border-white/25 text-white font-display font-bold text-base sm:text-lg tracking-wide transition-all duration-200 backdrop-blur-md shadow-lg cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
               >
-                <FileText className="w-5 h-5 text-pink-400" />
-                <span>DOWNLOAD RESUME</span>
+                <FileText className="w-5 h-5 text-amber-400" />
+                <span>VIEW RESUME</span>
               </a>
             </motion.div>
           </div>
 
-          {/* RIGHT: PROTAGONIST SHOWCASE (YESHWANTH AKBAR — FRAMELESS CINEMATIC INTEGRATION) */}
+          {/* RIGHT: PROTAGONIST SHOWCASE (YESHWANTH AKBAR — 360 PHOTOREALISTIC TURNTABLE) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.94, y: 25 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.4 }}
             className="lg:col-span-5 flex flex-col items-center justify-end relative select-none"
           >
-            {/* Subtle natural atmospheric rim lighting behind him - no card, no box, no frame */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-emerald-950/15 to-transparent blur-3xl rounded-full pointer-events-none transform -translate-y-4" />
-
-            {/* Frameless Protagonist Figure Directly in Cinematic Environment */}
-            <div className="relative flex flex-col items-center group w-full">
-              
-              {/* Standalone Cutout Image */}
-              <div className="relative w-72 sm:w-84 md:w-96 lg:w-[420px] xl:w-[460px] flex items-end justify-center">
-                <img
-                  src="/media/yeshwanth_portfolio_cutout.png"
-                  alt="Yeshwanth Akbar"
-                  width="460"
-                  height="540"
-                  className="w-full h-auto max-h-[460px] sm:max-h-[500px] md:max-h-[540px] object-contain object-bottom drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)] transition-transform duration-500 group-hover:scale-[1.02]"
-                />
-                
-                {/* Subtle soft bottom ground shadow fade so the figure seamlessly roots into the dark baseline */}
-                <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#030712] via-[#030712]/60 to-transparent pointer-events-none" />
-              </div>
-
-              {/* Minimal floating name tag below the figure */}
-              <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="mt-3 flex items-center justify-between w-full max-w-xs px-4 py-1.5 rounded-full bg-black/60 border border-white/10 backdrop-blur-md shadow-lg text-[11px] font-mono"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="font-gta text-lg text-white tracking-wider leading-none">
-                    YESHWANTH AKBAR
-                  </span>
-                </div>
-                <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-500/30">
-                  PROTAGONIST
-                </span>
-              </motion.div>
-
-            </div>
+            <PortraitTurntable enableScrollRotation={true} autoRotateDefault={false} />
           </motion.div>
 
         </div>
@@ -222,8 +185,8 @@ export const CinematicHero: React.FC = () => {
         {/* BOTTOM ROW: LOCATION & SCROLL INDICATOR */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10 text-xs font-mono text-slate-400">
           <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-pink-400" />
-            <span className="tracking-wider uppercase text-slate-300 font-bold">
+            <MapPin className="w-4 h-4 text-emerald-400" />
+            <span className="tracking-wider uppercase text-slate-300 font-semibold">
               {PROFILE.location} // MAMCET TRICHY
             </span>
           </div>
@@ -232,8 +195,8 @@ export const CinematicHero: React.FC = () => {
             onClick={() => scrollTo('profile')}
             className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors cursor-pointer group"
           >
-            <span className="text-[11px] tracking-widest uppercase font-mono">SCROLL TO EXPLORE</span>
-            <ChevronDown className="w-4 h-4 text-pink-400 animate-bounce group-hover:text-emerald-400" />
+            <span className="text-[11px] tracking-widest uppercase font-mono">SCROLL TO INSPECT DOSSIER</span>
+            <ChevronDown className="w-4 h-4 text-emerald-400 animate-bounce" />
           </button>
         </div>
 

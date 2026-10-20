@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, Trophy, ExternalLink, X, FileText, CheckCircle2, Search, Filter } from 'lucide-react';
+import { Trophy, Award, FileText, CheckCircle2, X } from 'lucide-react';
 import { ACHIEVEMENTS_DATA, CertificateAchievement } from '../data/achievements';
 import { soundManager } from '../utils/audio';
 
 export const AchievementBoard: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string>("ALL");
   const [selectedCert, setSelectedCert] = useState<CertificateAchievement | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("ALL");
 
   const categories = [
     "ALL",
     "AI & DATA SCIENCE",
-    "DEVOPS & CLOUD",
     "FULL STACK & WEB",
+    "DEVOPS & CLOUD",
     "ACADEMIC & HONORS"
   ];
 
@@ -33,44 +33,44 @@ export const AchievementBoard: React.FC = () => {
   return (
     <section 
       id="achievements" 
-      className="relative min-h-screen w-full flex items-center justify-center py-20 px-4 sm:px-6 select-none overflow-hidden"
+      className="relative min-h-screen w-full flex items-center justify-center py-24 px-4 sm:px-6 select-none overflow-hidden"
     >
-      {/* CAMPUS INNOVATION BUILDING BACKGROUND */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700"
-        style={{ backgroundImage: `url('/media/backgrounds/achievements_campus.jpg')` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#05050f] via-black/75 to-black/85" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-black/90" />
-        <div className="absolute inset-0 bg-tactical-grid opacity-15 pointer-events-none" />
+      {/* THEMATIC VAULT BACKDROP */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mix-blend-luminosity transition-all duration-700"
+          style={{ backgroundImage: `url('/media/backgrounds/achievements_vault.jpg')` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-[#030712]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/95 via-transparent to-[#030712]/95" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         
         {/* SECTION HEADER */}
-        <div className="mb-8 text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div className="mb-10 text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 text-pink-400 font-mono text-xs font-bold tracking-widest uppercase mb-1">
+            <div className="flex items-center gap-2 text-pink-400 font-mono text-xs font-semibold tracking-widest uppercase mb-2">
               <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
-              // CERTIFICATE VAULT
+              // VERIFIED CREDENTIALS
             </div>
-            <h2 className="font-gta text-5xl sm:text-7xl text-white tracking-wide text-shadow-gta leading-none">
-              MILESTONES <span className="text-pink-400">THAT MOTIVATE ME.</span>
+            <h2 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-tight">
+              Certificates &amp; Honors
             </h2>
-            <div className="font-script text-2xl sm:text-3xl text-amber-400 font-bold -mt-1">
-              Verified Credentials &amp; Honors
-            </div>
+            <p className="font-sans text-sm sm:text-base text-slate-300 max-w-2xl mt-2 leading-relaxed">
+              Official certificates from technical symposiums, practical virtual internships, and certified developer workshops.
+            </p>
           </div>
 
-          {/* Trophy Unlocked Badge */}
-          <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-amber-950/80 border border-amber-500/50 backdrop-blur-md shadow-[0_0_20px_rgba(245,158,11,0.3)]">
-            <Trophy className="w-6 h-6 text-amber-400 animate-bounce" />
+          {/* Verified Badge */}
+          <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-amber-950/70 border border-amber-500/40 backdrop-blur-md shadow-[0_0_20px_rgba(245,158,11,0.25)]">
+            <Trophy className="w-5 h-5 text-amber-400" />
             <div className="text-left font-mono">
               <div className="text-[9px] text-amber-400 uppercase font-bold tracking-wider">
-                ACHIEVEMENT UNLOCKED
+                CREDENTIAL ARCHIVE
               </div>
-              <div className="text-xs font-gta text-white tracking-wider">
-                12 VERIFIED CREDENTIALS
+              <div className="text-xs font-bold text-white tracking-wide">
+                12 VERIFIED DOCUMENTS
               </div>
             </div>
           </div>
@@ -88,10 +88,10 @@ export const AchievementBoard: React.FC = () => {
                   setActiveCategory(cat);
                 }}
                 onMouseEnter={() => soundManager.playHover()}
-                className={`px-4 py-1.5 rounded-full font-gta text-lg tracking-wider transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-lg font-mono text-xs tracking-wider transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-pink-600 text-white shadow-[0_0_15px_rgba(255,42,133,0.5)] font-bold'
-                    : 'bg-black/70 text-slate-400 hover:text-white border border-white/10'
+                    ? 'bg-pink-600 text-white shadow-[0_0_15px_rgba(255,42,133,0.35)] font-semibold border border-pink-400/40'
+                    : 'bg-black/70 text-slate-400 hover:text-white border border-white/10 hover:bg-black/90'
                 }`}
               >
                 {cat}
@@ -108,7 +108,7 @@ export const AchievementBoard: React.FC = () => {
               whileHover={{ scale: 1.02 }}
               onClick={() => openCertModal(cert)}
               onMouseEnter={() => soundManager.playHover()}
-              className="bg-black/85 border border-white/15 hover:border-pink-500/50 rounded-xl overflow-hidden backdrop-blur-md shadow-xl transition-all cursor-pointer flex flex-col justify-between group"
+              className="bg-black/80 border border-white/10 hover:border-pink-500/40 rounded-xl overflow-hidden backdrop-blur-md shadow-xl transition-all cursor-pointer flex flex-col justify-between group"
             >
               {/* Image Preview Container */}
               <div className="relative h-44 w-full bg-slate-900 overflow-hidden">
@@ -118,29 +118,22 @@ export const AchievementBoard: React.FC = () => {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                
-                <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 border border-white/20 text-[9px] font-mono text-pink-300 font-bold">
-                  {cert.achievementType}
-                </span>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 backdrop-blur-md border border-white/10 text-[9px] font-mono text-emerald-400 font-bold uppercase">
+                  VERIFIED
+                </div>
               </div>
 
               {/* Text Info */}
-              <div className="p-4 space-y-2 flex-1 flex flex-col justify-between">
-                <div>
-                  <div className="text-[9px] font-mono text-slate-400 uppercase tracking-wider">
-                    {cert.organization}
-                  </div>
-                  <h4 className="font-gta text-xl text-white tracking-wide line-clamp-2 mt-0.5 group-hover:text-pink-400 transition-colors">
-                    {cert.title}
-                  </h4>
+              <div className="p-4 space-y-2">
+                <div className="text-[10px] font-mono text-amber-400 uppercase tracking-wider">
+                  {cert.organization}
                 </div>
-
-                <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[10px] font-mono text-slate-400">
-                  <span>{cert.date}</span>
-                  <span className="text-pink-400 flex items-center gap-1 font-bold">
-                    INSPECT <Search className="w-3 h-3" />
-                  </span>
+                <h4 className="font-display font-bold text-base text-white tracking-tight line-clamp-2 leading-snug group-hover:text-pink-400 transition-colors">
+                  {cert.title}
+                </h4>
+                <div className="text-[11px] font-mono text-slate-400">
+                  {cert.date}
                 </div>
               </div>
             </motion.div>
@@ -149,14 +142,14 @@ export const AchievementBoard: React.FC = () => {
 
       </div>
 
-      {/* CERTIFICATE LIGHTBOX MODAL */}
+      {/* INSPECTOR MODAL POPUP */}
       <AnimatePresence>
         {selectedCert && (
-          <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-in fade-in duration-200">
-            <motion.div 
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
               className="relative w-full max-w-4xl max-h-[90vh] bg-slate-950 border border-white/20 rounded-2xl overflow-y-auto p-6 sm:p-8 shadow-2xl space-y-6"
             >
               {/* Close Button */}
@@ -168,17 +161,17 @@ export const AchievementBoard: React.FC = () => {
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="flex items-center gap-2 text-pink-400 font-mono text-xs font-bold tracking-widest uppercase">
+              <div className="flex items-center gap-2 text-pink-400 font-mono text-xs font-semibold tracking-widest uppercase">
                 <Award className="w-4 h-4" />
                 VERIFIED CREDENTIAL ARCHIVE
               </div>
 
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
                 <div>
-                  <h3 className="font-gta text-3xl sm:text-4xl text-white tracking-wide">
+                  <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight">
                     {selectedCert.title}
                   </h3>
-                  <div className="text-sm font-sans font-semibold text-emerald-400 mt-1">
+                  <div className="text-sm font-sans font-medium text-emerald-400 mt-1">
                     {selectedCert.organization} • {selectedCert.date}
                   </div>
                 </div>
@@ -214,7 +207,7 @@ export const AchievementBoard: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => soundManager.playClick()}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-pink-600 hover:bg-pink-500 text-white font-gta text-xl tracking-wider transition-all cursor-pointer shadow-[0_0_15px_rgba(255,42,133,0.5)]"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-display font-bold text-sm tracking-wide transition-all cursor-pointer shadow-[0_0_15px_rgba(255,42,133,0.4)]"
                   >
                     <FileText className="w-4 h-4" />
                     <span>VIEW OFFICIAL PDF</span>
@@ -225,7 +218,7 @@ export const AchievementBoard: React.FC = () => {
 
                 <button
                   onClick={closeCertModal}
-                  className="px-6 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-gta text-lg tracking-wider cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-display font-bold text-sm tracking-wide cursor-pointer"
                 >
                   CLOSE INSPECTOR
                 </button>

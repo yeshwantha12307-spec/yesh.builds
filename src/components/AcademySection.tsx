@@ -1,42 +1,22 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, School, Award, CheckCircle2, MapPin, Calendar, BookOpen, Sparkles } from 'lucide-react';
+import { School, GraduationCap, MapPin, Calendar, Award, CheckCircle2, Sparkles, BookOpen } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 
 export const AcademySection: React.FC = () => {
-  const hasEnteredRef = useRef<boolean>(false);
-
-  // Play gentle transition cue when Academy enters viewport (once per session)
-  useEffect(() => {
-    const el = document.getElementById('academy');
-    if (!el || typeof IntersectionObserver === 'undefined') return;
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && !hasEnteredRef.current) {
-          hasEnteredRef.current = true;
-          soundManager.playMilestoneEnter();
-        }
-      });
-    }, { threshold: 0.25 });
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section 
       id="academy" 
-      className="relative min-h-[75vh] w-full flex items-center justify-center py-20 px-4 sm:px-6 select-none overflow-hidden scroll-mt-24"
+      className="relative min-h-screen w-full flex items-center justify-center py-24 px-4 sm:px-6 select-none overflow-hidden"
     >
-      {/* ATMOSPHERIC BACKGROUND WITH CINEMATIC GRADIENTS */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700"
-        style={{ backgroundImage: `url('/media/backgrounds/experience_skyline.jpg')` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#05050f] via-black/85 to-[#05050f]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-black/95" />
-        <div className="absolute inset-0 bg-tactical-grid opacity-15 pointer-events-none" />
+      {/* THEMATIC ACADEMY BACKDROP */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 mix-blend-luminosity transition-all duration-700"
+          style={{ backgroundImage: `url('/media/backgrounds/academy_campus.jpg')` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-[#030712]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/95 via-transparent to-[#030712]/95" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
@@ -44,34 +24,34 @@ export const AcademySection: React.FC = () => {
         {/* SECTION HEADER */}
         <div className="mb-10 text-left flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold tracking-widest uppercase mb-1">
+            <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-semibold tracking-widest uppercase mb-2">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-              // ACADEMY // ACADEMIC RECORD
+              // ACADEMIC RECORD
             </div>
-            <h2 className="font-gta text-5xl sm:text-7xl text-white tracking-wide text-shadow-gta leading-none">
-              ACADEMY &amp; <span className="text-amber-400 font-normal">EDUCATION</span>
+            <h2 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-tight">
+              Education &amp; Credentials
             </h2>
-            <div className="font-script text-2xl sm:text-3xl text-slate-300 font-bold -mt-1">
-              Foundational Schooling to Higher Technical Engineering.
-            </div>
+            <p className="font-sans text-sm sm:text-base text-slate-300 max-w-2xl mt-2 leading-relaxed">
+              Formal education progression from secondary schooling in Attur to ongoing undergraduate engineering studies at Anna University.
+            </p>
           </div>
 
-          <div className="px-4 py-2 rounded-full bg-black/80 border border-amber-500/30 text-amber-300 font-mono text-xs font-bold flex items-center gap-2">
+          <div className="px-3.5 py-1.5 rounded-lg bg-black/80 border border-amber-500/30 text-amber-300 font-mono text-xs font-semibold flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            2 VERIFIED LEVELS
+            2 VERIFIED STAGES
           </div>
         </div>
 
         {/* PROGRESSION TIMELINE INDICATOR BAR */}
-        <div className="hidden md:flex items-center justify-between mb-8 px-6 py-3 rounded-2xl bg-black/60 border border-white/10 backdrop-blur-md font-mono text-xs text-slate-400">
+        <div className="hidden md:flex items-center justify-between mb-8 px-6 py-3 rounded-xl bg-black/60 border border-white/10 backdrop-blur-md font-mono text-xs text-slate-400">
           <div className="flex items-center gap-3 text-amber-300 font-semibold">
             <span className="w-6 h-6 rounded-full bg-amber-400 text-black flex items-center justify-center font-bold text-[11px]">1</span>
             <span>STAGE 01: SECONDARY &amp; HIGHER SECONDARY</span>
           </div>
-          <div className="h-[2px] flex-1 mx-6 bg-gradient-to-r from-amber-400/60 to-emerald-400/60" />
+          <div className="h-[1px] flex-1 mx-6 bg-gradient-to-r from-amber-400/50 to-emerald-400/50" />
           <div className="flex items-center gap-3 text-emerald-300 font-semibold">
             <span className="w-6 h-6 rounded-full bg-emerald-400 text-black flex items-center justify-center font-bold text-[11px]">2</span>
-            <span>STAGE 02: HIGHER TECHNICAL EDUCATION</span>
+            <span>STAGE 02: UNDERGRADUATE ENGINEERING</span>
           </div>
         </div>
 
@@ -87,7 +67,7 @@ export const AcademySection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             onMouseEnter={() => soundManager.playHover()}
-            className="group relative bg-[#07080f]/90 border border-amber-400/25 hover:border-amber-400/60 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_30px_rgba(212,175,55,0.2)]"
+            className="group relative bg-[#07080f]/90 border border-amber-400/25 hover:border-amber-400/60 rounded-2xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]"
           >
             {/* Top Amber Ambient Aura */}
             <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-amber-400/5 blur-3xl pointer-events-none group-hover:bg-amber-400/10 transition-colors" />
@@ -103,8 +83,8 @@ export const AcademySection: React.FC = () => {
                     SECONDARY EDUCATION
                   </span>
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/15 text-slate-300 text-[10px] font-bold">
-                  VERIFIED
+                <span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/15 text-slate-300 text-[10px] font-semibold">
+                  COMPLETED
                 </span>
               </div>
 
@@ -114,7 +94,7 @@ export const AcademySection: React.FC = () => {
                   <School className="w-4 h-4 text-amber-400" />
                   <span>Matriculation &amp; Higher Secondary</span>
                 </div>
-                <h3 className="font-gta text-3xl sm:text-4xl text-white tracking-wide leading-tight">
+                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight leading-tight">
                   Vivekananda Matric Higher Secondary School
                 </h3>
                 <div className="flex items-center gap-1.5 text-xs font-mono text-slate-400 mt-2">
@@ -130,13 +110,13 @@ export const AcademySection: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   {/* SSLC Metric Card */}
-                  <div className="p-4 rounded-2xl bg-black/60 border border-amber-400/30 backdrop-blur-md flex flex-col justify-between">
+                  <div className="p-4 rounded-xl bg-black/60 border border-amber-400/30 backdrop-blur-md flex flex-col justify-between">
                     <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
                       <span>SSLC (CLASS X)</span>
                       <Award className="w-4 h-4 text-amber-400" />
                     </div>
                     <div className="mt-2 flex items-baseline gap-1">
-                      <span className="font-gta text-4xl sm:text-5xl text-white font-extrabold tracking-tight">
+                      <span className="font-display text-3xl sm:text-4xl text-white font-bold tracking-tight">
                         73%
                       </span>
                     </div>
@@ -146,13 +126,13 @@ export const AcademySection: React.FC = () => {
                   </div>
 
                   {/* HSC Metric Card */}
-                  <div className="p-4 rounded-2xl bg-black/60 border border-amber-400/30 backdrop-blur-md flex flex-col justify-between">
+                  <div className="p-4 rounded-xl bg-black/60 border border-amber-400/30 backdrop-blur-md flex flex-col justify-between">
                     <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
                       <span>HSC (CLASS XII)</span>
                       <Award className="w-4 h-4 text-amber-400" />
                     </div>
                     <div className="mt-2 flex items-baseline gap-1">
-                      <span className="font-gta text-4xl sm:text-5xl text-amber-400 font-extrabold tracking-tight">
+                      <span className="font-display text-3xl sm:text-4xl text-amber-400 font-bold tracking-tight">
                         71.5%
                       </span>
                     </div>
@@ -165,20 +145,20 @@ export const AcademySection: React.FC = () => {
 
               {/* Verified Checklist */}
               <div className="pt-3 border-t border-white/10 space-y-2">
-                <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
+                <div className="flex items-center gap-2 text-xs font-sans text-slate-300">
                   <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span>Comprehensive foundation in Mathematics and Sciences</span>
+                  <span>Mathematics, Physics, Chemistry, and Computer Science foundations</span>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
+                <div className="flex items-center gap-2 text-xs font-sans text-slate-300">
                   <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span>Rigorous Tamil Nadu State Board Curriculum</span>
+                  <span>Tamil Nadu State Board Curriculum</span>
                 </div>
               </div>
             </div>
 
             <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
               <span>Foundation Phase</span>
-              <span className="text-amber-300 font-bold">100% Completed</span>
+              <span className="text-amber-300 font-bold">Completed</span>
             </div>
           </motion.div>
 
@@ -192,7 +172,7 @@ export const AcademySection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.15 }}
             onMouseEnter={() => soundManager.playHover()}
-            className="group relative bg-[#07080f]/90 border border-emerald-400/30 hover:border-emerald-400/70 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,197,94,0.25)]"
+            className="group relative bg-[#07080f]/90 border border-emerald-400/30 hover:border-emerald-400/70 rounded-2xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,197,94,0.15)]"
           >
             {/* Top Emerald Ambient Aura */}
             <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-emerald-400/5 blur-3xl pointer-events-none group-hover:bg-emerald-400/10 transition-colors" />
@@ -220,7 +200,7 @@ export const AcademySection: React.FC = () => {
                   <GraduationCap className="w-4 h-4 text-emerald-400" />
                   <span>Bachelor of Technology</span>
                 </div>
-                <h3 className="font-gta text-3xl sm:text-4xl text-white tracking-wide leading-tight">
+                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight leading-tight">
                   B.Tech Information Technology
                 </h3>
                 <div className="text-sm font-sans font-medium text-slate-200 mt-1">
@@ -248,13 +228,13 @@ export const AcademySection: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   {/* Current CGPA Metric Card */}
-                  <div className="p-4 rounded-2xl bg-black/60 border border-emerald-400/30 backdrop-blur-md flex flex-col justify-between">
+                  <div className="p-4 rounded-xl bg-black/60 border border-emerald-400/30 backdrop-blur-md flex flex-col justify-between">
                     <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
                       <span>CURRENT CGPA</span>
                       <Sparkles className="w-4 h-4 text-emerald-400" />
                     </div>
                     <div className="mt-2 flex items-baseline gap-1">
-                      <span className="font-gta text-4xl sm:text-5xl text-emerald-400 font-extrabold tracking-tight">
+                      <span className="font-display text-3xl sm:text-4xl text-emerald-400 font-bold tracking-tight">
                         7.33
                       </span>
                       <span className="text-xs font-mono text-slate-400 font-semibold">/ 10</span>
@@ -265,12 +245,12 @@ export const AcademySection: React.FC = () => {
                   </div>
 
                   {/* University Registration ID */}
-                  <div className="p-4 rounded-2xl bg-black/60 border border-white/15 backdrop-blur-md flex flex-col justify-between">
+                  <div className="p-4 rounded-xl bg-black/60 border border-white/15 backdrop-blur-md flex flex-col justify-between">
                     <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
                       <span>REGISTER NO.</span>
                       <BookOpen className="w-4 h-4 text-cyan-400" />
                     </div>
-                    <div className="mt-2 font-mono text-lg sm:text-xl text-white font-bold tracking-wider">
+                    <div className="mt-2 font-mono text-base sm:text-lg text-white font-bold tracking-wider">
                       812024205055
                     </div>
                     <div className="mt-1 text-[10px] font-mono text-cyan-300 font-semibold">
@@ -282,20 +262,20 @@ export const AcademySection: React.FC = () => {
 
               {/* Verified Checklist */}
               <div className="pt-3 border-t border-white/10 space-y-2">
-                <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
+                <div className="flex items-center gap-2 text-xs font-sans text-slate-300">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Core IT: Data Structures, Algorithms, Databases &amp; Web Systems</span>
+                  <span>Core IT: Data Structures, Algorithms, Relational Databases &amp; Web Architectures</span>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
+                <div className="flex items-center gap-2 text-xs font-sans text-slate-300">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Lead developer for CampusFix AI problem reporting initiative</span>
+                  <span>Lead developer for CampusFix AI institutional defect management platform</span>
                 </div>
               </div>
             </div>
 
             <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
-              <span>Program Duration</span>
-              <span className="text-emerald-400 font-bold">2024 – 2028</span>
+              <span>Program Timeline</span>
+              <span className="text-emerald-400 font-bold">2024 – 2028 (In Progress)</span>
             </div>
           </motion.div>
 

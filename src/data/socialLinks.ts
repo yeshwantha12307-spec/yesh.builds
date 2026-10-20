@@ -17,15 +17,21 @@ export const SOCIAL_LINKS: SocialLink[] = [
   },
   {
     platform: "GitHub",
-    label: "github.com/yeshwanth-akbar",
-    url: "https://github.com/yeshwanth-akbar",
+    label: "github.com/yeshwantha12307-spec",
+    url: "https://github.com/yeshwantha12307-spec",
     iconName: "Github"
   },
   {
     platform: "LinkedIn",
-    label: "linkedin.com/in/yeshwanth-akbar",
-    url: "https://www.linkedin.com/in/yeshwanth-akbar",
+    label: "linkedin.com/in/yeshwanth-akbar-150717374",
+    url: "https://www.linkedin.com/in/yeshwanth-akbar-150717374",
     iconName: "Linkedin"
+  },
+  {
+    platform: "Instagram",
+    label: "@this_is_yeshhhhhhh",
+    url: "https://www.instagram.com/this_is_yeshhhhhhh?igsi=MWo4ZTRrNW1kb3Vwcw==",
+    iconName: "Instagram"
   },
   {
     platform: "Email",

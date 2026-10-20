@@ -4,6 +4,7 @@ import {
 } from 'lucide-react';
 import { DEVELOPER_INFO } from '../data/portfolioData';
 import { soundManager } from '../utils/audio';
+import { BrandLogo } from './BrandLogo';
 
 interface HUDNavProps {
   activeSection: string;
@@ -88,17 +89,16 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
       <header className="fixed top-0 left-0 right-0 z-40 bg-gradient-to-b from-black/90 via-black/60 to-transparent backdrop-blur-sm text-xs font-mono select-none px-3 sm:px-6 py-2.5">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
           
-          {/* Left: GTA Monogram Logo */}
+          {/* Left: Official 3D Y Emblem Logo */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => scrollTo('hero')}
-              className="flex items-center gap-2 group focus:outline-none cursor-pointer"
+              className="flex items-center gap-2.5 group focus:outline-none cursor-pointer"
+              aria-label="Navigate to top - Yeshwanth Akbar"
             >
-              <div className="w-9 h-9 rounded bg-black/80 border border-slate-700/80 flex items-center justify-center font-gta text-lg text-white font-extrabold group-hover:border-pink-500 group-hover:text-pink-400 transition-all shadow-[0_0_12px_rgba(255,42,133,0.3)]">
-                YB
-              </div>
+              <BrandLogo size={38} animated={true} withGlow={true} />
               <div className="text-left hidden lg:block">
-                <span className="font-gta text-sm tracking-wider text-white group-hover:text-pink-400 transition-colors">
+                <span className="font-display font-bold text-sm tracking-wider text-white group-hover:text-amber-400 transition-colors">
                   YESHWANTH.BUILDS
                 </span>
               </div>
@@ -187,12 +187,15 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex flex-col justify-between p-6 sm:p-12 animate-in fade-in duration-200">
           {/* Header in overlay */}
           <div className="flex justify-between items-start">
-            <div>
-              <h2 className="font-gta text-4xl sm:text-6xl text-white tracking-wide text-shadow-gta leading-none">
-                YESHWANTH BUILDS
-              </h2>
-              <div className="font-script text-2xl sm:text-3xl text-amber-400 font-bold -mt-1 ml-1">
-                Portfolio
+            <div className="flex items-center gap-4">
+              <BrandLogo size={52} withGlow={true} />
+              <div>
+                <h2 className="font-display font-bold text-3xl sm:text-5xl text-white tracking-tight leading-none">
+                  YESHWANTH BUILDS
+                </h2>
+                <div className="font-mono text-xs font-semibold text-amber-400 tracking-widest uppercase mt-1">
+                  PORTFOLIO &amp; PROJECT SYSTEMS
+                </div>
               </div>
             </div>
 
@@ -221,9 +224,9 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
                       soundManager.playHover();
                     }}
                     onClick={() => scrollTo(item.id)}
-                    className={`w-full text-left px-4 py-2.5 rounded-xl font-gta text-2xl sm:text-3xl tracking-wider transition-all flex items-center justify-between cursor-pointer ${
+                    className={`w-full text-left px-4 py-2.5 rounded-xl font-display font-bold text-xl sm:text-2xl tracking-wide transition-all flex items-center justify-between cursor-pointer ${
                       isSelected
-                        ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-black font-bold shadow-[0_0_20px_rgba(212,175,55,0.4)] translate-x-2'
+                        ? 'bg-amber-400 text-black font-bold shadow-[0_0_20px_rgba(212,175,55,0.4)] translate-x-2'
                         : 'text-slate-300 hover:text-white hover:bg-white/5'
                     }`}
                   >
@@ -330,8 +333,8 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
             <div>
               B.Tech IT Undergraduate • Anna University
             </div>
-            <div className="font-script text-base text-slate-300">
-              &quot;Code is my weapon. Creativity is my world.&quot; —Yeshwanth
+            <div className="font-mono text-xs text-slate-300">
+              &quot;Practical code. Clear architecture. Distinct interfaces.&quot; —Yeshwanth Akbar
             </div>
           </div>
         </div>
@@ -339,11 +342,11 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
 
       {/* SUBTLE BOTTOM-RIGHT SIGNATURE */}
       <div className="hidden md:block fixed bottom-4 right-6 z-30 text-right pointer-events-none select-none">
-        <div className="font-script text-base text-slate-400 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
-          &quot;Code is my weapon. Creativity is my world.&quot;
+        <div className="font-mono text-[10px] text-slate-400 uppercase tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+          Practical Code. Clear Architecture.
         </div>
-        <div className="font-script text-lg text-amber-400/90 font-bold -mt-1 drop-shadow-[0_0_8px_rgba(212,175,55,0.4)]">
-          —Yeshwanth
+        <div className="font-display font-bold text-xs text-amber-400/90 mt-0.5 drop-shadow-[0_0_8px_rgba(212,175,55,0.4)]">
+          — Yeshwanth Akbar
         </div>
       </div>
     </>

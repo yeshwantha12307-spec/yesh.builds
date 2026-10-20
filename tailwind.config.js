@@ -25,12 +25,11 @@ export default {
         }
       },
       fontFamily: {
-        mono: ['"JetBrains Mono"', 'Fira Code', 'monospace'],
-        display: ['"Rajdhani"', '"Orbitron"', 'sans-serif'],
-        gta: ['"Bebas Neue"', '"Orbitron"', 'Impact', 'sans-serif'],
-        marker: ['"Permanent Marker"', 'cursive'],
-        script: ['"Caveat"', 'cursive'],
-        sans: ['"Inter"', 'system-ui', 'sans-serif']
+        display: ['"Space Grotesk"', '"Inter"', 'system-ui', 'sans-serif'],
+        sans: ['"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'Menlo', 'Consolas', 'monospace'],
+        gta: ['"Bebas Neue"', '"Space Grotesk"', 'Impact', 'sans-serif'],
+        script: ['"Space Grotesk"', 'sans-serif']
       },
       backgroundImage: {
         'hud-grid': 'radial-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 0)',

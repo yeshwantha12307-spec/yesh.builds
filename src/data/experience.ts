@@ -35,21 +35,21 @@ export const MISSION_LEVELS: MissionLevel[] = [
   {
     levelNumber: "01",
     levelTag: "LEVEL 01",
-    badge: "THE BEGINNING",
-    title: "Higher Education & STEM Foundation",
+    badge: "FOUNDATION",
+    title: "Engineering Education & Fundamentals",
     subtitle: "B.Tech in Information Technology",
     organization: "M.A.M. College of Engineering & Technology, Trichy (Anna University)",
     period: "2024 – 2028",
     location: "Tiruchirappalli, Tamil Nadu",
     status: "COMPLETED",
-    statusLabel: "ACTIVE DEGREE // COMPLETED",
+    statusLabel: "ACTIVE DEGREE // VERIFIED",
     iconName: "GraduationCap",
-    description: "Commenced undergraduate engineering in Information Technology with a strong academic foundation in algorithms, software principles, and core computer science curricula.",
+    description: "Commenced undergraduate engineering in Information Technology with a strong academic focus on algorithms, data structures, and computer science foundations.",
     verifiedDetails: [
       "Current Academic CGPA: 7.33 / 10.0",
       "Anna University Registration: 812024205055",
-      "Active participant in collegiate problem-solving initiatives and web development",
-      "Core curriculum in data structures, algorithms, and software engineering"
+      "Core curriculum in data structures, algorithms, and software engineering",
+      "Active participant in campus problem-solving and software initiatives"
     ],
     associatedSectionId: "academy",
     coords: { x: 18, y: 13 }
@@ -57,90 +57,90 @@ export const MISSION_LEVELS: MissionLevel[] = [
   {
     levelNumber: "02",
     levelTag: "LEVEL 02",
-    badge: "SKILL UNLOCKED",
+    badge: "STACK ACQUISITION",
     title: "Core Technical Stack & Tools",
-    subtitle: "Full Stack Web & Applied AI Fundamentals",
-    organization: "CodeAlpha, TVK Technologies & Self-Driven Mastery",
-    period: "Continuous Mastery",
+    subtitle: "Full Stack Web & Applied Python Fundamentals",
+    organization: "Academic Projects & Self-Driven Exploration",
+    period: "Continuous Practice",
     location: "Tamil Nadu, India",
     status: "COMPLETED",
-    statusLabel: "ARSENAL UNLOCKED",
+    statusLabel: "STACK VERIFIED",
     iconName: "Code",
-    description: "Engineered a versatile developer skillset spanning frontend architectures, backend server logic, API design, relational/document databases, and practical Python AI tools.",
+    description: "Built a solid technical foundation across modern frontend frameworks, backend server runtimes, REST API design, relational/document databases, and computer vision libraries.",
     verifiedDetails: [
-      "Frontend: React.js, TypeScript, JavaScript (ES6+), Tailwind CSS, Responsive Design",
-      "Backend & Data: Node.js, Express.js, MongoDB, RESTful Architecture",
-      "Applied AI & Vision: Python, OpenCV, MediaPipe, AI Classification Workflows",
-      "Tools & Workflow: Git, GitHub, Docker, Gradle Build Lifecycle"
+      "Frontend: React.js, TypeScript, JavaScript (ES6+), Tailwind CSS, Responsive Layouts",
+      "Backend & Data: Node.js, Express.js, MongoDB, MySQL, RESTful Architecture",
+      "Applied AI & Vision: Python, OpenCV, MediaPipe, Structured Prompting",
+      "Developer Workflow: Git, GitHub, VS Code, Postman, Vite"
     ],
-    techStack: ["React", "TypeScript", "Python", "Node.js", "MongoDB", "Tailwind CSS", "Docker"],
+    techStack: ["React", "TypeScript", "Python", "Node.js", "MongoDB", "Tailwind CSS", "Git"],
     associatedSectionId: "skills",
     coords: { x: 78, y: 28 }
   },
   {
     levelNumber: "03",
     levelTag: "LEVEL 03",
-    badge: "FIRST MISSIONS",
-    title: "Virtual Internships & Practical Experience",
-    subtitle: "DevOps, Computer Vision & Full Stack Development",
+    badge: "INTERNSHIPS",
+    title: "Virtual Internships & Applied Projects",
+    subtitle: "DevOps Simulations, Computer Vision & Web Builds",
     organization: "CodeAlpha • SYNTECXHUB • Arttifai Tech",
     period: "2024 – 2025",
-    location: "Remote / Industry Simulations",
+    location: "Remote",
     status: "COMPLETED",
-    statusLabel: "MISSIONS COMPLETED",
+    statusLabel: "VERIFIED COMPLETION",
     iconName: "Briefcase",
-    description: "Completed multiple hands-on industry virtual internships, testing software engineering skills in containerization, real-time computer vision, and component-driven web applications.",
+    description: "Completed virtual internship curricula and practical assignments covering web server deployments, real-time computer vision gesture tracking, and component-based frontend engineering.",
     verifiedDetails: [
-      "CodeAlpha: Containerized static web servers using Docker & automated Java lifecycle with Gradle",
       "SYNTECXHUB: Engineered real-time hand landmark tracking and gesture controls using Python & OpenCV",
-      "Arttifai Tech: Built modular full-stack web application interfaces and backend REST API integrations",
-      "All certificates officially verified and cataloged in the Achievement Dossier"
+      "Arttifai Tech: Built responsive web interfaces and connected backend API endpoints",
+      "CodeAlpha: Completed structured assignments in server deployment and build automation",
+      "All certificates verified and documented in the Credentials Dossier"
     ],
-    techStack: ["Docker", "Gradle", "OpenCV", "MediaPipe", "React", "REST APIs"],
+    techStack: ["Python", "OpenCV", "MediaPipe", "React", "JavaScript", "REST APIs"],
     associatedSectionId: "achievements",
     coords: { x: 26, y: 49 }
   },
   {
     levelNumber: "04",
     levelTag: "LEVEL 04",
-    badge: "BUILD MODE",
-    title: "Production Projects & Operational Systems",
+    badge: "ACTIVE BUILDS",
+    title: "Flagship Software Deployments",
     subtitle: "CampusFix AI & AngadiFlow",
     organization: "YESH.BUILDS Flagship Engineering",
     period: "Current Active Focus",
-    location: "Web & Cloud Deployments",
+    location: "Production Deployments",
     status: "IN_PROGRESS",
-    statusLabel: "ACTIVE MISSION // IN PROGRESS",
+    statusLabel: "PRODUCTION READY // ACTIVE",
     iconName: "Cpu",
-    description: "Designed, engineered, and deployed complete production-grade applications that solve real operational friction for campuses and commercial retail.",
+    description: "Designed, engineered, and deployed complete applications addressing everyday friction for campus administration and local commercial storefronts.",
     verifiedDetails: [
-      "CampusFix AI: Intelligent campus grievance and issue management platform with automated department routing and real-time ticket lifecycle tracking",
-      "AngadiFlow: Connected smart restaurant management system with real-time kitchen order synchronization, table management, and digital POS operations",
-      "Fully responsive, production-tested architectures built with modern web technologies"
+      "CampusFix AI: Institutional defect reporting and routing platform with automated category classification and ticket tracking",
+      "AngadiFlow: Fast, responsive commercial storefront presenting digital menus and direct patron inquiry channels",
+      "Engineered with clean React/TypeScript codebases, fast load times, and mobile-first responsive design"
     ],
-    techStack: ["React", "TypeScript", "Node.js", "MongoDB", "AI Routing", "Tailwind CSS"],
+    techStack: ["React", "TypeScript", "Node.js", "Supabase", "Tailwind CSS"],
     associatedSectionId: "missions",
     coords: { x: 74, y: 69 }
   },
   {
     levelNumber: "05",
     levelTag: "LEVEL 05",
-    badge: "NEXT CHAPTER",
-    title: "Autonomous Systems & Cloud AI Engineering",
-    subtitle: "The Next Technological Horizon",
-    organization: "Future Roadmap & Industry Impact",
+    badge: "ROADMAP",
+    title: "Software Engineering & System Depth",
+    subtitle: "Professional Growth & Next Milestones",
+    organization: "Career Progression & Collaborative Engineering",
     period: "2026 & Beyond",
-    location: "Global Software Engineering",
+    location: "Software Industry",
     status: "UPCOMING",
-    statusLabel: "UPCOMING DESTINATION",
+    statusLabel: "CAREER OBJECTIVE",
     iconName: "Flag",
-    description: "Advancing toward building production-grade autonomous agentic workflows, scalable cloud-native architectures, and high-impact software that serves real human needs.",
+    description: "Focused on securing software development opportunities, contributing to collaborative engineering teams, and building robust, user-centered digital products.",
     verifiedDetails: [
-      "Deepening expertise in multi-agent orchestration, LLM integration, and autonomous developer workflows",
-      "Architecting enterprise cloud-native microservices with robust CI/CD and observability",
-      "Pursuing software engineering roles and high-impact collaborative open-world ventures"
+      "Targeting software development roles in high-standard engineering teams",
+      "Deepening understanding of backend architecture, database indexing, and API performance",
+      "Continuing to design fast, accessible web applications with clean typography and purposeful motion"
     ],
-    techStack: ["Cloud Architecture", "Multi-Agent Systems", "Distributed Systems", "Applied AI"],
+    techStack: ["React", "TypeScript", "Node.js", "PostgreSQL", "System Architecture"],
     associatedSectionId: "contact",
     coords: { x: 50, y: 89 }
   }
@@ -155,11 +155,11 @@ export const CAREER_JOURNEY: CareerNode[] = [
     organization: "M.A.M. College of Engineering and Technology",
     period: "2024 – 2028",
     location: "Tiruchirappalli, Tamil Nadu (Anna University)",
-    description: "Pursuing undergraduate engineering in Information Technology with consistent academic focus on core computer science subjects, programming, database systems, and practical projects.",
+    description: "Pursuing undergraduate engineering in Information Technology with consistent academic focus on computer science principles, programming, database design, and practical software projects.",
     verifiedDetails: [
       "Current CGPA: 7.33 / 10.0",
       "Anna University Registration: 812024205055",
-      "Active developer in campus web & problem-solving initiatives"
+      "Active participant in collegiate problem-solving and software development"
     ],
     statusBadge: "ACTIVE DEGREE"
   },
@@ -171,10 +171,10 @@ export const CAREER_JOURNEY: CareerNode[] = [
     organization: "CodeAlpha",
     period: "Completed (Verified)",
     location: "Remote",
-    description: "Hands-on engineering projects covering containerization with Docker, static web server hosting, Gradle build automation, and deployment pipelines.",
+    description: "Practical engineering tasks covering web server configuration, build automation, and deployment procedures.",
     verifiedDetails: [
-      "Containerized static web server deployment using Docker",
-      "Automated Java application build & lifecycle via Gradle",
+      "Configured web server deployments and environment testing",
+      "Automated Java application build workflows via Gradle",
       "Official Verified Completion Certificate issued by CodeAlpha"
     ],
     docLink: "/certificates/CodeAlpha certificate_page_1.png",
@@ -188,11 +188,11 @@ export const CAREER_JOURNEY: CareerNode[] = [
     organization: "SYNTECXHUB",
     period: "Completed (Verified)",
     location: "Remote",
-    description: "Built real-time computer vision models using Python and OpenCV for interactive human-computer interface and gesture control.",
+    description: "Developed real-time computer vision scripts using Python and OpenCV for interactive hand landmark tracking and volume control.",
     verifiedDetails: [
       "Engineered real-time hand landmark detection using MediaPipe & OpenCV",
-      "Interactive gesture-based controller pipeline",
-      "Practical deployment and algorithm verification"
+      "Calculated fingertip Euclidean distances for continuous volume mapping",
+      "Documented implementation and tested across diverse lighting conditions"
     ],
     statusBadge: "COMPLETED"
   },
@@ -204,10 +204,10 @@ export const CAREER_JOURNEY: CareerNode[] = [
     organization: "Arttifai Tech",
     period: "Completed (Verified)",
     location: "Remote",
-    description: "Full-stack web application development utilizing modern frontend frameworks, backend APIs, and responsive design systems.",
+    description: "Frontend web application development utilizing modern component patterns, REST API endpoints, and responsive styling.",
     verifiedDetails: [
-      "Component-based frontend architecture and responsive styling",
-      "RESTful API design and database integration",
+      "Built responsive user interfaces with reusable component structures",
+      "Implemented clean client-side state handling and form validation",
       "Verified Certificate of Completion from Arttifai Tech"
     ],
     docLink: "/certificates/Yeshwanth.A_Full Stack Development_page_1.png",
@@ -222,11 +222,11 @@ export const CAREER_JOURNEY: CareerNode[] = [
     period: "Completed (Verified)",
     location: "Tamil Nadu, India",
     statusBadge: "VERIFIED",
-    description: "Structured technical training focused on Python programming, data manipulation, statistical analysis, and applied AI fundamentals.",
+    description: "Structured technical training covering Python programming fundamentals, data structures, and foundational machine learning concepts.",
     verifiedDetails: [
-      "Data wrangling and feature analysis with Python libraries",
-      "Introduction to machine learning pipelines and model evaluation",
-      "Verified training participation"
+      "Data manipulation and exploratory analysis with Python libraries",
+      "Foundational supervised machine learning concepts and metrics",
+      "Verified training certificate issued upon completion"
     ]
   }
 ];

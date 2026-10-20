@@ -12,10 +12,17 @@ import { CareerMap } from './components/CareerMap';
 import { AchievementBoard } from './components/AchievementBoard';
 import { ContactMission } from './components/ContactMission';
 import { MissionCompleteFooter } from './components/MissionCompleteFooter';
+import { LiveCinematicEnvironment } from './components/LiveCinematicEnvironment';
 import { soundManager } from './utils/audio';
 
 export function App() {
-  const [introCompleted, setIntroCompleted] = useState(false);
+  const [introCompleted, setIntroCompleted] = useState(() => {
+    try {
+      return typeof window !== 'undefined' && sessionStorage.getItem('yesh_intro_seen') === 'true';
+    } catch {
+      return false;
+    }
+  });
   const [activeSection, setActiveSection] = useState('hero');
   const [isMuted, setIsMuted] = useState(soundManager.isMuted);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -91,7 +98,10 @@ export function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#05050f] text-slate-100 selection:bg-pink-500 selection:text-white">
+    <div className="relative min-h-screen bg-[#030712] text-slate-100 selection:bg-pink-500 selection:text-white">
+      {/* Live Animated Cinematic Environment (Persistent across all sections) */}
+      <LiveCinematicEnvironment intensity={introCompleted ? 1.0 : 0.85} />
+
       {/* Cinematic Startup Sequence */}
       {!introCompleted && (
         <IntroSequence onComplete={() => setIntroCompleted(true)} />
