@@ -218,7 +218,7 @@ export const AchievementBoard: React.FC = () => {
                     <span>VIEW OFFICIAL PDF</span>
                   </a>
                 ) : (
-                  <span className="text-xs font-mono text-slate-500">Official Image Document</span>
+                  <span className="text-xs font-mono text-slate-400">Official Image Document</span>
                 )}
 
                 <button

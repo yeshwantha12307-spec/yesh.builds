@@ -101,9 +101,6 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
       // Ignore storage errors safely
     }
 
-    const bgImg = new Image();
-    bgImg.src = '/media/backgrounds/intro_supra_bg.webp';
-
     const TOTAL_DURATION = 8200; // 8.2 seconds total cinematic sequence
     const startTime = performance.now();
 
@@ -364,7 +361,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
           <picture>
             <source type="image/webp" srcSet="/media/backgrounds/intro_supra_bg.webp" />
             <img
-              src="/media/backgrounds/intro_supra_bg.jpg"
+              src="/media/backgrounds/intro_supra_bg.webp"
               alt="Toyota Supra Burnout Night Scene"
               loading="eager"
               fetchPriority="high"
@@ -492,7 +489,7 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
                 <picture>
                   <source type="image/webp" srcSet="/brand/y_emblem.webp" />
                   <img
-                    src="/brand/y_emblem.png"
+                    src="/brand/y_emblem.webp"
                     alt="Yeshwanth 3D Emblem"
                     width={112}
                     height={112}
@@ -519,10 +516,10 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
                     PORTFOLIO
                   </h1>
 
-                  {/* Luminous Metallic Light Sweep */}
+                  {/* Luminous Metallic Light Sweep (Hardware Composited) */}
                   {phase >= 1 && (
                     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                      <div className="w-1/3 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent transform -skew-x-25 animate-chrome-sweep" />
+                      <div className="w-1/3 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent animate-chrome-sweep" />
                     </div>
                   )}
                 </motion.div>
@@ -555,9 +552,9 @@ export const IntroSequence: React.FC<IntroProps> = ({ onComplete }) => {
                   {/* Educational & Geographic Telemetry */}
                   <motion.div
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.85 }}
+                    animate={{ opacity: 1 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
-                    className="mt-2 text-[10px] sm:text-[11px] font-mono text-slate-400 tracking-widest uppercase"
+                    className="mt-2 text-[10px] sm:text-[11px] font-mono text-slate-300 tracking-widest uppercase"
                   >
                     Anna University • B.Tech IT // Class of 2028
                   </motion.div>

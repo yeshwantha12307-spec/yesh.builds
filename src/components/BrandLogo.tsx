@@ -54,7 +54,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       <picture>
         <source type="image/webp" srcSet="/brand/y_emblem.webp" />
         <img
-          src="/brand/y_emblem.png"
+          src="/brand/y_emblem.webp"
           alt="Yeshwanth Akbar Official 3D Y Logo"
           width={dim}
           height={dim}

@@ -295,7 +295,7 @@ export const ContactMission: React.FC = () => {
                   placeholder="e.g. Alex Morgan"
                   className={`w-full px-4 py-3 rounded-xl bg-white/5 border ${
                     errors.name ? 'border-rose-500 focus:border-rose-400' : 'border-white/15 focus:border-emerald-400'
-                  } focus:outline-none text-white font-sans text-sm placeholder:text-slate-600 transition-colors`}
+                  } focus:outline-none text-white font-sans text-sm placeholder:text-slate-400 transition-colors`}
                 />
                 {errors.name && (
                   <p className="text-[11px] font-mono text-rose-400 mt-1 flex items-center gap-1">
@@ -320,7 +320,7 @@ export const ContactMission: React.FC = () => {
                   placeholder="e.g. alex@example.com"
                   className={`w-full px-4 py-3 rounded-xl bg-white/5 border ${
                     errors.email ? 'border-rose-500 focus:border-rose-400' : 'border-white/15 focus:border-emerald-400'
-                  } focus:outline-none text-white font-sans text-sm placeholder:text-slate-600 transition-colors`}
+                  } focus:outline-none text-white font-sans text-sm placeholder:text-slate-400 transition-colors`}
                 />
                 {errors.email && (
                   <p className="text-[11px] font-mono text-rose-400 mt-1 flex items-center gap-1">
@@ -345,7 +345,7 @@ export const ContactMission: React.FC = () => {
                   placeholder="Describe your project, role, or inquiry..."
                   className={`w-full px-4 py-3 rounded-xl bg-white/5 border ${
                     errors.message ? 'border-rose-500 focus:border-rose-400' : 'border-white/15 focus:border-emerald-400'
-                  } focus:outline-none text-white font-sans text-sm placeholder:text-slate-600 transition-colors resize-none`}
+                  } focus:outline-none text-white font-sans text-sm placeholder:text-slate-400 transition-colors resize-none`}
                 />
                 {errors.message && (
                   <p className="text-[11px] font-mono text-rose-400 mt-1 flex items-center gap-1">
@@ -423,7 +423,7 @@ export const ContactMission: React.FC = () => {
               <span className="text-emerald-400/90 font-semibold uppercase tracking-wider">
                 DIRECT WHATSAPP TRANSMISSION
               </span>
-              <span className="text-slate-500 uppercase hidden sm:inline">
+              <span className="text-slate-400 uppercase hidden sm:inline">
                 TYPICAL RESPONSE &lt; 24H
               </span>
             </div>

@@ -223,7 +223,7 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
                   soundManager.playClick();
                   setIsMenuOpen(false);
                 }}
-                className="w-full text-left px-4 py-2 text-slate-500 hover:text-slate-300 font-display font-bold text-lg tracking-wider uppercase cursor-pointer mt-2"
+                className="w-full text-left px-4 py-2 text-slate-400 hover:text-slate-200 font-display font-bold text-lg tracking-wider uppercase cursor-pointer mt-2"
               >
                 EXIT MENU
               </button>

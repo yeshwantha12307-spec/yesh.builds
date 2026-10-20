@@ -80,7 +80,7 @@ export const CinematicHero: React.FC = () => {
               >
                 <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
                 <span>{PROFILE.roleBadge}</span>
-                <span className="text-slate-500">•</span>
+                <span className="text-slate-400">•</span>
                 <span className="text-slate-300">{PROFILE.degree}</span>
               </motion.div>
 

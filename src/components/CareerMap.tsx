@@ -141,7 +141,7 @@ export const CareerMap: React.FC = () => {
                     ? 'bg-amber-950/40 text-amber-300 border-amber-500/50 hover:bg-amber-900/40'
                     : isCompleted
                     ? 'bg-black/60 text-slate-300 border-white/15 hover:border-amber-400/40 hover:text-white'
-                    : 'bg-black/40 text-slate-500 border-white/10 hover:text-slate-300'
+                    : 'bg-black/40 text-slate-400 border-white/10 hover:text-slate-200'
                 }`}
               >
                 <span className="flex items-center justify-center w-5 h-5 rounded-full bg-black/40 text-[10px] font-bold">
@@ -157,7 +157,7 @@ export const CareerMap: React.FC = () => {
                   <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping shrink-0" />
                 )}
                 {lvl.status === 'UPCOMING' && (
-                  <Lock className="w-3 h-3 text-slate-500 shrink-0" />
+                  <Lock className="w-3 h-3 text-slate-400 shrink-0" />
                 )}
               </button>
             );
@@ -280,7 +280,7 @@ export const CareerMap: React.FC = () => {
                           ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-black border border-white'
                           : isCompleted
                           ? 'bg-[#0e1017] text-amber-400 border border-amber-400/50 hover:border-amber-400'
-                          : 'bg-[#090a0f] text-slate-500 border border-white/20 hover:border-white/40'
+                          : 'bg-[#090a0f] text-slate-400 border border-white/20 hover:border-white/40'
                       }`}>
                         {renderIcon(lvl.iconName, "w-5 h-5 sm:w-5.5 sm:h-5.5")}
 
@@ -384,7 +384,7 @@ export const CareerMap: React.FC = () => {
                         ? 'bg-amber-400/15 text-amber-300 border-amber-400/40'
                         : selectedLevel.status === 'COMPLETED'
                         ? 'bg-white/5 text-slate-300 border-white/20'
-                        : 'bg-white/5 text-slate-500 border-white/10'
+                        : 'bg-white/5 text-slate-400 border-white/10'
                     }`}>
                       {selectedLevel.statusLabel}
                     </span>
@@ -406,7 +406,7 @@ export const CareerMap: React.FC = () => {
                       <Calendar className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                       <span>{selectedLevel.period}</span>
                     </div>
-                    <span className="text-slate-600 hidden sm:inline">•</span>
+                    <span className="text-slate-400 hidden sm:inline">•</span>
                     <div className="flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                       <span className="truncate">{selectedLevel.location}</span>
