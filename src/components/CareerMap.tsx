@@ -170,9 +170,9 @@ export const CareerMap: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* -----------------------------------------------------------------------
-              LEFT / TOP: ABSTRACT CINEMATIC PROGRESSION PATH (SVG)
+              LEFT / TOP: ABSTRACT CINEMATIC PROGRESSION PATH (SVG) — BORDERLESS OPEN TIMELINE
              ----------------------------------------------------------------------- */}
-          <div className="lg:col-span-7 relative bg-[#07070d]/90 border border-white/10 rounded-3xl p-5 sm:p-7 backdrop-blur-xl shadow-2xl overflow-hidden min-h-[460px] sm:min-h-[500px] flex flex-col justify-between">
+          <div className="lg:col-span-7 relative p-2 sm:p-4 min-h-[460px] sm:min-h-[500px] flex flex-col justify-between overflow-visible">
             
             {/* Top Trajectory Status */}
             <div className="flex items-center justify-between pb-3 mb-2 border-b border-white/10 text-[11px] font-mono">

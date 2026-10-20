@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Target, FileText, ChevronDown, CheckCircle2, Shield, MapPin, Sparkles } from 'lucide-react';
+import { Target, FileText, ChevronDown, MapPin, Sparkles } from 'lucide-react';
 import { PROFILE } from '../data/profile';
 import { soundManager } from '../utils/audio';
 import { PortraitTurntable } from './PortraitTurntable';
+import { ViceCitySignature } from './ViceCitySignature';
 
 export const CinematicHero: React.FC = () => {
   const [typewriterIndex, setTypewriterIndex] = useState(0);
@@ -45,43 +46,7 @@ export const CinematicHero: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full flex flex-col justify-between min-h-[82vh]">
         
         {/* TOP STATUS ROW / MISSION HUD */}
-        <div className="flex flex-col lg:flex-row items-start justify-between gap-6 pt-4">
-          
-          {/* LEFT: SYSTEM OVERVIEW CHECKLIST PANEL */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="w-full max-w-xs p-4 rounded-xl bg-black/75 border border-white/15 backdrop-blur-md shadow-[0_0_25px_rgba(0,0,0,0.8)]"
-          >
-            <div className="flex items-center justify-between pb-2 mb-3 border-b border-white/10">
-              <span className="text-[10px] font-mono font-bold text-amber-400 tracking-widest uppercase">
-                OVERVIEW // SYSTEM STATUS
-              </span>
-              <span className="text-[9px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-500/30 font-bold uppercase">
-                ONLINE
-              </span>
-            </div>
-
-            <ul className="space-y-2 text-xs font-display">
-              <li className="flex items-center gap-2 text-slate-200">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="tracking-wider uppercase font-semibold">VERIFIED PROFILE LOADED</span>
-              </li>
-              <li className="flex items-center gap-2 text-slate-200">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="tracking-wider uppercase font-semibold">TECHNICAL ARSENAL READY</span>
-              </li>
-              <li className="flex items-center gap-2 text-slate-200">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="tracking-wider uppercase font-semibold">FEATURED PROJECTS ACTIVE</span>
-              </li>
-              <li className="flex items-center gap-2 text-slate-200">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="tracking-wider uppercase font-semibold">DIRECT CONTACT OPEN</span>
-              </li>
-            </ul>
-          </motion.div>
+        <div className="flex items-center justify-end pt-4">
 
           {/* RIGHT: TYPEWRITER MOTTO BILLBOARD */}
           <motion.div
@@ -182,8 +147,9 @@ export const CinematicHero: React.FC = () => {
 
         </div>
 
-        {/* BOTTOM ROW: LOCATION & SCROLL INDICATOR */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10 text-xs font-mono text-slate-400">
+        {/* BOTTOM ROW: LOCATION & SCROLL INDICATOR & VICE CITY SIGNATURE */}
+        <div className="relative flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10 text-xs font-mono text-slate-400">
+          {/* Location Tag */}
           <div className="flex items-center gap-2">
             <MapPin className="w-4 h-4 text-emerald-400" />
             <span className="tracking-wider uppercase text-slate-300 font-semibold">
@@ -191,15 +157,25 @@ export const CinematicHero: React.FC = () => {
             </span>
           </div>
 
+          {/* Centered Scroll Indicator: Prominently centered, never overlapping corners or buttons */}
           <button
             onClick={() => scrollTo('profile')}
-            className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors cursor-pointer group"
+            className="sm:absolute sm:left-1/2 sm:-translate-x-1/2 flex items-center gap-2 text-slate-400 hover:text-white transition-colors cursor-pointer group"
           >
             <span className="text-[11px] font-display font-bold tracking-widest uppercase text-slate-300 group-hover:text-white transition-colors">SCROLL TO INSPECT DOSSIER</span>
             <ChevronDown className="w-4 h-4 text-emerald-400 animate-bounce" />
           </button>
+
+          {/* Reserved Right Column Spacer on Desktop (Maintains symmetry & clean clearance) */}
+          <div className="hidden sm:block w-36 lg:w-44 h-1 pointer-events-none" />
         </div>
 
+      </div>
+
+      {/* VICE CITY CREATOR SIGNATURE + MINI 63-FRAME TURNTABLE */}
+      {/* Positioned in the empty bottom-right corner on desktop/tablet, scaled gracefully on mobile */}
+      <div className="sm:absolute sm:bottom-4 sm:right-6 lg:bottom-6 lg:right-8 xl:right-10 z-20 flex justify-center sm:block mt-6 sm:mt-0 scale-90 sm:scale-95 lg:scale-100 origin-center sm:origin-bottom-right">
+        <ViceCitySignature />
       </div>
     </section>
   );

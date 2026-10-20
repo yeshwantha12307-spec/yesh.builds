@@ -343,8 +343,10 @@ export const HUDNavigation: React.FC<HUDNavProps> = ({
         </div>
       )}
 
-      {/* SUBTLE BOTTOM-RIGHT SIGNATURE */}
-      <div className="hidden md:block fixed bottom-4 right-6 z-30 text-right pointer-events-none select-none">
+      {/* SUBTLE BOTTOM-RIGHT SIGNATURE (Visible outside hero section so hero corner remains exclusive to ViceCitySignature) */}
+      <div className={`hidden md:block fixed bottom-4 right-6 z-30 text-right pointer-events-none select-none transition-opacity duration-500 ${
+        activeSection === 'hero' ? 'opacity-0 pointer-events-none' : 'opacity-100'
+      }`}>
         <div className="font-mono text-[10px] text-slate-400 uppercase tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
           Practical Code. Clear Architecture.
         </div>

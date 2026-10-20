@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { RotateCw, Compass, Sparkles, RefreshCw } from 'lucide-react';
+import { RotateCw } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 
 // -----------------------------------------------------------------------------
@@ -14,14 +14,14 @@ export const FRAME_PATHS: string[] = Array.from({ length: TOTAL_FRAMES }, (_, i)
   return `/frames/frame_${pad}.png`;
 });
 
-// Module-level in-memory cache to preserve loaded frames across re-renders
-const imageCache = new Map<number, HTMLImageElement>();
-const loadingPromises = new Map<number, Promise<HTMLImageElement | null>>();
+// Module-level in-memory cache to preserve loaded frames across re-renders and share with mini turntable
+export const imageCache = new Map<number, HTMLImageElement>();
+export const loadingPromises = new Map<number, Promise<HTMLImageElement | null>>();
 
 /**
  * Loads a single frame image and caches it in memory.
  */
-function loadFrameImage(index: number): Promise<HTMLImageElement | null> {
+export function loadFrameImage(index: number): Promise<HTMLImageElement | null> {
   if (imageCache.has(index)) {
     return Promise.resolve(imageCache.get(index)!);
   }
@@ -51,7 +51,7 @@ function loadFrameImage(index: number): Promise<HTMLImageElement | null> {
  * Retrieves the closest available frame if target frame is still downloading.
  * Prevents flickering or blank canvas during rapid scrubbing.
  */
-function getNearestAvailableImage(targetIndex: number): HTMLImageElement | null {
+export function getNearestAvailableImage(targetIndex: number): HTMLImageElement | null {
   if (imageCache.has(targetIndex)) {
     return imageCache.get(targetIndex)!;
   }
@@ -311,15 +311,7 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
     }
   };
 
-  const handleResetToStart = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    soundManager.playClick();
-    scheduleFrameDraw(0);
-    setDisplayedFrame(0);
-    setHasInteracted(true);
-  };
-
-  // Azimuth degree calculation across 63 frames (0° to 360°)
+  // Pedestal azimuth rotation calculation across 63 frames (0° to 360°)
   const currentDegrees = Math.round((displayedFrame / 62) * 360);
 
   return (
@@ -377,17 +369,7 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
         />
 
         {/* Viewfinder Corner Crosshairs & Overlay */}
-        <div className="absolute inset-0 pointer-events-none border border-white/10 rounded-2xl">
-          {/* Top telemetry HUD tag */}
-          <div className="absolute top-2 left-3 flex items-center gap-1.5 text-[9px] font-mono text-emerald-400 font-bold tracking-widest uppercase bg-black/60 px-2 py-0.5 rounded border border-emerald-500/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>3D CAM // 63F</span>
-          </div>
-
-          <div className="absolute top-2 right-3 text-[9px] font-mono text-slate-400 bg-black/60 px-2 py-0.5 rounded border border-white/10">
-            <span>RES: 1280×720</span>
-          </div>
-        </div>
+        <div className="absolute inset-0 pointer-events-none border border-white/10 rounded-2xl" />
 
         {/* Soft bottom ground fade so figure seamlessly roots into dark baseline */}
         <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#05050f]/80 to-transparent pointer-events-none z-10" />
@@ -428,29 +410,7 @@ export const PortraitTurntable: React.FC<PortraitTurntableProps> = ({
           </div>
         </div>
 
-        {/* 63-Frame Telemetry & Quick Reset Bar */}
-        <div className="flex items-center justify-between w-full px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 backdrop-blur-md text-[10px] font-mono text-slate-300 shadow-md">
-          {/* Active Frame Gauge */}
-          <div className="flex items-center gap-1.5">
-            <Compass className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-            <span className="text-slate-400 font-mono text-[9px] uppercase tracking-wider">FRAME:</span>
-            <span className="font-display font-bold text-emerald-300 tracking-wider text-xs uppercase">
-              {String(displayedFrame + 1).padStart(2, '0')} // 63 ({currentDegrees}°)
-            </span>
-          </div>
 
-          {/* Quick Reset to Frame 1 */}
-          <button
-            type="button"
-            onClick={handleResetToStart}
-            title="Reset to Frame 1 (0°)"
-            aria-label="Reset to Frame 1 (0°)"
-            className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/5 hover:bg-white/15 text-[9px] font-display text-slate-300 hover:text-white transition-colors border border-white/10 font-bold tracking-wider uppercase cursor-pointer"
-          >
-            <RefreshCw className="w-2.5 h-2.5 text-emerald-400" />
-            <span>FRAME 01</span>
-          </button>
-        </div>
 
         {/* Tactile Progress Scrub Track */}
         <div 
