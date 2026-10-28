@@ -171,6 +171,48 @@ export const PROJECTS_DATA: Project[] = [
     status: "Pilot Prototype"
   },
   {
+    id: "travroidd",
+    name: "Travroidd",
+    category: "Full Stack",
+    tagline: "Travel Booking & Discovery Web Platform with Supabase & Google Auth",
+    problem: "Travelers seeking trip planning and local exploration face cluttered interfaces, slow booking procedures, and difficult account synchronization across devices.",
+    solution: "Engineered Travroidd, an engaging travel booking web platform focused on modern responsive UI, accessible destination showcases, Supabase database integration, Google OAuth login, and high-performance Vercel cloud deployment.",
+    keyFeatures: [
+      "Travel-focused web application and booking-oriented user experience",
+      "Responsive frontend development with fluid multi-device layouts",
+      "Supabase database integration and session authentication workflows",
+      "Google OAuth single sign-on integration for frictionless user onboarding",
+      "Deployment and configuration on Vercel with custom domain and SEO optimizations"
+    ],
+    techStack: ["React", "JavaScript", "Supabase", "Google OAuth", "Vercel"],
+    contribution: "Built travel-focused website experience with responsive layouts, configured Supabase backend and Google OAuth setup, managed Vercel deployment and custom domain setup.",
+    demoUrl: "https://travroidd.in/",
+    previewImage: "/projects/travroidd-preview.webp",
+    isFeatured: true,
+    status: "Deployed / Live"
+  },
+  {
+    id: "parambariyam",
+    name: "Parambariyam Cashews",
+    category: "Full Stack",
+    tagline: "Heritage Cashew E-Commerce & Brand Platform with Node.js & SQLite",
+    problem: "Traditional cashew producers in regional hubs like Panruti, Tamil Nadu require a premium, direct-to-consumer digital storefront to represent product authenticity and grade differentiation without reliance on high-commission marketplaces.",
+    solution: "Engineered Parambariyam Cashews, an elegant digital storefront designed with a custom forest-green, champagne-gold, and ivory visual identity, featuring comprehensive grade catalogues, administrative dashboards, and a lightweight Node.js/SQLite backend.",
+    keyFeatures: [
+      "Premium product catalogue covering multiple cashew grades and packaging sizes",
+      "Responsive and minimalist storefront design with luxury heritage aesthetics",
+      "Administrative dashboard and structured product management workflows",
+      "Node.js backend with lightweight SQLite database integration",
+      "Direct customer inquiry channels, transparent pricing, and fast mobile performance"
+    ],
+    techStack: ["React", "TypeScript", "Vite", "Tailwind CSS", "Node.js", "SQLite"],
+    contribution: "Delivered responsive frontend design system, administrative product management flows, and backend database integrations.",
+    demoUrl: "https://parambariyam-cashews.vercel.app/",
+    previewImage: "/projects/parambariyam-preview.webp",
+    isFeatured: true,
+    status: "Deployed / Live"
+  },
+  {
     id: "docker-webserver",
     name: "Docker Web Server Deployment",
     category: "DevOps & Cloud",

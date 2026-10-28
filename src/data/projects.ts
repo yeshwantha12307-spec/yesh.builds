@@ -56,8 +56,50 @@ export const FEATURED_PROJECTS: ProjectMission[] = [
     accentColor: "#22c55e"
   },
   {
-    missionId: "yesh-builds",
+    missionId: "travroidd",
     missionNumber: "PROJECT 03",
+    name: "Travroidd",
+    type: "Travel Discovery & Booking Platform",
+    tagline: "Engaging travel discovery web platform with responsive layouts and Supabase integration.",
+    description: "Developed Travroidd, a travel booking web platform focused on creating a smooth and engaging travel discovery experience. The project explores modern web development, responsive user interfaces, Supabase database integration, Google authentication workflows, and fast global cloud deployment on Vercel.",
+    keyFeatures: [
+      "Travel-focused web application and booking-oriented user experience",
+      "Responsive frontend development with fluid multi-device layouts",
+      "Supabase integration and user authentication workflows",
+      "Custom domain configuration and cloud deployment using Vercel",
+      "Accessible destination showcases and search discoverability"
+    ],
+    techStack: ["React", "JavaScript", "Supabase", "Google OAuth", "Vercel"],
+    liveUrl: "https://travroidd.in/",
+    status: "COMPLETED",
+    previewImage: "/projects/travroidd-preview.webp",
+    themeColor: "from-blue-500/20 to-sky-600/10",
+    accentColor: "#38bdf8"
+  },
+  {
+    missionId: "parambariyam",
+    missionNumber: "PROJECT 04",
+    name: "Parambariyam Cashews",
+    type: "Heritage Cashew E-Commerce Platform",
+    tagline: "Premium digital storefront inspired by the cashew heritage of Panruti, Tamil Nadu.",
+    description: "Developed Parambariyam Cashews, a premium digital storefront inspired by the heritage of Panruti, Tamil Nadu. The platform is designed to showcase premium cashew varieties through an elegant shopping experience with a distinctive forest-green, champagne-gold, and ivory visual identity, supported by a Node.js and SQLite backend.",
+    keyFeatures: [
+      "Premium product catalogue covering multiple cashew grades and packaging sizes",
+      "Responsive and minimalist storefront design with luxury heritage aesthetics",
+      "Administrative dashboard and structured product management workflows",
+      "Node.js backend with lightweight SQLite database integration",
+      "High-converting product presentation, inquiry flows, and rapid load performance"
+    ],
+    techStack: ["React", "TypeScript", "Vite", "Tailwind CSS", "Node.js", "SQLite"],
+    liveUrl: "https://parambariyam-cashews.vercel.app/",
+    status: "COMPLETED",
+    previewImage: "/projects/parambariyam-preview.webp",
+    themeColor: "from-emerald-600/20 to-amber-500/10",
+    accentColor: "#eab308"
+  },
+  {
+    missionId: "yesh-builds",
+    missionNumber: "PROJECT 05",
     name: "YESH.BUILDS Portfolio",
     type: "Cinematic Web Experience & Creative Frontend",
     tagline: "Interactive 360 portrait turntable, procedural sound design, and custom live atmosphere.",

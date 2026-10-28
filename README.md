@@ -13,6 +13,8 @@ Built for **Yeshwanth Akbar**, Information Technology undergraduate at **M.A.M. 
 | :--- | :--- | :--- |
 | **AngadiFlow** | [https://angadiflow.in/](https://angadiflow.in/) | Commercial restaurant web storefront, digital menus & patron inquiry channel |
 | **CampusFix AI** | [https://campus-fix-woad.vercel.app/](https://campus-fix-woad.vercel.app/) | Automated campus defect reporting, AI category tagging & department routing pipeline |
+| **Parambariyam Cashews** | [https://parambariyam-cashews.vercel.app/](https://parambariyam-cashews.vercel.app/) | Heritage cashew brand digital storefront, grade catalogues & admin dashboard |
+| **Travroidd** | [https://travroidd.in/](https://travroidd.in/) | Travel booking & discovery web platform with Supabase integration & Google OAuth |
 
 ### Official Social & Direct Contact Channels
 | Platform | Handle / Destination | Direct URL |

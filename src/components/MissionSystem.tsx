@@ -40,12 +40,12 @@ export const MissionSystem: React.FC = () => {
           </div>
 
           <div className="px-3.5 py-1.5 rounded-lg bg-black/80 border border-emerald-500/30 text-emerald-300 font-display font-bold text-xs uppercase tracking-wider">
-            3 PRIMARY BUILDS
+            {FEATURED_PROJECTS.length} PRIMARY BUILDS
           </div>
         </div>
 
         {/* PROJECT SELECTOR TABS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5 mb-8">
           {FEATURED_PROJECTS.map((mission) => {
             const isSelected = selectedMission.missionId === mission.missionId;
             return (
