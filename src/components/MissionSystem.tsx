@@ -45,9 +45,11 @@ export const MissionSystem: React.FC = () => {
         </div>
 
         {/* PROJECT SELECTOR TABS */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5 mb-8 items-stretch">
           {FEATURED_PROJECTS.map((mission) => {
             const isSelected = selectedMission.missionId === mission.missionId;
+            const isCompleted = mission.status === 'COMPLETED';
+
             return (
               <button
                 key={mission.missionId}
@@ -56,27 +58,42 @@ export const MissionSystem: React.FC = () => {
                   setSelectedMission(mission);
                 }}
                 onMouseEnter={() => soundManager.playHover()}
-                className={`p-4 rounded-xl text-left transition-all border cursor-pointer backdrop-blur-md flex items-center justify-between ${
+                className={`group p-3.5 sm:p-4 rounded-xl text-left transition-all duration-200 border cursor-pointer backdrop-blur-md flex items-start gap-3 h-full min-h-[96px] ${
                   isSelected
                     ? 'bg-gradient-to-r from-emerald-950/90 via-black/90 to-teal-950/80 border-emerald-400 shadow-[0_0_20px_rgba(34,197,94,0.25)] ring-1 ring-emerald-400/40'
                     : 'bg-black/60 border-white/10 hover:border-white/25 text-slate-300 hover:bg-black/80'
                 }`}
               >
-                <div className="flex items-center gap-3.5">
-                  <div className={`p-2.5 rounded-lg ${isSelected ? 'bg-emerald-500 text-black font-bold' : 'bg-white/5 text-slate-400'}`}>
-                    <Target className="w-5 h-5" />
+                {/* Fixed-Position Target Icon */}
+                <div className={`p-2.5 rounded-lg shrink-0 mt-0.5 transition-colors ${
+                  isSelected 
+                    ? 'bg-emerald-500 text-black font-bold shadow-[0_0_12px_rgba(34,197,94,0.4)]' 
+                    : 'bg-white/5 text-slate-400 group-hover:text-white group-hover:bg-white/10'
+                }`}>
+                  <Target className="w-5 h-5" />
+                </div>
+
+                {/* Content Area with Identical Top & Title Slot Baselines */}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-1 text-[10px] font-mono mb-1">
+                    <span className="text-emerald-400 font-semibold tracking-wider uppercase">
+                      {mission.missionNumber}
+                    </span>
+                    <span className={`text-[9px] px-1.5 py-0.5 rounded font-medium uppercase tracking-wider ${
+                      isCompleted 
+                        ? 'text-slate-400 bg-white/5 border border-white/10' 
+                        : 'text-emerald-300 bg-emerald-500/15 border border-emerald-500/30'
+                    }`}>
+                      {isCompleted ? 'DONE' : 'ACTIVE'}
+                    </span>
                   </div>
-                  <div>
-                    <div className="text-[10px] font-mono text-emerald-400 font-semibold tracking-wider uppercase">
-                      {mission.missionNumber} // {mission.status}
-                    </div>
-                    <div className="font-heading font-bold text-xl sm:text-2xl text-white uppercase tracking-wider">
+
+                  <div className="h-10 flex items-center">
+                    <div className="font-heading font-bold text-sm lg:text-base text-white uppercase tracking-wider leading-snug line-clamp-2">
                       {mission.name}
                     </div>
                   </div>
                 </div>
-
-                <ChevronRight className={`w-5 h-5 transition-transform ${isSelected ? 'text-emerald-400 translate-x-1' : 'text-slate-400'}`} />
               </button>
             );
           })}

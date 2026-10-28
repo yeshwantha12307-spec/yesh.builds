@@ -359,177 +359,19 @@ export const ViceCitySignature: React.FC<ViceCitySignatureProps> = ({ className 
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.3 }}
       role="region"
-      aria-label="YESH creator signature with scroll-driven miniature 3D portrait"
+      aria-label="Scroll-driven miniature 3D portrait"
       className={`fixed bottom-3 left-3 sm:bottom-4 sm:left-5 md:bottom-5 md:left-6 z-30 pointer-events-none select-none flex flex-col items-center group ${className}`}
     >
-      {/* ATMOSPHERIC 1980s MIAMI VICE HOT-PINK & CYAN AMBIENT GLOW */}
-      <div 
-        className="absolute -inset-3 bg-gradient-to-r from-pink-500/15 via-fuchsia-500/10 to-cyan-500/15 blur-2xl rounded-full pointer-events-none transform scale-90 group-hover:scale-105 transition-transform duration-700" 
-      />
-
       {/* =================================================================== */}
-      {/* 1. CUSTOM 1980s MIAMI VICE "YESH" WORDMARK                          */}
-      {/* Positioned directly ABOVE the mini animation; refined compact scale */}
-      {/* =================================================================== */}
-      <div className="relative w-[86px] sm:w-[98px] md:w-[108px] lg:w-[118px] aspect-[315/140] pointer-events-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.95)]">
-        <svg 
-          viewBox="0 0 315 140" 
-          width="100%" 
-          height="100%" 
-          className="overflow-visible select-none"
-        >
-          <defs>
-            {/* Neon Hot-Pink Signature Gradient */}
-            <linearGradient id="vicePinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#ff3b94" />
-              <stop offset="50%" stopColor="#ff007f" />
-              <stop offset="100%" stopColor="#e60067" />
-            </linearGradient>
-
-            {/* Miami Vice Underline Flourish Gradient (Pink to Cyan) */}
-            <linearGradient id="flourishGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#ff007f" />
-              <stop offset="65%" stopColor="#ff2a85" />
-              <stop offset="100%" stopColor="#00f0ff" />
-            </linearGradient>
-
-            {/* Specular White Chrome Face Gradient */}
-            <linearGradient id="whiteChrome" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#ffffff" />
-              <stop offset="65%" stopColor="#ffffff" />
-              <stop offset="85%" stopColor="#fdf2f8" />
-              <stop offset="100%" stopColor="#fce7f3" />
-            </linearGradient>
-
-            {/* Sticker Shadow & Ambient Neon Glow Filter */}
-            <filter id="viceStickerGlow" x="-20%" y="-20%" width="150%" height="150%">
-              <feDropShadow dx="3.5" dy="4.5" stdDeviation="0" floodColor="#000000" floodOpacity="0.95" />
-              <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#ff007f" floodOpacity="0.6" />
-              <feDropShadow dx="0" dy="0" stdDeviation="12" floodColor="#ff007f" floodOpacity="0.25" />
-            </filter>
-
-            {/* Lens Glint Filter */}
-            <filter id="glintGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="1.2" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-
-          <g filter="url(#viceStickerGlow)">
-            {/* LAYER 1: Deep Black Dimensional Drop Shadow Silhouette */}
-            <g transform="translate(3.5, 4.5)" opacity="0.95">
-              <path 
-                d={YESH_PATH_D} 
-                fill="#000000" 
-                stroke="#000000" 
-                strokeWidth="15" 
-                strokeLinejoin="round" 
-                strokeLinecap="round" 
-              />
-              <path 
-                d={FLOURISH_PATH_D} 
-                fill="#000000" 
-                stroke="#000000" 
-                strokeWidth="8" 
-                strokeLinejoin="round" 
-              />
-            </g>
-
-            {/* LAYER 2: Hot-Pink Outer Contour / Neon Sticker Halo */}
-            <g>
-              <path 
-                d={YESH_PATH_D} 
-                fill="none" 
-                stroke="url(#vicePinkGrad)" 
-                strokeWidth="13" 
-                strokeLinejoin="round" 
-                strokeLinecap="round" 
-              />
-              <path 
-                d={FLOURISH_PATH_D} 
-                fill="url(#flourishGrad)" 
-                stroke="url(#vicePinkGrad)" 
-                strokeWidth="6" 
-                strokeLinejoin="round" 
-              />
-            </g>
-
-            {/* LAYER 3: Thick Solid Black Inner Contour (Clean Sticker Core) */}
-            <g>
-              <path 
-                d={YESH_PATH_D} 
-                fill="none" 
-                stroke="#050505" 
-                strokeWidth="6.5" 
-                strokeLinejoin="round" 
-                strokeLinecap="round" 
-              />
-              <path 
-                d={FLOURISH_PATH_D} 
-                stroke="#050505" 
-                strokeWidth="2.5" 
-                fill="none" 
-                strokeLinejoin="round" 
-              />
-            </g>
-
-            {/* LAYER 4: Brilliant Pure White Face Fill */}
-            <g>
-              <path 
-                d={YESH_PATH_D} 
-                fill="url(#whiteChrome)" 
-              />
-              
-              {/* Hot-Pink Sweeping Cursive Underline Flourish */}
-              <path 
-                d={FLOURISH_PATH_D} 
-                fill="url(#flourishGrad)" 
-              />
-              
-              {/* Inner White Specular Highlight Ribbon */}
-              <path 
-                d={FLOURISH_HIGHLIGHT_D} 
-                fill="#ffffff" 
-                opacity="0.85" 
-              />
-            </g>
-
-            {/* LAYER 5: 1980s Miami Starburst Lens Glints */}
-            {/* Glint 1: Top hook of 'Y' */}
-            <g transform="translate(28, 20)" filter="url(#glintGlow)">
-              <path d="M 0,-7 Q 0,0 7,0 Q 0,0 0,7 Q 0,0 -7,0 Q 0,0 0,-7 Z" fill="#ffffff" />
-              <circle cx="0" cy="0" r="1.8" fill="#00f0ff" />
-            </g>
-
-            {/* Glint 2: Tip of Flourish */}
-            <g transform="translate(290, 92)" filter="url(#glintGlow)">
-              <path d="M 0,-6 Q 0,0 6,0 Q 0,0 0,6 Q 0,0 -6,0 Q 0,0 0,-6 Z" fill="#ffffff" />
-              <circle cx="0" cy="0" r="1.5" fill="#ff66b2" />
-            </g>
-
-            {/* Glint 3: Top curve of 'H' */}
-            <g transform="translate(262, 17)" filter="url(#glintGlow)">
-              <path d="M 0,-5 Q 0,0 5,0 Q 0,0 0,5 Q 0,0 -5,0 Q 0,0 0,-5 Z" fill="#ffffff" />
-              <circle cx="0" cy="0" r="1.2" fill="#00f0ff" />
-            </g>
-          </g>
-        </svg>
-      </div>
-
-      {/* =================================================================== */}
-      {/* 2. FRAMELESS, FLOATING MINI 63-FRAME SCROLL ANIMATION               */}
-      {/* Positioned directly underneath YESH; no background card, no frame   */}
+      {/* FRAMELESS, FLOATING MINI 63-FRAME SCROLL ANIMATION                  */}
       {/* Strictly scroll-driven: maps scroll progress to 63 frames           */}
       {/* =================================================================== */}
-      <div className="relative -mt-0.5 flex flex-col items-center justify-center pointer-events-none">
+      <div className="relative flex flex-col items-center justify-center pointer-events-none">
         <canvas
           ref={canvasRef}
           width={640}
           height={360}
-          className="w-[80px] sm:w-[92px] md:w-[102px] lg:w-[110px] aspect-[16/9] object-contain pointer-events-none drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)]"
+          className="w-[80px] sm:w-[92px] md:w-[102px] lg:w-[110px] aspect-[16/9] object-contain pointer-events-none drop-shadow-[0_8px_16px_rgba(0,0,0,0.85)]"
         />
       </div>
     </motion.div>
